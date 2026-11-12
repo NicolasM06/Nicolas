@@ -982,6 +982,338 @@
      "bas": "Il arrivera vers le 4"
     }
    ]
+  },
+  {
+   "slug": "astro",
+   "titre": "Humour astro",
+   "pub": [
+    "Le cadeau pour",
+    "Astro"
+   ],
+   "accent": {
+    "clair": "#c9a7ff",
+    "fonce": "#6741d9"
+   },
+   "description": "Un design original en français pour celles et ceux qui se reconnaissent dans leur signe. Une idée cadeau personnalisée pour un anniversaire, Noël ou une amie fan d'astrologie.",
+   "texte_pub": "Identifie quelqu'un de ce signe et dis-nous si c'est vrai.",
+   "tags": [
+    "astrologie",
+    "signe astrologique",
+    "horoscope",
+    "zodiaque",
+    "cadeau astro",
+    "humour astro",
+    "cadeau anniversaire",
+    "cadeau femme"
+   ],
+   "designs": [
+    {
+     "type": "definition",
+     "sujet": "Bélier",
+     "mot": "Bélier",
+     "genre": "signe de feu",
+     "texte": "Fonce d'abord, réfléchit ensuite, et a souvent raison quand même."
+    },
+    {
+     "type": "empile",
+     "sujet": "Bélier",
+     "haut": "Bélier",
+     "gros": "Têtu ? Non",
+     "bas": "J'ai juste raison"
+    },
+    {
+     "type": "definition",
+     "sujet": "Taureau",
+     "mot": "Taureau",
+     "genre": "signe de terre",
+     "texte": "Fidèle, gourmand et très patient. Sauf quand il a faim."
+    },
+    {
+     "type": "empile",
+     "sujet": "Taureau",
+     "haut": "Taureau",
+     "gros": "Calme jusqu'à un certain point",
+     "bas": "Ne cherchez pas le point"
+    },
+    {
+     "type": "definition",
+     "sujet": "Gémeaux",
+     "mot": "Gémeaux",
+     "genre": "signe d'air",
+     "texte": "Deux personnalités pour le prix d'une. Les deux ont de la conversation."
+    },
+    {
+     "type": "empile",
+     "sujet": "Gémeaux",
+     "haut": "Gémeaux",
+     "gros": "On est plusieurs",
+     "bas": "Et on est tous d'accord"
+    },
+    {
+     "type": "definition",
+     "sujet": "Cancer",
+     "mot": "Cancer",
+     "genre": "signe d'eau",
+     "texte": "Cœur tendre sous une carapace. Se souvient de tout, surtout de ce que vous avez dit en 2014."
+    },
+    {
+     "type": "empile",
+     "sujet": "Cancer",
+     "haut": "Cancer",
+     "gros": "Sensible",
+     "bas": "Et rancunier avec méthode"
+    },
+    {
+     "type": "definition",
+     "sujet": "Lion",
+     "mot": "Lion",
+     "genre": "signe de feu",
+     "texte": "Né pour briller. Accepte les compliments à toute heure."
+    },
+    {
+     "type": "empile",
+     "sujet": "Lion",
+     "haut": "Lion",
+     "gros": "Modeste ?",
+     "bas": "J'ai pas le temps"
+    },
+    {
+     "type": "definition",
+     "sujet": "Vierge",
+     "mot": "Vierge",
+     "genre": "signe de terre",
+     "texte": "Remarque le détail que personne n'a vu, et ne peut plus voir que lui."
+    },
+    {
+     "type": "empile",
+     "sujet": "Vierge",
+     "haut": "Vierge",
+     "gros": "J'ai pas de manies",
+     "bas": "J'ai des standards"
+    },
+    {
+     "type": "definition",
+     "sujet": "Balance",
+     "mot": "Balance",
+     "genre": "signe d'air",
+     "texte": "Cherche l'harmonie partout. Met quarante minutes à choisir un restaurant."
+    },
+    {
+     "type": "empile",
+     "sujet": "Balance",
+     "haut": "Balance",
+     "gros": "J'hésite",
+     "bas": "Enfin, je crois"
+    },
+    {
+     "type": "definition",
+     "sujet": "Scorpion",
+     "mot": "Scorpion",
+     "genre": "signe d'eau",
+     "texte": "Intense, loyal et très observateur. Sait déjà ce que vous allez dire."
+    },
+    {
+     "type": "empile",
+     "sujet": "Scorpion",
+     "haut": "Scorpion",
+     "gros": "Je pardonne",
+     "bas": "Mais je note"
+    },
+    {
+     "type": "definition",
+     "sujet": "Sagittaire",
+     "mot": "Sagittaire",
+     "genre": "signe de feu",
+     "texte": "Toujours partant pour l'aventure. Dit ce qu'il pense, puis réfléchit."
+    },
+    {
+     "type": "empile",
+     "sujet": "Sagittaire",
+     "haut": "Sagittaire",
+     "gros": "Franc",
+     "bas": "Désolé. Enfin, pas trop"
+    },
+    {
+     "type": "definition",
+     "sujet": "Capricorne",
+     "mot": "Capricorne",
+     "genre": "signe de terre",
+     "texte": "Travailleur, fiable et ambitieux. S'amuse aussi, mais c'est planifié."
+    },
+    {
+     "type": "empile",
+     "sujet": "Capricorne",
+     "haut": "Capricorne",
+     "gros": "Je ne suis pas froid",
+     "bas": "Je suis en réunion"
+    },
+    {
+     "type": "definition",
+     "sujet": "Verseau",
+     "mot": "Verseau",
+     "genre": "signe d'air",
+     "texte": "Original et indépendant. A toujours une idée d'avance et un message de retard."
+    },
+    {
+     "type": "empile",
+     "sujet": "Verseau",
+     "haut": "Verseau",
+     "gros": "Pas bizarre",
+     "bas": "Édition limitée"
+    },
+    {
+     "type": "definition",
+     "sujet": "Poissons",
+     "mot": "Poissons",
+     "genre": "signe d'eau",
+     "texte": "Rêveur, intuitif et généreux. Physiquement présent, mentalement ailleurs."
+    },
+    {
+     "type": "empile",
+     "sujet": "Poissons",
+     "haut": "Poissons",
+     "gros": "Dans la lune",
+     "bas": "Mais avec le cœur"
+    }
+   ]
+  },
+  {
+   "slug": "famille",
+   "titre": "Humour famille",
+   "pub": [
+    "Le cadeau pour",
+    "Famille"
+   ],
+   "accent": {
+    "clair": "#63e6be",
+    "fonce": "#0c8599"
+   },
+   "description": "Un design original en français, tendre et drôle à la fois, à offrir à la personne qui se reconnaîtra. Une idée cadeau pour un anniversaire, Noël, la fête des mères, la fête des pères ou sans raison.",
+   "texte_pub": "On en a tous un ou une comme ça. Identifie la personne concernée.",
+   "tags": [
+    "famille",
+    "cadeau famille",
+    "humour famille",
+    "cadeau personnalisé",
+    "fête des mères",
+    "fête des pères",
+    "cadeau noël",
+    "cadeau drôle"
+   ],
+   "designs": [
+    {
+     "type": "definition",
+     "sujet": "Maman",
+     "mot": "Maman",
+     "genre": "n. f.",
+     "texte": "Personne qui sait où sont vos affaires, et ce que vous avez fait, avant même que vous le disiez."
+    },
+    {
+     "type": "empile",
+     "sujet": "Maman",
+     "haut": "Maman",
+     "gros": "A toujours raison",
+     "bas": "Même quand elle a tort"
+    },
+    {
+     "type": "definition",
+     "sujet": "Papa",
+     "mot": "Papa",
+     "genre": "n. m.",
+     "texte": "Personne qui répare tout, connaît tout, et s'endort devant le film qu'il a choisi."
+    },
+    {
+     "type": "empile",
+     "sujet": "Papa",
+     "haut": "Papa",
+     "gros": "Blagues nulles",
+     "bas": "Cœur en or"
+    },
+    {
+     "type": "definition",
+     "sujet": "Mamie",
+     "mot": "Mamie",
+     "genre": "n. f.",
+     "texte": "Personne convaincue que vous n'avez pas assez mangé. Elle aura toujours raison là-dessus."
+    },
+    {
+     "type": "empile",
+     "sujet": "Mamie",
+     "haut": "Mamie",
+     "gros": "Reprends-en un peu",
+     "bas": "Ce n'est pas une question"
+    },
+    {
+     "type": "definition",
+     "sujet": "Papy",
+     "mot": "Papy",
+     "genre": "n. m.",
+     "texte": "Personne qui a une histoire pour chaque situation, et un bonbon dans chaque poche."
+    },
+    {
+     "type": "empile",
+     "sujet": "Papy",
+     "haut": "Papy",
+     "gros": "Bricoleur officiel",
+     "bas": "De toute la famille"
+    },
+    {
+     "type": "definition",
+     "sujet": "Tata",
+     "mot": "Tata",
+     "genre": "n. f.",
+     "texte": "Personne qui dit oui quand les parents ont dit non."
+    },
+    {
+     "type": "empile",
+     "sujet": "Tata",
+     "haut": "Tata",
+     "gros": "Comme une maman",
+     "bas": "Mais en plus cool"
+    },
+    {
+     "type": "definition",
+     "sujet": "Frère",
+     "mot": "Frère",
+     "genre": "n. m.",
+     "texte": "Personne qui vous embête depuis l'enfance, et qui vous défendra toujours."
+    },
+    {
+     "type": "empile",
+     "sujet": "Frère",
+     "haut": "Mon frère",
+     "gros": "Pénible",
+     "bas": "Mais c'est le mien"
+    },
+    {
+     "type": "definition",
+     "sujet": "Sœur",
+     "mot": "Sœur",
+     "genre": "n. f.",
+     "texte": "Meilleure amie obligatoire, fournie à la naissance, non échangeable."
+    },
+    {
+     "type": "empile",
+     "sujet": "Sœur",
+     "haut": "Ma sœur",
+     "gros": "Insupportable",
+     "bas": "Et irremplaçable"
+    },
+    {
+     "type": "definition",
+     "sujet": "Collègue",
+     "mot": "Collègue",
+     "genre": "n.",
+     "texte": "Personne qui rend le lundi supportable et la pause café indispensable."
+    },
+    {
+     "type": "empile",
+     "sujet": "Collègue",
+     "haut": "Collègue préféré",
+     "gros": "De toute l'équipe",
+     "bas": "Ne le dites pas aux autres"
+    }
+   ]
   }
  ]
 }

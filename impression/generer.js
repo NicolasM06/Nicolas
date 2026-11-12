@@ -126,7 +126,7 @@ document.fonts.ready.then(() => {
 
 const TEE = 'M300 60 L400 20 Q500 110 600 20 L700 60 L900 190 L800 370 L710 320 L710 840 L290 840 L290 320 L200 370 L100 190 Z';
 
-function pagePub(m, image, ton) {
+function pagePub(m, image, ton, sujet) {
   const tissu = ton === 'clair' ? '#20242b' : '#f3efe6';
   return `<!doctype html><meta charset="utf-8"><style>${FONTS}
 *{box-sizing:border-box;margin:0}
@@ -139,7 +139,7 @@ h1 span{color:#d9480f}
 p{font-size:54px;letter-spacing:.05em}
 .b{margin-top:auto;font-size:44px;letter-spacing:.08em;opacity:.7}
 </style><body>
-<h1>${esc(m.pub[0])}<br><span>${esc(m.pub[1])}</span></h1>
+<h1>${esc(m.pub[0])}<br><span>${esc(sujet || m.pub[1])}</span></h1>
 <div class="t"><svg viewBox="0 0 1000 870"><path d="${TEE}" fill="${tissu}"/></svg><img src="data:image/png;base64,${image}"></div>
 <p>T-shirts · mugs · stickers</p>
 <div class="b">${esc(D.boutique)}</div></body>`;
@@ -164,16 +164,16 @@ const GROUPES = [
 
 function fiche(m, d, n) {
   const mot = d.mot || m.nom;
-  const accroche = d.type === 'definition' ? `Définition : ${mot.toLowerCase()}`
+  const accroche = d.type === 'definition' ? (d.sujet ? 'définition drôle' : `Définition : ${mot.toLowerCase()}`)
     : d.type === 'liste' ? d.lignes.join(' ') : d.type === 'pixel' ? d.haut : d.gros;
   const texte = d.type === 'definition' ? `« ${mot} (${d.genre || m.genre}) : ${d.texte} »`
     : d.type === 'liste' ? `« ${d.lignes.join(' ')} »` : d.type === 'pixel' ? `« ${d.haut}. ${d.bas}. » Design façon jeu rétro en pixels.` : `« ${d.haut}. ${d.gros}. ${d.bas}. »`;
   return {
     id: `${m.slug}-${String(n).padStart(2, '0')}`,
     accroche,
-    titre: `${accroche} – ${m.titre}`.slice(0, 100),
+    titre: `${d.sujet ? d.sujet + ' : ' : ''}${accroche} – ${m.titre}`.slice(0, 100),
     description: `${texte} ${m.description}`,
-    tags: [...m.tags, ...D.mots_cles_communs].slice(0, 15),
+    tags: [...(d.sujet ? [d.sujet.toLowerCase(), `cadeau ${d.sujet.toLowerCase()}`] : []), ...m.tags, ...D.mots_cles_communs].slice(0, 15),
     groupe: m,
   };
 }
@@ -200,7 +200,7 @@ function fiche(m, d, n) {
       }
       // Une épingle par design, en alternant vêtement foncé et clair.
       const ton = i % 2 ? 'fonce' : 'clair';
-      await petit.setContent(pagePub(m, images[ton], ton));
+      await petit.setContent(pagePub(m, images[ton], ton, d.sujet));
       await petit.waitForLoadState('load');
       await petit.screenshot({ path: path.join(SORTIE, 'pub', `${f.id}.png`) });
       console.log('écrit', f.id);

@@ -1,6 +1,6 @@
 # Humour en Stock — designs pour l'impression à la demande
 
-109 designs de texte en français, à déposer sur des plateformes d'impression à la
+149 designs de texte en français, à déposer sur des plateformes d'impression à la
 demande (Spreadshirt, Redbubble, TeePublic…). La plateforme imprime, expédie et
 gère le client ; tu touches une commission par vente.
 
@@ -12,6 +12,8 @@ gère le client ; tu touches une commission par vente.
 | Noël | 13 |
 | Anniversaire | 12 |
 | Bonne année | 10 |
+| Signes astro (12 signes × 2) | 24 |
+| Famille et proches | 16 |
 
 ## Générer
 
@@ -52,7 +54,8 @@ de `collections`. `boutique` et `lien_boutique` servent aux visuels et textes de
   interdits par les plateformes.
 - Les gains sont à déclarer.
 
-`icone` vaut `coeurs` (vies) ou `barre` (barre de chargement).
+Le champ facultatif `sujet` (ex. `"Bélier"`, `"Maman"`) s'ajoute au titre, aux mots-clés
+et au visuel de pub. `icone` vaut `coeurs` (vies) ou `barre` (barre de chargement).
 
 Polices : Anton, Bebas Neue, Archivo Black et Press Start 2P, sous licence SIL Open Font License
 (textes dans `polices/`), qui autorise l'usage commercial.
