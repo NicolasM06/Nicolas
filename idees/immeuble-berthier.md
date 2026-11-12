@@ -2,7 +2,7 @@
 
 Note du 12 novembre 2026. Idée à garder pour plus tard, **pas à construire maintenant**.
 
-## L'idée
+## L'idée de départ
 
 Présenter l'appli comme un immeuble. Chaque étage a son personnage et son domaine.
 L'utilisateur arrive dans un hall simple et ne monte que là où il a besoin.
@@ -10,6 +10,30 @@ L'utilisateur arrive dans un hall simple et ne monte que là où il a besoin.
 Le but : garder beaucoup de fonctions sans que l'appli paraisse surchargée. C'est la
 réponse au problème « Berthier (ex-Ariane) faisait trop de choses » qui a mené au
 recentrage sur les créateurs de marchés.
+
+## Version retenue : l'immeuble est le site, chaque personnage est une appli
+
+Deuxième version de l'idée, préférée à la première parce qu'elle évite de tout
+remettre dans un seul produit.
+
+- **L'immeuble est le site de présentation**, pas un écran de l'appli. On y voit les
+  étages et les personnages. C'est une page simple.
+- **Chaque personnage est une appli séparée.** Berthier reste tel quel, centré sur
+  les marchés. L'informaticien serait une autre appli (créateur de site), etc.
+- Chaque appli reste petite, et on peut n'en utiliser qu'une.
+- Le code des futures applis existe déjà, masqué dans Berthier : le moment venu, on
+  le sort dans son propre fichier plutôt que de le réactiver dans Berthier.
+
+À surveiller :
+
+- Chaque appli est un produit entier à finir, maintenir et faire connaître. Une à la
+  fois, et seulement quand la précédente a des utilisateurs.
+- Le partage de données et de compte entre applis (ex. factures à partir des ventes)
+  ramène de la complexité. Les garder indépendantes au début.
+
+Première étape possible, peu coûteuse : transformer la page de présentation actuelle
+en hall d'immeuble. Berthier ouvert, les autres étages en « Bientôt » avec un bouton
+« Préviens-moi » pour mesurer l'intérêt.
 
 ## Les étages envisagés
 
