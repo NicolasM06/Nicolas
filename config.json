@@ -1,0 +1,65 @@
+{
+  "nom": "Budget Clair",
+  "slogan": "Des tableurs simples pour reprendre la main sur ton argent",
+  "description": "Modèles de budget en français pour Excel et Google Sheets : budget mensuel gratuit, budget annuel complet et suivi d'objectifs d'épargne.",
+  "url": "https://nicolasm06.github.io/Nicolas",
+  "lien_newsletter": "",
+  "mentions_legales": {
+    "editeur": "À COMPLÉTER — nom et prénom ou raison sociale",
+    "statut": "À COMPLÉTER — ex. micro-entrepreneur, SIRET 000 000 000 00000",
+    "adresse": "À COMPLÉTER — adresse de l'entreprise",
+    "contact": "À COMPLÉTER — adresse e-mail de contact"
+  },
+  "produits": [
+    {
+      "id": "budget-mensuel-simple",
+      "nom": "Budget mensuel simple",
+      "prix": 0,
+      "accroche": "Pour commencer aujourd'hui, en 10 minutes.",
+      "points": [
+        "Revenus et dépenses sur une seule page",
+        "Prévu, réel et écart calculés automatiquement",
+        "Compatible Excel, Google Sheets et LibreOffice"
+      ],
+      "fichier": "budget-mensuel-simple.xlsx"
+    },
+    {
+      "id": "budget-annuel-complet",
+      "nom": "Budget annuel complet",
+      "prix": 9,
+      "accroche": "Saisis tes opérations, le tableau de bord fait le reste.",
+      "points": [
+        "Journal des opérations avec catégories en liste déroulante",
+        "Tableau de bord sur 12 mois, par catégorie",
+        "Répartition 50/30/20 calculée automatiquement",
+        "Catégories et budgets entièrement personnalisables"
+      ],
+      "lien_achat": ""
+    },
+    {
+      "id": "objectifs-epargne",
+      "nom": "Objectifs d'épargne",
+      "prix": 7,
+      "accroche": "Vacances, apport, fonds d'urgence : vois où tu en es.",
+      "points": [
+        "Jusqu'à 8 objectifs suivis en parallèle",
+        "Barre de progression pour chaque objectif",
+        "Mensualité nécessaire pour tenir la date visée"
+      ],
+      "lien_achat": ""
+    },
+    {
+      "id": "pack-complet",
+      "nom": "Pack complet",
+      "prix": 13,
+      "accroche": "Les deux modèles payants, à prix réduit.",
+      "points": [
+        "Budget annuel complet",
+        "Objectifs d'épargne",
+        "Mises à jour incluses"
+      ],
+      "lien_achat": "",
+      "mis_en_avant": true
+    }
+  ]
+}
