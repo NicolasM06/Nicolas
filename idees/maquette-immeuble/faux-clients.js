@@ -35,7 +35,7 @@ const verifier = () => {
   if (pe.top < sc.top - 1) pb.push('personnage coupé en haut');
   for (const m of n.querySelectorAll('.meuble')) { const r = R(m); const part = croise(r, pe) / (pe.width * pe.height); if (part > .22) pb.push('meuble cache ' + Math.round(part * 100) + ' % du personnage'); if (r.top < sc.top - 1) pb.push('meuble coupé en haut'); if (r.height < 40) pb.push('meuble minuscule'); }
   const om = R(n.querySelector('.objet-mur')); if (croise(om, pe) / (om.width * om.height) > .3) pb.push('objet du mur derrière la tête'); if (om.bottom > sc.bottom || om.width < 24) pb.push('objet du mur mal placé');
-  const fi = n.querySelector('.fiche'); if (fi.scrollHeight - fi.clientHeight > 2 && getComputedStyle(fi).overflowY === 'visible') pb.push('texte coupé sans défilement');
+  const fi = n.querySelector('.fiche'); { const pi = n.querySelector('.pied'), cs = getComputedStyle(fi); const utile = fi.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); if (R(pi).width < utile - 2) pb.push('le texte dépasse autour du bouton fixe'); } if (fi.scrollHeight - fi.clientHeight > 2 && getComputedStyle(fi).overflowY === 'visible') pb.push('texte coupé sans défilement');
   if (sc.height < 110) pb.push('scène écrasée (' + Math.round(sc.height) + ' px)');
   const t = n.querySelector('.texte'); if (R(t).width < 180) pb.push('colonne de texte trop étroite');
   for (const e of n.querySelectorAll('.fiche *')) if (e.children.length === 0 && e.textContent.trim() && parseFloat(getComputedStyle(e).fontSize) < 12.5) { pb.push('texte trop petit : ' + e.textContent.trim().slice(0, 16)); break; }
@@ -71,10 +71,30 @@ const verifier = () => {
       const site = await lire(3); if (!/date/i.test(site)) pbs.push('Karim : « Bientôt, c\u2019est quand ? » — aucune indication');
       await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(300);
       const apresVote = await p.evaluate(() => document.querySelector('.niveau.ici .fiche').innerText); if (!/e-mail/i.test(apresVote)) pbs.push('Jeanne : « Me prévenir, mais comment ? » — rien ne l\u2019explique');
-      await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click());
+      await p.evaluate(() => { const n = document.querySelector('.niveau.ici'); n.querySelector('.inscription').hidden = true; n.querySelector('button[data-id]').hidden = false; });
       const pan = await p.evaluate(() => ({ ouvert: !!document.querySelector('.panneau button.ouvert'), titres: [...document.querySelectorAll('.panneau [data-aller]')].every((b) => b.title) }));
       if (!pan.ouvert) pbs.push('Nadia : « Quel étage est ouvert ? » — l\u2019ascenseur ne le montre pas'); if (!pan.titres) pbs.push('Nadia : « Qui est à quel étage ? » — les boutons n\u2019ont que des numéros');
     }
+    // Théo : au départ, un bouton visible et assez grand pour monter, sans connaître le geste.
+    { await p.evaluate(() => document.querySelector('.panneau [data-aller="4"]').click()); await p.waitForTimeout(c.calme ? 300 : 2600);
+      const m = await p.evaluate(() => { const b = document.getElementById('monter'); if (!b) return null; const r = b.getBoundingClientRect(), sc = b.closest('.scene').getBoundingClientRect(), pe = b.closest('.scene').querySelector('.perso').getBoundingClientRect();
+        return { h: r.height, dans: r.left >= sc.left && r.right <= sc.right && r.top >= sc.top, surTete: r.bottom > pe.top + 2 && r.top < pe.top + pe.height * .4 && r.right > pe.left + 2 && r.left < pe.right - 2 }; });
+      if (!m) pbs.push('Théo : aucun bouton visible pour monter au départ'); else { if (m.h < 43.5) pbs.push('bouton Monter trop petit'); if (!m.dans) pbs.push('bouton Monter coupé'); if (m.surTete) pbs.push('bouton Monter posé sur le visage de Berthier'); }
+      if (m) { await p.evaluate(() => document.getElementById('monter').click()); await p.waitForTimeout(c.calme ? 300 : 1900); const ou = await p.evaluate(() => document.querySelector('.niveau.ici .nom').textContent); if (ou !== 'Kovac') pbs.push('le bouton Monter n\u2019amène pas au 1er : ' + ou); } }
+    // Jeanne : s'inscrire avec un e-mail, y compris en se trompant d'abord.
+    { await p.evaluate(() => document.querySelector('.panneau [data-aller="3"]').click()); await p.waitForTimeout(c.calme ? 300 : 1900);
+      await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(250);
+      const f = await p.evaluate(() => { const f = document.querySelector('.niveau.ici .inscription'), cage = document.querySelector('.cage').getBoundingClientRect(), r = f.getBoundingClientRect(), i = f.querySelector('input').getBoundingClientRect(), v = f.querySelector('button').getBoundingClientRect();
+        return { vu: !f.hidden, dans: r.top >= cage.top - 1 && r.bottom <= cage.bottom + 1, champ: i.width, hChamp: i.height, hBtn: v.height, focus: document.activeElement === f.querySelector('input') }; });
+      if (!f.vu) pbs.push('Jeanne : aucun champ e-mail après « Préviens-moi »'); else { if (!f.dans) pbs.push('formulaire e-mail hors écran'); if (f.champ < 150) pbs.push('champ e-mail trop étroit (' + Math.round(f.champ) + ' px)'); if (f.hChamp < 43.5 || f.hBtn < 43.5) pbs.push('champ ou bouton Valider trop petit'); if (!f.focus) pbs.push('le champ e-mail n\u2019est pas prêt à écrire'); }
+      await p.fill('.niveau.ici .inscription input', 'jeanne@'); await p.keyboard.press('ArrowUp'); await p.keyboard.press('Enter'); await p.waitForTimeout(200);
+      const e1 = await p.evaluate(() => ({ err: document.querySelector('.niveau.ici .erreur').textContent, nom: document.querySelector('.niveau.ici .nom').textContent, note: document.querySelector('.niveau.ici').classList.contains('note') }));
+      if (!e1.err) pbs.push('adresse incomplète acceptée sans message'); if (e1.note) pbs.push('inscrite malgré une adresse incomplète'); if (e1.nom !== 'Kovac') pbs.push('une flèche du clavier dans le champ change d\u2019étage');
+      await p.fill('.niveau.ici .inscription input', 'jeanne@exemple.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(250);
+      const e2 = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), cage = document.querySelector('.cage').getBoundingClientRect(), b = n.querySelector('button[data-id]').getBoundingClientRect(); return { note: n.classList.contains('note'), txt: n.querySelector('.vote-ligne').textContent, btn: n.querySelector('button[data-id]').textContent, visible: b.bottom <= cage.bottom + 1 && b.height > 0 }; });
+      if (!e2.note || !/jeanne@exemple\.fr/.test(e2.txt)) pbs.push('inscription non confirmée avec l\u2019adresse'); if (!e2.visible) pbs.push('bouton « C\u2019est noté » hors écran');
+      await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(150);
+      if (await p.evaluate(() => document.querySelector('.niveau.ici').classList.contains('note'))) pbs.push('impossible d\u2019annuler son inscription'); }
     // Menu : s'ouvre, tient dans l'écran, se ferme, ramène au bon étage.
     await p.evaluate(() => document.getElementById('menu-btn').click()); await p.waitForTimeout(350);
     const menu = await p.evaluate(() => { const f = document.querySelector('.menu-feuille'), r = f.getBoundingClientRect(); const l = [...document.querySelectorAll('#menu-liste button')].map((x) => x.getBoundingClientRect());

@@ -53,6 +53,8 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .ferme.note .perso{filter:none}
 .niveau.ici .perso{animation:arrivee .5s var(--trajet) both}
 @keyframes arrivee{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+.monter{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:3;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:rgba(8,9,10,.82);color:var(--text);font:600 .9rem var(--sans);cursor:pointer;white-space:nowrap;animation:appel 1.8s ease-in-out infinite}
+.monter:hover{background:var(--accent)}
 .scene .sol{position:absolute;left:0;right:0;bottom:0;height:22px;background:var(--surface3);border-top:2px solid var(--line2)}
 .fiche{display:flex;flex-direction:column;justify-content:safe center;gap:14px;min-width:0;min-height:0;overflow:auto;
   padding:24px clamp(18px,5vw,56px);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
@@ -62,13 +64,21 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .ouvert .etat{color:var(--green)}.ouvert .etat::before{background:var(--green)}
 .note .etat{color:var(--lampe)}.note .etat::before{background:var(--lampe)}
 .accroche{margin:0 0 6px;color:var(--text);font-size:1rem;font-weight:500;max-width:30em;border-left:3px solid var(--accent);padding-left:12px}
+.inscription{align-self:stretch;display:flex;flex-direction:column;gap:6px;max-width:30em}
+.inscription label{font-size:.9rem;color:var(--text2)}
+.inscription .ligne{display:flex;gap:8px;flex-wrap:wrap}
+.inscription input{flex:1 1 180px;min-width:0;min-height:44px;font:inherit;color:var(--text);background:var(--surface2);border:1px solid var(--line2);border-radius:6px;padding:8px 12px}
+.inscription input[aria-invalid="true"]{border-color:#ff8a8a}
+
+.erreur{margin:0;color:#ff8a8a;font-size:.88rem;min-height:0}
 .mention{margin:0;color:var(--text3);font-size:.88rem;max-width:32em}
 .nom{font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:-.035em;font-weight:700;margin:0}
 .role{font-size:1.15rem;color:var(--text2);margin:0}
 .fiche p.texte{margin:0;color:var(--text2);font-size:1.05rem;max-width:30em}
 .liste{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0;margin:0;list-style:none;font:400 .8rem var(--mono);color:var(--text3)}
 .liste li::before{content:"· "}
-.fiche .btn{position:sticky;bottom:0;z-index:2;background:var(--surface);box-shadow:0 0 0 10px var(--surface)}
+/* Le bas de fiche reste visible : une bande pleine largeur, pour que le texte ne dépasse pas autour du bouton. */
+.pied{position:sticky;bottom:0;z-index:2;background:var(--surface);padding-block:10px;margin-block:-10px;display:flex;flex-direction:column;align-items:flex-start}
 .btn{align-self:flex-start;font:600 .95rem var(--sans);border-radius:6px;padding:12px 18px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;text-decoration:none}
 .btn:hover{background:var(--surface2)}
 .btn.plein,.fiche .btn.plein{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -117,7 +127,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .panneau .fleche{border-radius:8px;height:44px;font-size:1rem}
 .panneau .fleche:disabled{opacity:.25;cursor:default}
 .panneau .fleche.appel{animation:appel 1.6s ease-in-out infinite;color:var(--text);border-color:var(--accent)}
-@keyframes appel{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes appel{0%,100%{translate:0 0}50%{translate:0 -4px}}
 .vote-ligne{font:400 .74rem var(--mono);color:var(--lampe);min-height:1.3em;margin:0}
 
 @media (max-width:720px){
@@ -126,6 +136,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .scene{border-right:0;border-bottom:1px solid var(--line)}
   .perso{width:min(40cqw,58cqh);margin-bottom:16px}
   .scene .sol{height:16px}
+  .monter{left:8px;top:8px;transform:none;padding:8px 14px}.monter span{display:none}
   .meuble{bottom:14px;width:min(24cqw,36cqh)}
   .objet-mur{top:7%;right:4%;width:13%}
   .fiche{justify-content:flex-start;gap:10px;padding:18px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));overflow:auto}
@@ -171,7 +182,7 @@ function perso(o){
   px(9,7,'E');px(14,7,'E');rect(8,5,9,5,'H');rect(14,5,15,5,'H');
   px(11,8,'s');px(12,8,'s');rect(10,10,13,10,'m');
   if(o.cheveux==='court'){rect(7,0,16,1,'H');rect(6,2,17,3,'H');px(6,4,'H');px(17,4,'H');rect(10,0,13,0,'h')}
-  if(o.cheveux==='chignon'){rect(7,0,16,2,'H');rect(6,2,6,8,'H');rect(17,2,17,8,'H');rect(6,3,8,3,'H');rect(15,3,17,3,'H');rect(16,0,19,1,'H');px(19,2,'H');rect(9,0,12,0,'h')}
+  if(o.cheveux==='chignon'){rect(7,0,16,2,'H');rect(6,2,6,8,'H');rect(17,2,17,8,'H');rect(6,3,8,3,'H');rect(15,3,17,3,'H');rect(16,0,20,2,'H');rect(17,3,19,3,'H');px(18,1,'h');rect(9,0,12,0,'h')}
   if(o.cheveux==='long'){rect(7,0,16,2,'H');rect(6,3,8,3,'H');rect(15,3,17,3,'H');rect(4,3,5,15,'H');rect(18,3,19,15,'H');rect(6,2,6,5,'H');rect(17,2,17,5,'H');rect(9,0,12,0,'h')}
   if(o.cheveux==='bonnet'){rect(6,0,17,3,'A');rect(6,3,17,3,'a');rect(6,4,6,5,'H');rect(17,4,17,5,'H')}
   if(o.lunettes){rect(7,6,16,6,'G');rect(7,7,10,7,'g');rect(13,7,16,7,'g');px(9,7,'E');px(14,7,'E');px(6,6,'G');px(17,6,'G')}
@@ -285,14 +296,18 @@ function niveauHTML(e,i){
     ?`<a class="btn plein" href="https://ariane-app.onrender.com" target="_blank" rel="noopener">Ouvrir Berthier</a>`
     :`<button class="btn" id="btn-${e.id}" data-id="${e.id}" aria-pressed="${note}">${note?'C\u2019est noté':'Préviens-moi'}</button>`;
   return `<section class="niveau ${e.ouvert?'ouvert':'ferme'} ${note?'note':''} ${i===ici?'ici':''}" data-i="${i}" aria-hidden="${i!==ici}">
-    <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span>${decorHTML(e.id,e.look?e.look.touche[0]:"#4f8cff")}<div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div></div>
+    <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span>${decorHTML(e.id,e.look?e.look.touche[0]:"#4f8cff")}<div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div>${e.ouvert?'<button class="monter" id="monter">▲ Monter<span> voir les collègues</span></button>':''}</div>
     <div class="fiche">
       ${e.ouvert?'<p class="accroche">Berthier et ses collègues sont des applis, une par métier. Tu ne prends que celles qu\u2019il te faut.</p>':''}
       <span class="etat">${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'} · ${etat}</span>
       <h1 class="nom">${e.nom}</h1>
       <p class="role">${e.role[0].toUpperCase()+e.role.slice(1)}</p>
       <p class="texte">${e.texte}</p>
-      ${action}
+      <div class="pied">${action}
+      ${e.ouvert?'':`<form class="inscription" data-pour="${e.id}" hidden novalidate>
+        <label for="mail-${e.id}">Ton e-mail, pour te prévenir de l\u2019ouverture</label>
+        <div class="ligne"><input id="mail-${e.id}" type="email" inputmode="email" autocomplete="email" placeholder="prenom@exemple.fr"><button class="btn plein" type="submit">Valider</button></div>
+        <p class="erreur" role="alert"></p></form>`}</div>
       <p class="mention">${e.mention||'Pas encore de date. Ton clic aide à décider quelle appli sort en premier.'}</p>
       <ul class="liste">${e.points.map(p=>`<li>${p}</li>`).join('')}</ul>
       ${i===ETAGES.length-1?'':'<p class="vote-ligne"></p>'}
@@ -349,14 +364,28 @@ menu.addEventListener('click',ev=>{
 
 panneau.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;
   if(b.dataset.pas)aller((attente??ici)+ +b.dataset.pas);else aller(+b.dataset.aller)});
-piste.addEventListener('click',ev=>{const b=ev.target.closest('button[data-id]');if(!b)return;
-  const id=b.dataset.id;notes=notes.includes(id)?notes.filter(n=>n!==id):[...notes,id];
+function noter(id,oui,mail){
+  notes=oui?[...new Set([...notes,id])]:notes.filter(n=>n!==id);
   try{localStorage.setItem('immeuble-notes',JSON.stringify(notes))}catch(e){}
-  const n=b.closest('.niveau'),note=notes.includes(id);
-  n.classList.toggle('note',note);b.setAttribute('aria-pressed',note);b.textContent=note?'C\u2019est noté':'Préviens-moi';
-  n.querySelector('.etat').textContent=`${ETAGES[ici].no} étage · ${note?'Tu seras prévenu':'Bientôt'}`;
-  n.querySelector('.vote-ligne').textContent=note?'Dans la vraie version, on te demanderait ton e-mail pour te prévenir.':'';
-  rendrePanneau()});
+  const n=piste.querySelector(`.niveau [data-id="${id}"]`).closest('.niveau'),b=n.querySelector('button[data-id]'),e=ETAGES.find(x=>x.id===id);
+  n.classList.toggle('note',oui);b.hidden=false;b.setAttribute('aria-pressed',oui);b.textContent=oui?'C\u2019est noté':'Préviens-moi';
+  n.querySelector('.inscription').hidden=true;
+  n.querySelector('.etat').textContent=`${e.no} étage · ${oui?'Tu seras prévenu':'Bientôt'}`;
+  n.querySelector('.vote-ligne').textContent=oui?`On t\u2019écrira à ${mail} à l\u2019ouverture. (Maquette : rien n\u2019est envoyé ni conservé.)`:'';
+  rendrePanneau();
+}
+piste.addEventListener('click',ev=>{
+  if(ev.target.closest('.monter'))return aller(ici-1);
+  const b=ev.target.closest('button[data-id]');if(!b)return;
+  const id=b.dataset.id;
+  if(notes.includes(id))return noter(id,false);
+  const f=b.closest('.niveau').querySelector('.inscription');b.hidden=true;f.hidden=false;f.querySelector('input').focus();
+});
+piste.addEventListener('submit',ev=>{
+  ev.preventDefault();const f=ev.target,champ=f.querySelector('input'),err=f.querySelector('.erreur'),mail=champ.value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)){err.textContent='Cette adresse semble incomplète. Exemple : prenom@exemple.fr';champ.setAttribute('aria-invalid','true');champ.focus();return}
+  err.textContent='';champ.removeAttribute('aria-invalid');noter(f.dataset.pour,true,mail);
+});
 // L'immeuble suit le doigt et la molette, comme une page : tirer vers le bas fait monter.
 let cumul=0;
 addEventListener('wheel',ev=>{if(enRoute||!menu.hidden)return;cumul+=ev.deltaY;if(Math.abs(cumul)>60){aller(ici+(cumul>0?1:-1));cumul=0}},{passive:true});
@@ -366,7 +395,8 @@ addEventListener('touchstart',ev=>{y0=ev.touches[0].clientY;ficheDepart=ev.targe
 addEventListener('touchend',ev=>{if(y0===null||!menu.hidden){y0=null;return}const d=ev.changedTouches[0].clientY-y0;y0=null;
   if(ficheDepart){const f=ficheDepart,reste=f.scrollHeight-f.clientHeight;if(f.scrollTop!==defilDepart||(d<0&&f.scrollTop<reste-1)||(d>0&&f.scrollTop>1))return}
   if(Math.abs(d)>50)aller(ici+(d<0?1:-1))},{passive:true});
-addEventListener('keydown',ev=>{if(!menu.hidden){if(ev.key==='Escape')ouvrirMenu(false);return}
+addEventListener('keydown',ev=>{if(ev.target.matches?.('input,textarea'))return;
+  if(!menu.hidden){if(ev.key==='Escape')ouvrirMenu(false);return}
   if(ev.key==='ArrowUp'||ev.key==='PageUp'){ev.preventDefault();aller(ici-1)}
   if(ev.key==='ArrowDown'||ev.key==='PageDown'){ev.preventDefault();aller(ici+1)}});
 piste.style.transition='none';tout();requestAnimationFrame(()=>requestAnimationFrame(()=>{piste.style.transition=''}));
