@@ -1,6 +1,7 @@
 // Génère les designs d'impression à la demande, leurs fiches et le kit de pub.
 //
 //   node impression/generer.js            tout générer
+//   node impression/generer.js --fiches   refaire seulement les fiches et textes de pub
 //   node impression/generer.js gamer      une seule collection (ou un seul métier)
 //
 // Sortie dans impression/sortie/ :
@@ -15,7 +16,8 @@ const path = require('path');
 const ICI = __dirname;
 const D = JSON.parse(fs.readFileSync(path.join(ICI, 'donnees.json'), 'utf8'));
 const SORTIE = path.join(ICI, 'sortie');
-const filtre = process.argv[2];
+const SANS_IMAGES = process.argv.includes('--fiches');
+const filtre = process.argv.slice(2).find((a) => !a.startsWith('--'));
 
 const police = (f) => fs.readFileSync(path.join(ICI, 'polices', f)).toString('base64');
 const FONTS = `
@@ -173,7 +175,7 @@ function fiche(m, d, n) {
     accroche,
     titre: `${d.sujet ? d.sujet + ' : ' : ''}${accroche} – ${m.titre}`.slice(0, 100),
     description: `${texte} ${m.description}`,
-    tags: [...(d.sujet ? [d.sujet.toLowerCase(), `cadeau ${d.sujet.toLowerCase()}`] : []), ...m.tags, ...D.mots_cles_communs].slice(0, 15),
+    tags: [...new Set([...(d.sujet ? [d.sujet.toLowerCase(), `cadeau ${d.sujet.toLowerCase()}`] : []), ...m.tags, ...D.mots_cles_communs])].slice(0, 15),
     groupe: m,
   };
 }
@@ -190,6 +192,7 @@ function fiche(m, d, n) {
     for (const [i, d] of m.designs.entries()) {
       const f = fiche(m, d, i + 1);
       fiches.push(f);
+      if (SANS_IMAGES) continue;
       const images = {};
       for (const ton of Object.keys(ENCRES)) {
         await grand.setContent(pageDesign(m, d, ton));

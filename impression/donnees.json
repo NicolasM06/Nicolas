@@ -2,7 +2,6 @@
  "boutique": "Humour en Stock",
  "lien_boutique": "",
  "mots_cles_communs": [
-  "humour métier",
   "idée cadeau",
   "cadeau anniversaire",
   "cadeau noël",
@@ -12,6 +11,7 @@
  ],
  "familles": {
   "artisan": [
+   "humour métier",
    "artisan",
    "bâtiment",
    "chantier",
@@ -19,6 +19,7 @@
    "fête des pères"
   ],
   "soin": [
+   "humour métier",
    "soignant",
    "hôpital",
    "santé",
@@ -26,6 +27,7 @@
    "fête des mères"
   ],
   "bouche": [
+   "humour métier",
    "métier de bouche",
    "gourmand",
    "cuisine",
@@ -33,6 +35,7 @@
    "fait maison"
   ],
   "route": [
+   "humour métier",
    "transport",
    "camion",
    "poids lourd",
@@ -40,6 +43,7 @@
    "fête des pères"
   ],
   "terre": [
+   "humour métier",
    "ferme",
    "campagne",
    "tracteur",
@@ -47,6 +51,7 @@
    "monde rural"
   ],
   "beaute": [
+   "humour métier",
    "salon de coiffure",
    "coiffure",
    "beauté",
