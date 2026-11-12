@@ -31,20 +31,30 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .cage{overflow:hidden;position:relative;min-height:0}
 .piste{height:100%;transition:transform var(--trajet) cubic-bezier(.65,0,.25,1);will-change:transform}
 .niveau{height:100%;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);border-bottom:14px solid var(--surface3);background:var(--surface)}
-.scene{position:relative;background:var(--nuit);border-right:1px solid var(--line);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;min-height:0}
+.scene{container-type:size;position:relative;background:var(--nuit);border-right:1px solid var(--line);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;min-height:0}
 .scene .no{position:absolute;top:2%;left:6%;font:500 clamp(4rem,22vh,11rem)/1 var(--mono);letter-spacing:-.06em;color:var(--line2);user-select:none}
+.mur{position:absolute;inset:0;background:
+  linear-gradient(to top,color-mix(in srgb,var(--teinte) 16%,transparent),transparent 60%),
+  repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.018) 46px 48px)}
+.meuble{position:absolute;bottom:20px;width:min(23cqw,31cqh,230px);aspect-ratio:20/28;image-rendering:pixelated;transition:filter .6s .3s}
+.meuble.gauche{left:2.5cqw}.meuble.droite{right:2.5cqw}
+.objet-mur{position:absolute;top:8%;right:5%;width:min(17cqw,120px);aspect-ratio:16/12;image-rendering:pixelated;transition:filter .6s .3s}
+.ferme .meuble,.ferme .objet-mur{filter:brightness(.5) saturate(.45)}
+.ferme.note .meuble,.ferme.note .objet-mur{filter:none}
+.led{animation:led 1.3s steps(1) infinite}.led.b{animation-delay:.6s}
+@keyframes led{0%,60%{opacity:1}61%,100%{opacity:.2}}
 .scene .lueur{position:absolute;inset:0;opacity:0;transition:opacity .9s .35s}
 .ouvert .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(79,140,255,.28),transparent 70%)}
 .ferme .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(255,217,138,.16),transparent 70%)}
 .niveau.ici.ouvert .lueur,.niveau.ici.note .lueur{opacity:1}
-.perso{position:relative;height:min(58%,380px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
+.perso{position:relative;width:min(44cqw,45cqh,285px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
 .perso svg,.perso img{width:100%;height:100%;display:block}
 .ferme .perso{filter:brightness(.55) saturate(.45)}
 .ferme.note .perso{filter:none}
 .niveau.ici .perso{animation:arrivee .5s var(--trajet) both}
 @keyframes arrivee{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 .scene .sol{position:absolute;left:0;right:0;bottom:0;height:22px;background:var(--surface3);border-top:2px solid var(--line2)}
-.fiche{display:flex;flex-direction:column;justify-content:center;gap:14px;min-width:0;
+.fiche{display:flex;flex-direction:column;justify-content:safe center;gap:14px;min-width:0;min-height:0;overflow:auto;
   padding:24px clamp(18px,5vw,56px);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
 .niveau.ici .fiche{opacity:1;transform:none;transition-delay:calc(var(--trajet) - .25s)}
 .etat{font:500 .8rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:8px}
@@ -57,15 +67,16 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .fiche p.texte{margin:0;color:var(--text2);font-size:1.05rem;max-width:30em}
 .liste{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0;margin:0;list-style:none;font:400 .8rem var(--mono);color:var(--text3)}
 .liste li::before{content:"· "}
+.fiche .btn{position:sticky;bottom:0;z-index:2;background:var(--surface);box-shadow:0 0 0 10px var(--surface)}
 .btn{align-self:flex-start;font:600 .95rem var(--sans);border-radius:6px;padding:12px 18px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;text-decoration:none}
 .btn:hover{background:var(--surface2)}
-.btn.plein{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.plein,.fiche .btn.plein{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.plein:hover{background:var(--accent-hover)}
 .btn[aria-pressed="true"]{border-color:var(--lampe);color:var(--lampe)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 .indice{position:absolute;left:50%;top:14px;transform:translateX(-50%);margin:0;z-index:5;background:var(--accent);color:#fff;font-weight:600;font-size:.95rem;
-  padding:10px 16px;border-radius:999px;white-space:nowrap;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  padding:10px 18px;border-radius:18px;width:max-content;max-width:calc(100% - 24px);text-align:center;line-height:1.35;text-wrap:balance;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .piste.bute-bas{animation:buteBas .45s ease-out}.piste.bute-haut{animation:buteHaut .45s ease-out}
 @keyframes buteBas{40%{translate:0 -18px}}@keyframes buteHaut{40%{translate:0 18px}}
 
@@ -80,7 +91,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .menu-feuille{position:relative;width:min(380px,100%);height:100%;background:var(--surface);border-left:1px solid var(--line2);display:flex;flex-direction:column;
   padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 18px;overflow:auto;animation:tiroir .25s ease-out}
 @keyframes tiroir{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
-.menu-tete{display:flex;justify-content:space-between;align-items:center;font:500 .72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);padding-bottom:12px;border-bottom:1px solid var(--line)}
+.menu-tete{position:sticky;top:0;z-index:1;background:var(--surface);display:flex;justify-content:space-between;align-items:center;font:500 .72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);padding-bottom:12px;border-bottom:1px solid var(--line)}
 .menu ul{list-style:none;margin:0;padding:0}
 .menu li button{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:12px;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);
   color:var(--text);padding:14px 2px;cursor:pointer;font:inherit}
@@ -111,16 +122,22 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
   .niveau{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,36%) minmax(0,1fr)}
   .scene{border-right:0;border-bottom:1px solid var(--line)}
-  .perso{height:78%;margin-bottom:16px}
+  .perso{width:min(40cqw,58cqh);margin-bottom:16px}
   .scene .sol{height:16px}
+  .meuble{bottom:14px;width:min(24cqw,36cqh)}
+  .objet-mur{top:7%;right:4%;width:13%}
   .fiche{justify-content:flex-start;gap:10px;padding:18px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));overflow:auto}
   .nom{font-size:2rem}.role{font-size:1rem}.fiche p.texte{font-size:.98rem}.accroche{font-size:.92rem}
   .panneau{flex-direction:row;border-left:0;border-top:1px solid var(--line2);gap:6px;
     padding:10px max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px))}
   .panneau button,.panneau .fleche{width:44px;height:44px;flex:none}
-  .fiche .btn{position:sticky;bottom:0;z-index:2;background:var(--surface);box-shadow:0 0 0 10px var(--surface)}
-  .fiche .btn.plein{background:var(--accent)}
   .panneau .haut{order:9}
+}
+@media (max-width:380px){.panneau .fleche{display:none}}
+@media (min-width:721px) and (max-height:520px){
+  .panneau{display:grid;grid-template-columns:44px 44px;align-content:center;gap:6px;padding:8px}
+  .panneau button,.panneau .fleche{width:44px;height:44px}
+  .fiche{gap:8px;padding-block:12px}.nom{font-size:2rem}.accroche{font-size:.9rem}
 }
 @media (prefers-reduced-motion:reduce){:root{--trajet:0s}*{animation:none!important;transition:none!important}}
 </style>
@@ -195,6 +212,52 @@ const ETAGES=[
 ];
 
 
+
+// ── Décor de chaque étage : deux meubles posés au sol et un objet au mur, en pixels ──
+function pix(l,h,rects,cls=''){
+  return `<svg class="${cls}" viewBox="0 0 ${l} ${h}" shape-rendering="crispEdges" aria-hidden="true">`
+    +rects.map(([x,y,w,hh,c,k])=>`<rect x="${x}" y="${y}" width="${w}" height="${hh}" fill="${c}"${k?` class="${k}"`:''}/>`).join('')+'</svg>';
+}
+const BOIS='#6b4a2e',BOIS2='#4d3420',METAL='#2a2c32',METAL2='#3b3f4a',NOIR='#16171a',BLANC='#e6e8ec',VERT='#3ecf8e',VERT2='#2a9d69',POT='#a0633a';
+const plante=(x)=>[[x+2,21,6,6,POT],[x+2,21,6,1,'#c07a4a'],[x+4,14,2,7,VERT2],[x+1,12,3,4,VERT],[x+6,10,3,5,VERT],[x+3,8,3,4,VERT2],[x,16,2,3,VERT2],[x+8,15,2,3,VERT]];
+const DECOR={
+  berthier:{
+    g:[[2,6,15,22,METAL],[2,6,15,1,METAL2],[3,12,13,1,METAL2],[3,19,13,1,METAL2],[4,8,2,4,'#4f8cff'],[7,8,2,4,'#565b66'],[10,9,2,3,VERT2],[13,8,2,4,'#565b66'],
+       [4,14,2,5,'#565b66'],[7,15,3,4,'#4f8cff'],[11,14,2,5,'#c9ccd3'],[4,21,3,5,'#c9ccd3'],[8,22,2,4,'#4f8cff'],[11,21,4,5,'#565b66']],
+    d:plante(5),
+    m:[[2,1,12,10,NOIR],[3,2,10,8,BLANC],[8,3,1,4,NOIR],[8,6,3,1,NOIR],[8,6,1,1,'#4f8cff']]},
+  site:{
+    g:[[3,3,13,25,NOIR],[4,4,11,23,METAL],[5,6,9,2,NOIR],[5,10,9,2,NOIR],[5,14,9,2,NOIR],[5,18,9,2,NOIR],[5,22,9,2,NOIR],
+       [6,6,1,1,VERT,'led'],[8,6,1,1,'#4f8cff','led b'],[6,10,1,1,VERT,'led b'],[12,10,1,1,VERT,'led'],[6,14,1,1,'#4f8cff','led'],[10,14,1,1,VERT,'led b'],[6,18,1,1,VERT,'led'],[6,22,1,1,'#ffc531','led b']],
+    d:[[0,19,20,2,BOIS],[1,21,2,7,BOIS2],[17,21,2,7,BOIS2],[1,8,9,8,NOIR],[2,9,7,6,'#0f2a1f'],[3,10,4,1,VERT],[3,12,5,1,VERT2],[3,14,2,1,VERT],[5,16,1,3,METAL2],
+       [11,10,8,6,NOIR],[12,11,6,4,'#10203f'],[13,12,3,1,'#4f8cff'],[13,14,4,1,'#2f63c9'],[14,16,1,3,METAL2]],
+    m:[[1,1,14,10,NOIR],[2,2,12,8,'#17181b'],[4,5,2,1,VERT],[3,6,1,1,VERT],[4,7,2,1,VERT],[11,5,2,1,VERT],[13,6,1,1,VERT],[11,7,2,1,VERT],[8,4,1,5,'#4f8cff']]},
+  legal:{
+    g:[[2,1,16,27,BOIS2],[3,2,14,25,BOIS],[3,8,14,1,BOIS2],[3,15,14,1,BOIS2],[3,22,14,1,BOIS2],
+       [4,3,2,5,'#7d2a2a'],[6,3,2,5,'#2a3350'],[8,4,2,4,'#5a5a2a'],[10,3,3,5,'#7d2a2a'],[13,3,2,5,'#2a3350'],
+       [4,10,3,5,'#2a3350'],[7,10,2,5,'#7d2a2a'],[9,11,2,4,'#c9b37a'],[11,10,2,5,'#5a5a2a'],[13,10,3,5,'#7d2a2a'],
+       [4,17,2,5,'#5a5a2a'],[6,17,3,5,'#7d2a2a'],[9,17,2,5,'#2a3350'],[12,18,4,4,'#c9b37a']],
+    d:[[2,20,16,2,BOIS],[4,22,2,6,BOIS2],[14,22,2,6,BOIS2],[9,8,2,12,'#c9a227'],[7,19,6,1,'#c9a227'],[3,8,14,1,'#e3c14a'],
+       [3,9,1,4,'#c9a227'],[7,9,1,4,'#c9a227'],[2,13,7,1,'#e3c14a'],[12,9,1,5,'#c9a227'],[16,9,1,5,'#c9a227'],[11,14,7,1,'#e3c14a'],[9,6,2,2,'#e3c14a']],
+    m:[[1,0,14,12,'#c9a227'],[2,1,12,10,BLANC],[4,3,8,1,'#9a9da3'],[4,5,6,1,'#9a9da3'],[4,7,7,1,'#9a9da3'],[10,8,2,2,'#b53a3a']]},
+  commerce:{
+    g:[[1,3,17,15,METAL2],[2,4,15,13,BLANC],[4,13,2,3,VERT2],[7,11,2,5,VERT2],[10,9,2,7,VERT],[13,6,2,10,VERT],[3,16,13,1,'#9a9da3'],[4,6,3,1,'#b53a3a'],
+       [4,18,1,10,METAL],[14,18,1,10,METAL],[2,27,5,1,METAL],[12,27,5,1,METAL]],
+    d:[[2,20,16,2,BOIS],[4,22,2,6,BOIS2],[14,22,2,6,BOIS2],[4,9,9,11,NOIR],[5,10,7,3,METAL2],[6,11,1,1,VERT,'led'],[8,11,1,1,'#b53a3a'],[6,15,5,5,'#0c0d10'],[7,17,3,3,BLANC],[10,18,1,1,BLANC],
+       [15,17,3,3,BLANC],[15,16,3,1,'#c9ccd3']],
+    m:[[2,0,12,12,BOIS],[3,1,10,10,'#17181b'],[7,2,2,2,'#ffc531'],[5,4,6,2,'#ffc531'],[6,6,4,1,'#ffc531'],[5,7,2,2,'#ffc531'],[9,7,2,2,'#ffc531']]},
+  agenda:{
+    g:[[2,2,16,17,BLANC],[2,2,16,3,'#e0527a'],[4,1,1,3,METAL2],[15,1,1,3,METAL2],
+       [4,7,2,2,'#c9ccd3'],[8,7,2,2,'#c9ccd3'],[12,7,2,2,'#c9ccd3'],[4,11,2,2,'#c9ccd3'],[8,11,2,2,'#e0527a'],[12,11,2,2,'#c9ccd3'],[4,15,2,2,'#c9ccd3'],[8,15,2,2,'#c9ccd3'],[12,15,2,2,'#4f8cff'],
+       [9,19,2,9,BOIS2],[5,27,10,1,BOIS2]],
+    d:plante(4).concat([[14,22,5,1,BOIS],[16,23,1,5,BOIS2],[14,18,4,4,NOIR],[15,19,2,2,BLANC]]),
+    m:[[0,1,5,5,'#ffe066'],[1,2,3,1,'#b8962e'],[6,0,5,5,'#ff9ec4'],[7,1,3,1,'#b5507a'],[7,3,2,1,'#b5507a'],[11,4,5,5,'#8ec5ff'],[12,5,3,1,'#3d73b8'],[3,7,5,5,'#b2f2bb'],[4,8,3,1,'#2f9e44']]},
+};
+function decorHTML(id,teinte){
+  const d=DECOR[id];
+  return `<div class="mur" style="--teinte:${teinte}"></div>`+pix(16,12,d.m,'objet-mur')+pix(20,28,d.g,'meuble gauche')+pix(20,28,d.d,'meuble droite');
+}
+
 let notes=[];
 try{notes=JSON.parse(localStorage.getItem('immeuble-notes')||'[]')}catch(e){}
 let ici=ETAGES.length-1;          // on démarre au rez-de-chaussée
@@ -209,7 +272,7 @@ function niveauHTML(e,i){
     ?`<a class="btn plein" href="https://ariane-app.onrender.com" target="_blank" rel="noopener">Ouvrir Berthier</a>`
     :`<button class="btn" id="btn-${e.id}" data-id="${e.id}" aria-pressed="${note}">${note?'C\u2019est noté':'Préviens-moi'}</button>`;
   return `<section class="niveau ${e.ouvert?'ouvert':'ferme'} ${note?'note':''} ${i===ici?'ici':''}" data-i="${i}" aria-hidden="${i!==ici}">
-    <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span><div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div></div>
+    <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span>${decorHTML(e.id,e.look?e.look.touche[0]:"#4f8cff")}<div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div></div>
     <div class="fiche">
       ${e.ouvert?'<p class="accroche">Une équipe entière, une appli par personne. Les collègues de Berthier sont aux étages.</p>':''}
       <span class="etat">${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'} · ${etat}</span>
@@ -235,18 +298,19 @@ function placer(){
 const indice=document.getElementById('indice');let minuterie;
 function buter(sens){            // on est au bout : petit rebond et rappel de la direction
   piste.classList.remove('bute-bas','bute-haut');void piste.offsetWidth;piste.classList.add(sens>0?'bute-bas':'bute-haut');
-  indice.textContent=sens>0?'Les étages sont au-dessus : glisse vers le bas ou touche ▲':'C\u2019est le dernier étage';
+  indice.textContent=sens>0?'Les étages sont au-dessus : glisse vers le bas ou touche un numéro':'C\u2019est le dernier étage';
   indice.hidden=false;clearTimeout(minuterie);minuterie=setTimeout(()=>{indice.hidden=true},2600);
 }
+let attente=null;
 function aller(i){
-  if(enRoute)return;
-  if(i<0||i>ETAGES.length-1)return buter(i<0?-1:1);
+  if(i<0||i>ETAGES.length-1){if(!enRoute)buter(i<0?-1:1);return}
+  if(enRoute){attente=i;return}
   if(i===ici)return;indice.hidden=true;
   // Trajet plus long quand on saute plusieurs étages, comme un vrai ascenseur.
   const duree=.55+.3*Math.abs(i-ici);
   document.documentElement.style.setProperty('--trajet',duree+'s');
   ici=i;aBouge=true;enRoute=true;placer();
-  setTimeout(()=>{enRoute=false},matchMedia('(prefers-reduced-motion:reduce)').matches?0:duree*1000);
+  setTimeout(()=>{enRoute=false;if(attente!==null){const a=attente;attente=null;aller(a)}},matchMedia('(prefers-reduced-motion:reduce)').matches?0:duree*1000);
 }
 function tout(){piste.innerHTML=ETAGES.map(niveauHTML).join('');placer()}
 
@@ -270,7 +334,7 @@ menu.addEventListener('click',ev=>{
 });
 
 panneau.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;
-  if(b.dataset.pas)aller(ici+ +b.dataset.pas);else aller(+b.dataset.aller)});
+  if(b.dataset.pas)aller((attente??ici)+ +b.dataset.pas);else aller(+b.dataset.aller)});
 piste.addEventListener('click',ev=>{const b=ev.target.closest('button[data-id]');if(!b)return;
   const id=b.dataset.id;notes=notes.includes(id)?notes.filter(n=>n!==id):[...notes,id];
   try{localStorage.setItem('immeuble-notes',JSON.stringify(notes))}catch(e){}
