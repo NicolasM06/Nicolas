@@ -2,107 +2,102 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-/* Mise en page : un immeuble en coupe, une colonne d'étages empilés du 4e au rez-de-chaussée.
-   Chaque étage = une fenêtre avec son personnage à gauche, son appli décrite à droite.
-   Reprend les couleurs et les polices du site Berthier (sombre uniquement, par choix de marque). */
+/* Mise en page : un seul étage à l'écran. L'immeuble défile verticalement comme vu depuis un
+   ascenseur ; le panneau de boutons d'étage sert de navigation. Couleurs et polices du site
+   Berthier (sombre uniquement, par choix de marque). */
 :root{
   color-scheme:dark;
   --bg:#08090a; --surface:#111214; --surface2:#17181b; --surface3:#1e1f23;
   --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.12);
   --text:#f7f8f8; --text2:#a1a5ae; --text3:#6b7079;
-  --accent:#4f8cff; --accent-hover:#6a9dff; --accent-dim:rgba(79,140,255,.12);
+  --accent:#4f8cff; --accent-hover:#6a9dff;
   --green:#3ecf8e; --nuit:#0c0d10; --lampe:#ffd98a;
   --sans:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --trajet:.85s;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
-.page{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
-.maquette{font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text3);
-  border-bottom:1px solid var(--line);padding-block:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);overflow:hidden}
+.app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr)}
+.barre{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  border-bottom:1px solid var(--line2);background:var(--surface)}
+.enseigne{font:500 .78rem var(--mono);letter-spacing:.22em;text-transform:uppercase}
+.maquette{font:500 .66rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
 .maquette b{color:var(--lampe);font-weight:500}
-.intro{display:flex;flex-direction:column;gap:12px;padding-top:12px}
-h1{font-size:clamp(2rem,7vw,3.1rem);line-height:1.05;letter-spacing:-.03em;margin:0;text-wrap:balance;font-weight:700}
-.intro p{margin:0;color:var(--text2);font-size:1.08rem;max-width:34em}
 
-/* ── L'immeuble ── */
-.immeuble{display:flex;flex-direction:column}
-.toit{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:0 18px}
-.enseigne{font:500 .78rem var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--text);
-  border:1px solid var(--line2);border-bottom:0;padding:9px 14px 8px;background:var(--surface2)}
-.antenne{width:4px;height:34px;background:var(--line2);position:relative;margin-right:18px}
-.antenne::before{content:"";position:absolute;top:-4px;left:-2px;width:8px;height:4px;background:var(--accent);animation:balise 2.4s steps(1) infinite}
-@keyframes balise{0%,70%{opacity:1}71%,100%{opacity:.15}}
-.corniche{height:8px;background:var(--surface3);border:1px solid var(--line2);margin:0 -6px}
-.facade{border:1px solid var(--line2);border-top:0;background:var(--surface)}
-.etage{display:grid;grid-template-columns:150px minmax(0,1fr);border-bottom:6px solid var(--surface3)}
-.etage:last-child{border-bottom:0}
-.fenetre{position:relative;background:var(--nuit);border-right:1px solid var(--line);min-height:176px;
-  display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
-.fenetre .no{position:absolute;top:10px;left:12px;font:500 .68rem var(--mono);letter-spacing:.1em;color:var(--text3)}
-.fenetre .sol{position:absolute;left:0;right:0;bottom:0;height:10px;background:var(--surface3)}
-.perso{position:relative;width:96px;height:128px;margin-bottom:10px;image-rendering:pixelated;transition:filter .3s}
+/* ── La cage : un étage visible, les autres au-dessus et en dessous ── */
+.cage{overflow:hidden;position:relative;min-height:0}
+.piste{height:100%;transition:transform var(--trajet) cubic-bezier(.65,0,.25,1);will-change:transform}
+.niveau{height:100%;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);border-bottom:14px solid var(--surface3);background:var(--surface)}
+.scene{position:relative;background:var(--nuit);border-right:1px solid var(--line);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;min-height:0}
+.scene .no{position:absolute;top:2%;left:6%;font:500 clamp(4rem,22vh,11rem)/1 var(--mono);letter-spacing:-.06em;color:var(--line2);user-select:none}
+.scene .lueur{position:absolute;inset:0;opacity:0;transition:opacity .9s .35s}
+.ouvert .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(79,140,255,.28),transparent 70%)}
+.ferme .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(255,217,138,.16),transparent 70%)}
+.niveau.ici.ouvert .lueur,.niveau.ici.note .lueur{opacity:1}
+.perso{position:relative;height:min(58%,380px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
 .perso svg,.perso img{width:100%;height:100%;display:block}
-.etage.ferme .perso{filter:brightness(.6) saturate(.5)}
-.etage.ferme:hover .perso,.etage.ferme.note .perso{filter:none}
-.etage.ouvert .fenetre{background:radial-gradient(120% 90% at 50% 100%,rgba(79,140,255,.22),transparent 70%),var(--surface2)}
-.etage.ferme.note .fenetre{background:radial-gradient(120% 90% at 50% 100%,rgba(255,217,138,.12),transparent 70%),var(--nuit)}
-.fiche{padding:20px 22px;display:flex;flex-direction:column;gap:10px;min-width:0}
-.tete{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.nom{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin:0}
-.role{color:var(--text2);font-weight:400;font-size:.95rem}
-.etat{font:500 .68rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:7px;white-space:nowrap}
-.etat::before{content:"";width:7px;height:7px;background:var(--text3)}
+.ferme .perso{filter:brightness(.55) saturate(.45)}
+.ferme.note .perso{filter:none}
+.niveau.ici .perso{animation:arrivee .5s var(--trajet) both}
+@keyframes arrivee{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+.scene .sol{position:absolute;left:0;right:0;bottom:0;height:22px;background:var(--surface3);border-top:2px solid var(--line2)}
+.fiche{display:flex;flex-direction:column;justify-content:center;gap:14px;min-width:0;
+  padding:24px clamp(18px,5vw,56px);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.niveau.ici .fiche{opacity:1;transform:none;transition-delay:calc(var(--trajet) - .25s)}
+.etat{font:500 .7rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:8px}
+.etat::before{content:"";width:8px;height:8px;background:var(--text3)}
 .ouvert .etat{color:var(--green)}.ouvert .etat::before{background:var(--green)}
 .note .etat{color:var(--lampe)}.note .etat::before{background:var(--lampe)}
-.fiche p{margin:0;color:var(--text2);font-size:.95rem}
-.liste{display:flex;flex-wrap:wrap;gap:6px 14px;padding:0;margin:0;list-style:none;font:400 .76rem var(--mono);color:var(--text3)}
+.nom{font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:-.035em;font-weight:700;margin:0}
+.role{font-size:1.15rem;color:var(--text2);margin:0}
+.fiche p.texte{margin:0;color:var(--text2);font-size:1.05rem;max-width:30em}
+.liste{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0;margin:0;list-style:none;font:400 .8rem var(--mono);color:var(--text3)}
 .liste li::before{content:"· "}
-.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px}
-.btn{font:600 .9rem var(--sans);border-radius:6px;padding:10px 16px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;text-decoration:none;display:inline-block}
+.btn{align-self:flex-start;font:600 .95rem var(--sans);border-radius:6px;padding:12px 18px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;text-decoration:none}
 .btn:hover{background:var(--surface2)}
-.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .btn.plein{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.plein:hover{background:var(--accent-hover)}
 .btn[aria-pressed="true"]{border-color:var(--lampe);color:var(--lampe)}
-.rue{height:10px;background:repeating-linear-gradient(90deg,var(--line2) 0 18px,transparent 18px 36px);margin:0 -6px;border-top:2px solid var(--line2)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-/* ── Ce que la maquette mesure ── */
-.gardien{border-top:1px solid var(--line);padding-top:22px;display:flex;flex-direction:column;gap:8px}
-.gardien h2{font-size:1.05rem;margin:0;letter-spacing:-.01em}
-.gardien p{margin:0;color:var(--text2);font-size:.95rem;max-width:38em}
-#choix{font:400 .82rem var(--mono);color:var(--lampe);min-height:1.4em}
-@media (max-width:520px){
-  .etage{grid-template-columns:104px minmax(0,1fr)}
-  .perso{width:72px;height:96px}
-  .fenetre{min-height:150px}
-  .fiche{padding:16px 14px}
-  .toit{padding:0 10px}
+/* ── Le panneau d'ascenseur ── */
+.panneau{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface2);border-left:1px solid var(--line2);
+  padding:14px 12px;padding-right:max(12px,env(safe-area-inset-right,0px))}
+.panneau button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line2);background:var(--surface);color:var(--text2);
+  font:500 .78rem var(--mono);cursor:pointer;position:relative;transition:background .2s,color .2s,border-color .2s}
+.panneau button:hover{color:var(--text);border-color:var(--text3)}
+.panneau button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.panneau button.vote::after{content:"";position:absolute;top:2px;right:2px;width:9px;height:9px;border-radius:50%;background:var(--lampe);border:2px solid var(--surface2)}
+.panneau .fleche{border-radius:8px;height:38px;font-size:1rem}
+.panneau .fleche:disabled{opacity:.25;cursor:default}
+.panneau .fleche.appel{animation:appel 1.6s ease-in-out infinite;color:var(--text);border-color:var(--accent)}
+@keyframes appel{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.vote-ligne{font:400 .74rem var(--mono);color:var(--lampe);min-height:1.3em;margin:0}
+
+@media (max-width:720px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
+  .niveau{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,42%) minmax(0,1fr)}
+  .scene{border-right:0;border-bottom:1px solid var(--line)}
+  .perso{height:78%;margin-bottom:16px}
+  .scene .sol{height:16px}
+  .fiche{justify-content:flex-start;gap:10px;padding:18px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));overflow:auto}
+  .nom{font-size:2.2rem}.role{font-size:1rem}.fiche p.texte{font-size:.98rem}
+  .panneau{flex-direction:row;border-left:0;border-top:1px solid var(--line2);gap:6px;
+    padding:10px max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px))}
+  .panneau button{width:42px;height:42px}
+  .panneau .fleche{width:42px;height:42px}
+  .panneau .haut{order:9}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){:root{--trajet:0s}*{animation:none!important;transition:none!important}}
 </style>
 
-<div class="page">
-  <div class="maquette"><span><b>Maquette</b> · rien n'est branché</span><span>Noms et étages provisoires</span></div>
-
-  <header class="intro">
-    <h1>Une équipe entière, une appli par personne.</h1>
-    <p>Berthier tient tes comptes. Ses collègues arrivent, chacun avec sa propre appli. Tu ne prends que celles dont tu as besoin.</p>
-  </header>
-
-  <section class="immeuble" aria-label="L'immeuble">
-    <div class="toit"><div class="enseigne">Berthier &amp; Cie</div><div class="antenne" aria-hidden="true"></div></div>
-    <div class="corniche" aria-hidden="true"></div>
-    <div class="facade" id="facade"></div>
-    <div class="rue" aria-hidden="true"></div>
-  </section>
-
-  <section class="gardien">
-    <h2>À quoi sert cette page</h2>
-    <p>Dans la vraie version, chaque « Préviens-moi » est compté. L'étage le plus demandé ouvre en premier : ce sont les utilisateurs qui choisissent la prochaine appli.</p>
-    <div id="choix" aria-live="polite"></div>
-  </section>
+<div class="app">
+  <header class="barre"><span class="enseigne">Berthier &amp; Cie</span><span class="maquette"><b>Maquette</b> · noms provisoires</span></header>
+  <main class="cage" id="cage" aria-live="polite"><div class="piste" id="piste"></div></main>
+  <nav class="panneau" id="panneau" aria-label="Ascenseur"></nav>
 </div>
 
 <script>
@@ -142,10 +137,11 @@ function perso(o){
   return `<svg viewBox="0 0 24 32" shape-rendering="crispEdges" role="img" aria-label="${o.alt}">${r}</svg>`;
 }
 
+
 const ETAGES=[
-  {no:'4e',id:'agenda',nom:'Lenoir',role:"l'organisatrice",texte:"Elle tient ton calendrier de marchés et te rappelle les inscriptions avant qu'il soit trop tard.",
+  {no:'4e',id:'agenda',nom:'Vasseur',role:"l'organisatrice",texte:"Elle tient ton calendrier de marchés et te rappelle les inscriptions avant qu'il soit trop tard.",
    points:['Calendrier','Rappels','Inscriptions'],
-   look:{alt:'Lenoir',cheveux:'long',peau:['#c98f6b','#a8714f'],poil:['#2b1e15','#4a3526'],tissu:['#7a4b8f','#5d3870'],touche:['#e0527a','#b53a5e'],haut:'pull',objet:'agenda'}},
+   look:{alt:'Vasseur',cheveux:'long',peau:['#c98f6b','#a8714f'],poil:['#2b1e15','#4a3526'],tissu:['#7a4b8f','#5d3870'],touche:['#e0527a','#b53a5e'],haut:'pull',objet:'agenda'}},
   {no:'3e',id:'commerce',nom:'Marchand',role:'le commercial',texte:"Il suit tes clients et tes commandes, et il prépare tes factures.",
    points:['Clients','Commandes','Factures'],
    look:{alt:'Marchand',cheveux:'court',peau:['#f1c7a3','#d9a37f'],poil:['#8a5a2b','#b07a43'],tissu:['#2f6f5e','#235347'],touche:['#ffc531','#c9961a'],haut:'veste',cravate:true,objet:'tablette'}},
@@ -159,36 +155,71 @@ const ETAGES=[
    points:['Ventes','Stock','Marchés','Dépenses','Bilan']},
 ];
 
+
 let notes=[];
 try{notes=JSON.parse(localStorage.getItem('immeuble-notes')||'[]')}catch(e){}
-const facade=document.getElementById('facade');
+let ici=ETAGES.length-1;          // on démarre au rez-de-chaussée
+let enRoute=false, aBouge=false;
+const piste=document.getElementById('piste'), panneau=document.getElementById('panneau');
 
-function rendre(){
-  facade.innerHTML=ETAGES.map(e=>{
-    const note=notes.includes(e.id);
-    const figure=e.ouvert?`<img src="${BERTHIER}" alt="Berthier">`:perso(e.look);
-    const etat=e.ouvert?'Ouvert':note?'Tu seras prévenu':'Bientôt';
-    const action=e.ouvert
-      ?`<a class="btn plein" href="https://ariane-app.onrender.com" target="_blank" rel="noopener">Ouvrir Berthier</a>`
-      :`<button class="btn" id="btn-${e.id}" data-id="${e.id}" aria-pressed="${note}">${note?'C’est noté':'Préviens-moi'}</button>`;
-    return `<article class="etage ${e.ouvert?'ouvert':'ferme'} ${note?'note':''}">
-      <div class="fenetre"><span class="no">${e.no}</span><div class="perso">${figure}</div><div class="sol"></div></div>
-      <div class="fiche">
-        <div class="tete"><h2 class="nom">${e.nom} <span class="role">${e.role}</span></h2><span class="etat">${etat}</span></div>
-        <p>${e.texte}</p>
-        <ul class="liste">${e.points.map(p=>`<li>${p}</li>`).join('')}</ul>
-        <div class="actions">${action}</div>
-      </div></article>`;
-  }).join('');
-  const noms=ETAGES.filter(e=>notes.includes(e.id)).map(e=>e.nom);
-  document.getElementById('choix').textContent=noms.length?`Ton vote dans cette maquette : ${noms.join(', ')}`:'';
+function niveauHTML(e,i){
+  const note=notes.includes(e.id);
+  const figure=e.ouvert?`<img src="${BERTHIER}" alt="Berthier">`:perso(e.look);
+  const etat=e.ouvert?'Ouvert':note?'Tu seras prévenu':'Bientôt';
+  const action=e.ouvert
+    ?`<a class="btn plein" href="https://ariane-app.onrender.com" target="_blank" rel="noopener">Ouvrir Berthier</a>`
+    :`<button class="btn" id="btn-${e.id}" data-id="${e.id}" aria-pressed="${note}">${note?'C\u2019est noté':'Préviens-moi'}</button>`;
+  return `<section class="niveau ${e.ouvert?'ouvert':'ferme'} ${note?'note':''} ${i===ici?'ici':''}" data-i="${i}" aria-hidden="${i!==ici}">
+    <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span><div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div></div>
+    <div class="fiche">
+      <span class="etat">${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'} · ${etat}</span>
+      <h1 class="nom">${e.nom}</h1>
+      <p class="role">${e.role[0].toUpperCase()+e.role.slice(1)}</p>
+      <p class="texte">${e.texte}</p>
+      <ul class="liste">${e.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+      ${action}
+      ${i===ETAGES.length-1?'':'<p class="vote-ligne"></p>'}
+    </div></section>`;
 }
-facade.addEventListener('click',ev=>{
-  const b=ev.target.closest('button[data-id]');if(!b)return;
-  const id=b.dataset.id;
-  notes=notes.includes(id)?notes.filter(n=>n!==id):[...notes,id];
+function rendrePanneau(){
+  panneau.innerHTML=`<button class="fleche haut ${aBouge?'':'appel'}" data-pas="-1" aria-label="Monter d'un étage" ${ici===0?'disabled':''}>▲</button>`
+    +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''}" aria-current="${i===ici}" aria-label="${e.nom}, ${e.no}">${e.no==='RDC'?'0':e.no[0]}</button>`).join('')
+    +`<button class="fleche bas" data-pas="1" aria-label="Descendre d'un étage" ${ici===ETAGES.length-1?'disabled':''}>▼</button>`;
+}
+function placer(){
+  piste.style.transform=`translateY(${-ici*100}%)`;
+  piste.querySelectorAll('.niveau').forEach((n,i)=>{n.classList.toggle('ici',i===ici);n.setAttribute('aria-hidden',i!==ici);
+    n.querySelectorAll('a,button').forEach(b=>b.tabIndex=i===ici?0:-1)});
+  rendrePanneau();
+}
+function aller(i){
+  i=Math.max(0,Math.min(ETAGES.length-1,i));
+  if(i===ici||enRoute)return;
+  // Trajet plus long quand on saute plusieurs étages, comme un vrai ascenseur.
+  const duree=.55+.3*Math.abs(i-ici);
+  document.documentElement.style.setProperty('--trajet',duree+'s');
+  ici=i;aBouge=true;enRoute=true;placer();
+  setTimeout(()=>{enRoute=false},matchMedia('(prefers-reduced-motion:reduce)').matches?0:duree*1000);
+}
+function tout(){piste.innerHTML=ETAGES.map(niveauHTML).join('');placer()}
+
+panneau.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.pas)aller(ici+ +b.dataset.pas);else aller(+b.dataset.aller)});
+piste.addEventListener('click',ev=>{const b=ev.target.closest('button[data-id]');if(!b)return;
+  const id=b.dataset.id;notes=notes.includes(id)?notes.filter(n=>n!==id):[...notes,id];
   try{localStorage.setItem('immeuble-notes',JSON.stringify(notes))}catch(e){}
-  rendre();document.getElementById('btn-'+id)?.focus();
-});
-rendre();
+  const n=b.closest('.niveau'),note=notes.includes(id);
+  n.classList.toggle('note',note);b.setAttribute('aria-pressed',note);b.textContent=note?'C\u2019est noté':'Préviens-moi';
+  n.querySelector('.etat').textContent=`${ETAGES[ici].no} étage · ${note?'Tu seras prévenu':'Bientôt'}`;
+  n.querySelector('.vote-ligne').textContent=note?'Dans la vraie version, ce clic serait compté.':'';
+  rendrePanneau()});
+// Diapo suivante = étage du dessus : molette vers le bas, balayage vers le haut, ou flèche haut.
+let cumul=0;
+addEventListener('wheel',ev=>{if(enRoute)return;cumul+=ev.deltaY;if(Math.abs(cumul)>60){aller(ici+(cumul>0?-1:1));cumul=0}},{passive:true});
+let y0=null;
+addEventListener('touchstart',ev=>{y0=ev.touches[0].clientY},{passive:true});
+addEventListener('touchend',ev=>{if(y0===null)return;const d=ev.changedTouches[0].clientY-y0;y0=null;if(Math.abs(d)>50)aller(ici+(d<0?-1:1))},{passive:true});
+addEventListener('keydown',ev=>{if(ev.key==='ArrowUp'||ev.key==='PageUp'){ev.preventDefault();aller(ici-1)}
+  if(ev.key==='ArrowDown'||ev.key==='PageDown'){ev.preventDefault();aller(ici+1)}});
+piste.style.transition='none';tout();requestAnimationFrame(()=>requestAnimationFrame(()=>{piste.style.transition=''}));
 </script>
