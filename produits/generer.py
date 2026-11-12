@@ -8,6 +8,7 @@
 """
 import datetime as dt
 import json
+import zipfile
 from pathlib import Path
 
 from openpyxl import Workbook
@@ -448,6 +449,11 @@ def main():
         cible.parent.mkdir(parents=True, exist_ok=True)
         wb.save(cible)
         print("écrit", cible.relative_to(RACINE))
+    pack = DIST / "payant" / "pack-complet.zip"
+    with zipfile.ZipFile(pack, "w", zipfile.ZIP_DEFLATED) as z:
+        for nom in ("budget-annuel-complet.xlsx", "objectifs-epargne.xlsx"):
+            z.write(DIST / "payant" / nom, nom)
+    print("écrit", pack.relative_to(RACINE))
 
 
 if __name__ == "__main__":

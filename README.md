@@ -24,7 +24,8 @@ budget en français (Excel / Google Sheets), vendus depuis un site statique.
    Les fichiers payants sont dans `produits/dist/payant/` (jamais mis en ligne par le site).
 3. **Ouvrir une boutique** sur une plateforme sans abonnement qui encaisse, livre le
    fichier et gère la TVA à ta place (Gumroad, Lemon Squeezy, Payhip… compare leurs
-   commissions actuelles). Crée trois produits : budget annuel, objectifs d'épargne, pack.
+   commissions actuelles). Crée les trois produits en copiant `vente/fiches-produits.md` :
+   textes, prix, fichiers et images de couverture (`vente/visuels/`) y sont prêts.
 4. **Coller les liens de paiement** dans `config.json` (`lien_achat`). Tant qu'un lien
    est vide, le bouton affiche « Bientôt disponible ».
 5. **Compléter les mentions légales** dans `config.json`, et corriger `url` si le site
@@ -62,6 +63,7 @@ Texte en Markdown.
 python produits/generer.py   # crée les tableurs
 python build.py              # construit le site dans _site/ (état du jour)
 python build.py --tout       # aperçu avec les articles programmés
+node outils/visuels.js       # refait les images de couverture (vente/visuels/)
 python -m http.server -d _site 8000   # voir le site sur http://localhost:8000
 ```
 
