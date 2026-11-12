@@ -35,6 +35,9 @@ Première étape possible, peu coûteuse : transformer la page de présentation 
 en hall d'immeuble. Berthier ouvert, les autres étages en « Bientôt » avec un bouton
 « Préviens-moi » pour mesurer l'intérêt.
 
+Une maquette cliquable de ce hall est dans `idees/maquette-immeuble/index.html`
+(noms des personnages provisoires, rien n'est branché).
+
 ## Les étages envisagés
 
 | Étage | Personnage | Ce qu'il gère | État du code dans `ariane-app` |
