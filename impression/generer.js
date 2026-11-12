@@ -21,6 +21,7 @@ const police = (f) => fs.readFileSync(path.join(ICI, 'polices', f)).toString('ba
 const FONTS = `
 @font-face{font-family:Anton;src:url(data:font/ttf;base64,${police('Anton-Regular.ttf')})}
 @font-face{font-family:Bebas;src:url(data:font/ttf;base64,${police('BebasNeue-Regular.ttf')})}
+@font-face{font-family:Pixel;src:url(data:font/ttf;base64,${police('PressStart2P-Regular.ttf')})}
 @font-face{font-family:Archivo;src:url(data:font/ttf;base64,${police('ArchivoBlack-Regular.ttf')})}`;
 
 const ENCRES = {
@@ -31,6 +32,7 @@ const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 // Coupe un texte long en deux lignes équilibrées.
 function deuxLignes(t, seuil = 15) {
+  t = t.replace(/ ([%:?!»])/g, '\u00a0$1').replace(/« /g, '«\u00a0'); // pas de coupure avant la ponctuation
   if (t.length <= seuil || !t.includes(' ')) return [t];
   const mots = t.split(' ');
   let mieux = null;
@@ -43,8 +45,26 @@ function deuxLignes(t, seuil = 15) {
   return mieux.lignes;
 }
 
+// Icônes en pixels, dessinées case par case (couleurs fixes, lisibles sur clair et foncé).
+const COEUR = ['.XX.XX.', 'XXXXXXX', 'XXXXXXX', '.XXXXX.', '..XXX..', '...X...'];
+function coeur(plein) {
+  const c = plein ? '#e03131' : '#868e96';
+  let r = '';
+  COEUR.forEach((ligne, y) => [...ligne].forEach((ch, x) => {
+    if (ch === 'X') r += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${c}"/>`;
+  }));
+  if (plein) r += '<rect x="1" y="1" width="1" height="1" fill="#ffa8a8"/>';
+  return `<svg viewBox="0 0 7 6" width="620" shape-rendering="crispEdges">${r}</svg>`;
+}
+function barre(pleins, total, encre) {
+  let r = `<rect x="0" y="1" width="1" height="5" fill="${encre}"/><rect x="${total * 2 + 2}" y="1" width="1" height="5" fill="${encre}"/>`
+    + `<rect x="1" y="0" width="${total * 2 + 1}" height="1" fill="${encre}"/><rect x="1" y="6" width="${total * 2 + 1}" height="1" fill="${encre}"/>`;
+  for (let i = 0; i < pleins; i++) r += `<rect x="${2 + i * 2}" y="2" width="1" height="3" fill="#37b24d"/>`;
+  return `<svg viewBox="0 0 ${total * 2 + 3} 7" width="3400" shape-rendering="crispEdges">${r}</svg>`;
+}
+
 // Chaque .fit est agrandi jusqu'à occuper data-l (part de la largeur), plafonné à data-max px.
-function corps(m, d) {
+function corps(m, d, encre) {
   const fit = (txt, cls, l, max) =>
     `<div class="fit ${cls}" data-l="${l}" data-max="${max}">${esc(txt)}</div>`;
   if (d.type === 'empile') {
@@ -53,6 +73,13 @@ function corps(m, d) {
       + deuxLignes(d.gros).map((l) => fit(l, 'anton accent', 1, 1500)).join('')
       + '<div class="trait"></div>'
       + deuxLignes(d.bas, 26).map((l) => fit(l, 'bebas', 0.72, 520)).join('');
+  }
+  if (d.type === 'pixel') {
+    const icone = d.icone === 'barre' ? barre(d.pleins, d.total, encre)
+      : Array.from({ length: d.total }, (_, i) => coeur(i < d.pleins)).join('');
+    return deuxLignes(d.haut, 14).map((l) => fit(l, 'pixel', 1, 360)).join('')
+      + `<div class="icones">${icone}</div>`
+      + deuxLignes(d.bas, 20).map((l) => fit(l, 'pixel petit', 0.92, 230)).join('');
   }
   if (d.type === 'liste') {
     return d.lignes.map((l, i) =>
@@ -74,11 +101,14 @@ body{display:flex;align-items:center;justify-content:center;color:${c.encre}}
 .anton{font-family:Anton;letter-spacing:.01em;line-height:1.16}
 .bebas{font-family:Bebas;letter-spacing:.06em;line-height:1.15}
 .archivo{font-family:Archivo;align-self:flex-start}
+.pixel{font-family:Pixel;line-height:1.5}
+.petit{opacity:.92}
+.icones{display:flex;gap:150px;margin:260px 0 240px}
 .accent{color:${c.accent}}
 .trait{width:72%;height:28px;background:${c.encre};margin:90px 0;border-radius:14px}
 .genre{align-self:flex-start;font:italic 280px 'Liberation Serif',serif;margin:50px 0 110px;opacity:.85}
 .def{align-self:flex-start;font:430px/1.24 'Liberation Serif',serif;text-wrap:pretty}
-</style><body><div id="z">${corps(m, d)}</div><script>
+</style><body><div id="z">${corps(m, d, c.encre)}</div><script>
 document.fonts.ready.then(() => {
   const z = document.getElementById('z');
   for (const el of z.querySelectorAll('.fit')) {
@@ -135,9 +165,9 @@ const GROUPES = [
 function fiche(m, d, n) {
   const mot = d.mot || m.nom;
   const accroche = d.type === 'definition' ? `Définition : ${mot.toLowerCase()}`
-    : d.type === 'liste' ? d.lignes.join(' ') : d.gros;
+    : d.type === 'liste' ? d.lignes.join(' ') : d.type === 'pixel' ? d.haut : d.gros;
   const texte = d.type === 'definition' ? `« ${mot} (${d.genre || m.genre}) : ${d.texte} »`
-    : d.type === 'liste' ? `« ${d.lignes.join(' ')} »` : `« ${d.haut}. ${d.gros}. ${d.bas}. »`;
+    : d.type === 'liste' ? `« ${d.lignes.join(' ')} »` : d.type === 'pixel' ? `« ${d.haut}. ${d.bas}. » Design façon jeu rétro en pixels.` : `« ${d.haut}. ${d.gros}. ${d.bas}. »`;
   return {
     id: `${m.slug}-${String(n).padStart(2, '0')}`,
     accroche,

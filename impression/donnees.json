@@ -476,10 +476,12 @@
    ],
    "designs": [
     {
-     "type": "empile",
+     "type": "pixel",
      "haut": "Je suis pas mort",
-     "gros": "Il me reste 3 vies",
-     "bas": "Enfin, 2"
+     "icone": "coeurs",
+     "pleins": 3,
+     "total": 4,
+     "bas": "Il me reste 3 vies"
     },
     {
      "type": "empile",
@@ -521,9 +523,11 @@
      "bas": "J'arrive dans 5 minutes"
     },
     {
-     "type": "empile",
-     "haut": "Niveau de batterie",
-     "gros": "Manette : 3 %",
+     "type": "pixel",
+     "haut": "Batterie manette : 3 %",
+     "icone": "barre",
+     "pleins": 1,
+     "total": 10,
      "bas": "Moi : pareil"
     },
     {
@@ -539,9 +543,11 @@
      "bas": "Et elle a un micro"
     },
     {
-     "type": "empile",
-     "haut": "Le dernier boss",
-     "gros": "C'est le lundi matin",
+     "type": "pixel",
+     "haut": "Boss final : lundi matin",
+     "icone": "coeurs",
+     "pleins": 1,
+     "total": 4,
      "bas": "Aucune sauvegarde possible"
     },
     {
@@ -552,6 +558,14 @@
       "Recharger.",
       "Insister."
      ]
+    },
+    {
+     "type": "pixel",
+     "haut": "Vie sociale",
+     "icone": "coeurs",
+     "pleins": 0,
+     "total": 3,
+     "bas": "Temps de jeu : 300 h"
     }
    ]
   },
@@ -590,10 +604,12 @@
      "bas": "Mais j'ai un plan"
     },
     {
-     "type": "empile",
+     "type": "pixel",
      "haut": "Régime en cours",
-     "gros": "Chargement : 2 %",
-     "bas": "Depuis 2019"
+     "icone": "barre",
+     "pleins": 1,
+     "total": 10,
+     "bas": "Bloqué à 2 % depuis 2019"
     },
     {
      "type": "definition",
@@ -651,6 +667,14 @@
      "haut": "Lundi",
      "gros": "Je te déteste",
      "bas": "Cordialement"
+    },
+    {
+     "type": "pixel",
+     "haut": "Motivation du lundi",
+     "icone": "barre",
+     "pleins": 0,
+     "total": 10,
+     "bas": "Batterie faible"
     }
    ]
   },
@@ -754,6 +778,208 @@
      "haut": "Ma liste au Père Noël",
      "gros": "Du calme",
      "bas": "Et une raclette"
+    },
+    {
+     "type": "pixel",
+     "haut": "Esprit de Noël",
+     "icone": "barre",
+     "pleins": 9,
+     "total": 10,
+     "bas": "Chargement : 90 %"
+    }
+   ]
+  },
+  {
+   "slug": "anniversaire",
+   "titre": "Humour anniversaire",
+   "pub": [
+    "Le cadeau",
+    "D'anniversaire"
+   ],
+   "accent": {
+    "clair": "#ff8fc7",
+    "fonce": "#d6336c"
+   },
+   "description": "Un design d'anniversaire original en français, à offrir à celui ou celle qui prend un an de plus, ou à porter soi-même le jour J. Une idée cadeau drôle pour les 18, 30, 40, 50 ans et tous les autres.",
+   "texte_pub": "C'est bientôt l'anniversaire de quelqu'un ? Identifie-le, il comprendra.",
+   "tags": [
+    "anniversaire",
+    "cadeau anniversaire",
+    "joyeux anniversaire",
+    "humour anniversaire",
+    "t-shirt anniversaire",
+    "cadeau drôle",
+    "fête",
+    "cadeau homme",
+    "cadeau femme",
+    "cadeau ami"
+   ],
+   "designs": [
+    {
+     "type": "empile",
+     "haut": "C'est mon anniversaire",
+     "gros": "Joyeux moi",
+     "bas": "Les cadeaux, c'est par ici"
+    },
+    {
+     "type": "empile",
+     "haut": "Joyeux anniversaire",
+     "gros": "Vieille branche",
+     "bas": "T'es pas vieux, t'es collector"
+    },
+    {
+     "type": "empile",
+     "haut": "Je ne vieillis pas",
+     "gros": "Je prends de la valeur",
+     "bas": "Joyeux anniversaire à moi"
+    },
+    {
+     "type": "empile",
+     "haut": "Joyeux anniversaire",
+     "gros": "À moi",
+     "bas": "Merci, merci, il ne fallait pas"
+    },
+    {
+     "type": "pixel",
+     "haut": "Niveau supérieur débloqué",
+     "icone": "barre",
+     "pleins": 10,
+     "total": 10,
+     "bas": "Joyeux anniversaire"
+    },
+    {
+     "type": "empile",
+     "haut": "Un an de plus",
+     "gros": "Toujours pas adulte",
+     "bas": "Joyeux anniversaire à moi"
+    },
+    {
+     "type": "empile",
+     "haut": "Bon anniversaire",
+     "gros": "T'as pas changé",
+     "bas": "Enfin, de loin"
+    },
+    {
+     "type": "definition",
+     "mot": "Anniversaire",
+     "genre": "n. m.",
+     "texte": "Jour de l'année où l'on vous félicite d'avoir survécu à la précédente."
+    },
+    {
+     "type": "empile",
+     "haut": "Cette année, les bougies",
+     "gros": "Coûtent plus cher",
+     "bas": "Que le gâteau"
+    },
+    {
+     "type": "empile",
+     "haut": "J'ai pas pris un an",
+     "gros": "J'ai pris un niveau",
+     "bas": "Joyeux anniversaire"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Souffler.",
+      "Manger.",
+      "Déballer.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Joyeux anniversaire",
+     "gros": "Tu vieillis bien",
+     "bas": "Mais tu vieillis"
+    }
+   ]
+  },
+  {
+   "slug": "nouvel-an",
+   "titre": "Humour bonne année",
+   "pub": [
+    "Le t-shirt du",
+    "Nouvel an"
+   ],
+   "description": "Un design de nouvel an original en français, pour le réveillon du 31, le repas du 1er janvier ou les vœux au bureau. Une idée cadeau drôle pour bien commencer l'année.",
+   "texte_pub": "Bonne année à tous. Identifie celui qui tient ses résolutions jusqu'au 3 janvier.",
+   "tags": [
+    "bonne année",
+    "nouvel an",
+    "réveillon",
+    "humour nouvel an",
+    "résolutions",
+    "31 décembre",
+    "t-shirt nouvel an",
+    "cadeau drôle",
+    "fêtes",
+    "vœux"
+   ],
+   "designs": [
+    {
+     "type": "empile",
+     "haut": "Bonne année",
+     "gros": "Et surtout la santé",
+     "bas": "Le reste, on verra"
+    },
+    {
+     "type": "empile",
+     "haut": "Mes résolutions ?",
+     "gros": "Les mêmes que l'an dernier",
+     "bas": "Elles sont encore neuves"
+    },
+    {
+     "type": "empile",
+     "haut": "Bonne année à tous",
+     "gros": "Sauf à mon réveil",
+     "bas": "Lui, il sait pourquoi"
+    },
+    {
+     "type": "pixel",
+     "haut": "Bonnes résolutions",
+     "icone": "barre",
+     "pleins": 0,
+     "total": 10,
+     "bas": "Abandon prévu le 3 janvier"
+    },
+    {
+     "type": "empile",
+     "haut": "Nouvelle année",
+     "gros": "Même moi",
+     "bas": "Faut pas rêver"
+    },
+    {
+     "type": "definition",
+     "mot": "Résolution",
+     "genre": "n. f.",
+     "texte": "Promesse solennelle faite le 1er janvier et oubliée avant la galette des rois."
+    },
+    {
+     "type": "empile",
+     "haut": "Bonne année",
+     "gros": "Bonne santé",
+     "bas": "Et bon courage pour lundi"
+    },
+    {
+     "type": "empile",
+     "haut": "Cette année",
+     "gros": "Je me mets au sport",
+     "bas": "Non, je rigole. Bonne année"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Trinquer.",
+      "Souhaiter.",
+      "Promettre.",
+      "Oublier."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Bonne année",
+     "gros": "Je t'ai envoyé un SMS",
+     "bas": "Il arrivera vers le 4"
     }
    ]
   }

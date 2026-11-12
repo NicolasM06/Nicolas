@@ -1,15 +1,17 @@
 # Humour en Stock — designs pour l'impression à la demande
 
-84 designs de texte en français, à déposer sur des plateformes d'impression à la
+109 designs de texte en français, à déposer sur des plateformes d'impression à la
 demande (Spreadshirt, Redbubble, TeePublic…). La plateforme imprime, expédie et
 gère le client ; tu touches une commission par vente.
 
 | Collection | Designs |
 |---|---|
 | Métiers (12 métiers × 4) | 48 |
-| Gamer | 12 |
-| Humour du quotidien | 12 |
-| Noël | 12 |
+| Gamer | 13 |
+| Humour du quotidien | 13 |
+| Noël | 13 |
+| Anniversaire | 12 |
+| Bonne année | 10 |
 
 ## Générer
 
@@ -28,9 +30,10 @@ Tout sort dans `impression/sortie/` (non versionné) :
 
 ## Ajouter des designs
 
-Tout se passe dans `donnees.json`. Trois formes de design :
+Tout se passe dans `donnees.json`. Quatre formes de design :
 
 ```json
+{"type": "pixel", "haut": "Texte", "icone": "coeurs", "pleins": 3, "total": 4, "bas": "Chute"}
 {"type": "empile", "haut": "Petite ligne", "gros": "La chute en gros", "bas": "Petite ligne"}
 {"type": "liste", "lignes": ["Un.", "Deux.", "Trois.", "Chute."]}
 {"type": "definition", "mot": "Mot", "genre": "n. m.", "texte": "Définition drôle."}
@@ -49,5 +52,7 @@ de `collections`. `boutique` et `lien_boutique` servent aux visuels et textes de
   interdits par les plateformes.
 - Les gains sont à déclarer.
 
-Polices : Anton, Bebas Neue et Archivo Black, sous licence SIL Open Font License
+`icone` vaut `coeurs` (vies) ou `barre` (barre de chargement).
+
+Polices : Anton, Bebas Neue, Archivo Black et Press Start 2P, sous licence SIL Open Font License
 (textes dans `polices/`), qui autorise l'usage commercial.
