@@ -1,0 +1,761 @@
+{
+ "boutique": "Humour en Stock",
+ "lien_boutique": "",
+ "mots_cles_communs": [
+  "humour métier",
+  "idée cadeau",
+  "cadeau anniversaire",
+  "cadeau noël",
+  "cadeau collègue",
+  "t-shirt humour",
+  "français"
+ ],
+ "familles": {
+  "artisan": [
+   "artisan",
+   "bâtiment",
+   "chantier",
+   "cadeau artisan",
+   "fête des pères"
+  ],
+  "soin": [
+   "soignant",
+   "hôpital",
+   "santé",
+   "cadeau soignante",
+   "fête des mères"
+  ],
+  "bouche": [
+   "métier de bouche",
+   "gourmand",
+   "cuisine",
+   "cadeau gourmand",
+   "fait maison"
+  ],
+  "route": [
+   "transport",
+   "camion",
+   "poids lourd",
+   "cadeau chauffeur",
+   "fête des pères"
+  ],
+  "terre": [
+   "ferme",
+   "campagne",
+   "tracteur",
+   "cadeau agriculteur",
+   "monde rural"
+  ],
+  "beaute": [
+   "salon de coiffure",
+   "coiffure",
+   "beauté",
+   "cadeau coiffeuse",
+   "fête des mères"
+  ]
+ },
+ "metiers": [
+  {
+   "slug": "electricien",
+   "nom": "Électricien",
+   "genre": "n. m.",
+   "famille": "artisan",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui travaille sous tension pour que vous puissiez râler sur la facture en pleine lumière."
+    },
+    {
+     "type": "empile",
+     "haut": "Faites-moi confiance",
+     "gros": "Je suis électricien",
+     "bas": "Enfin, reculez quand même"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Câbler.",
+      "Tester.",
+      "Disjoncter.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Électricien",
+     "gros": "Toujours au courant",
+     "bas": "Rarement à l'heure"
+    }
+   ]
+  },
+  {
+   "slug": "plombier",
+   "nom": "Plombier",
+   "genre": "n. m.",
+   "famille": "artisan",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui répare le lundi ce que votre beau-frère a « bricolé » le dimanche."
+    },
+    {
+     "type": "empile",
+     "haut": "Pas de panique",
+     "gros": "Je suis plombier",
+     "bas": "J'ai vu bien pire sous un évier"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Serrer.",
+      "Souder.",
+      "Jurer.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Plombier",
+     "gros": "Ça coule de source",
+     "bas": "Sauf chez vous, apparemment"
+    }
+   ]
+  },
+  {
+   "slug": "mecanicien",
+   "nom": "Mécanicien",
+   "genre": "n. m.",
+   "famille": "artisan",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui comprend le bruit que vous essayez d'imiter au téléphone."
+    },
+    {
+     "type": "empile",
+     "haut": "Ce n'est pas du cambouis",
+     "gros": "C'est du talent",
+     "bas": "Mécanicien"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Démonter.",
+      "Nettoyer.",
+      "Remonter.",
+      "Il reste une vis."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Mécanicien",
+     "gros": "Je répare ce que vous ignorez",
+     "bas": "Depuis trois voyants allumés"
+    }
+   ]
+  },
+  {
+   "slug": "macon",
+   "nom": "Maçon",
+   "genre": "n. m.",
+   "famille": "artisan",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui construit droit, même quand le plan ne l'est pas."
+    },
+    {
+     "type": "empile",
+     "haut": "Maçon",
+     "gros": "Solide comme mes murs",
+     "bas": "Fatigué comme mon dos"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Gâcher.",
+      "Monter.",
+      "Niveler.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "J'ai le niveau",
+     "gros": "Et la bulle",
+     "bas": "Maçon de métier"
+    }
+   ]
+  },
+  {
+   "slug": "menuisier",
+   "nom": "Menuisier",
+   "genre": "n. m.",
+   "famille": "artisan",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui mesure deux fois, coupe une fois, et retrouve de la sciure dans ses poches toute l'année."
+    },
+    {
+     "type": "empile",
+     "haut": "Menuisier",
+     "gros": "Je touche du bois",
+     "bas": "Toute la journée"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Mesurer.",
+      "Couper.",
+      "Poncer.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "L'odeur du bois",
+     "gros": "Ça ne s'explique pas",
+     "bas": "Menuisier"
+    }
+   ]
+  },
+  {
+   "slug": "infirmiere",
+   "nom": "Infirmière",
+   "genre": "n. f.",
+   "famille": "soin",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne capable de courir douze heures, de rassurer tout un service et de déjeuner en quatre minutes."
+    },
+    {
+     "type": "empile",
+     "haut": "Infirmière",
+     "gros": "Je pique",
+     "bas": "Mais c'est pour votre bien"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Soigner.",
+      "Écouter.",
+      "Courir.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Mon super-pouvoir ?",
+     "gros": "Trouver la veine",
+     "bas": "Du premier coup"
+    }
+   ]
+  },
+  {
+   "slug": "aide-soignante",
+   "nom": "Aide-soignante",
+   "genre": "n. f.",
+   "famille": "soin",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui prend soin de tout le monde, souvent avant de penser à s'asseoir."
+    },
+    {
+     "type": "empile",
+     "haut": "Aide-soignante",
+     "gros": "Le cœur sur la main",
+     "bas": "Et les pieds en compote"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Aider.",
+      "Porter.",
+      "Sourire.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Fatiguée",
+     "gros": "Mais toujours là",
+     "bas": "Aide-soignante"
+    }
+   ]
+  },
+  {
+   "slug": "boulanger",
+   "nom": "Boulanger",
+   "genre": "n. m.",
+   "famille": "bouche",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui se lève quand vous vous couchez pour que votre petit-déjeuner soit croustillant."
+    },
+    {
+     "type": "empile",
+     "haut": "Boulanger",
+     "gros": "Debout avant le soleil",
+     "bas": "Couché avant le film"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Pétrir.",
+      "Façonner.",
+      "Cuire.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Dans le doute",
+     "gros": "Reprends du pain",
+     "bas": "Conseil de boulanger"
+    }
+   ]
+  },
+  {
+   "slug": "cuisinier",
+   "nom": "Cuisinier",
+   "genre": "n. m.",
+   "famille": "bouche",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui crie « chaud devant ! » au travail et qui mange des pâtes au beurre à la maison."
+    },
+    {
+     "type": "empile",
+     "haut": "Cuisinier",
+     "gros": "Oui, chef !",
+     "bas": "Même à la maison"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Émincer.",
+      "Saisir.",
+      "Dresser.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Le secret ?",
+     "gros": "Plus de beurre",
+     "bas": "Parole de cuisinier"
+    }
+   ]
+  },
+  {
+   "slug": "coiffeuse",
+   "nom": "Coiffeuse",
+   "genre": "n. f.",
+   "famille": "beaute",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui coupe les cheveux, écoute les histoires et garde tous les secrets du quartier."
+    },
+    {
+     "type": "empile",
+     "haut": "Coiffeuse",
+     "gros": "Je coupe court",
+     "bas": "Aux mauvaises idées capillaires"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Couper.",
+      "Coiffer.",
+      "Écouter.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Ce qui se dit au salon",
+     "gros": "Reste au salon",
+     "bas": "Coiffeuse"
+    }
+   ]
+  },
+  {
+   "slug": "routier",
+   "nom": "Routier",
+   "genre": "n. m.",
+   "famille": "route",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui connaît toutes les aires de repos de France, et le meilleur café de chacune."
+    },
+    {
+     "type": "empile",
+     "haut": "Routier",
+     "gros": "Mon bureau fait 40 tonnes",
+     "bas": "Et la vue change tous les jours"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Charger.",
+      "Rouler.",
+      "Livrer.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Routier",
+     "gros": "Jamais perdu",
+     "bas": "Parfois en repérage"
+    }
+   ]
+  },
+  {
+   "slug": "agriculteur",
+   "nom": "Agriculteur",
+   "genre": "n. m.",
+   "famille": "terre",
+   "designs": [
+    {
+     "type": "definition",
+     "texte": "Personne qui travaille sept jours sur sept pour que vous mangiez trois fois par jour."
+    },
+    {
+     "type": "empile",
+     "haut": "Agriculteur",
+     "gros": "Pas de week-end",
+     "bas": "Les vaches n'ont pas d'agenda"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Semer.",
+      "Soigner.",
+      "Récolter.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "Sans agriculteurs",
+     "gros": "Pas de repas",
+     "bas": "Pensez-y à table"
+    }
+   ]
+  }
+ ],
+ "collections": [
+  {
+   "slug": "gamer",
+   "titre": "Humour gamer",
+   "pub": [
+    "Le cadeau pour",
+    "Gamer"
+   ],
+   "description": "Un design original en français pour celles et ceux qui passent leurs soirées manette en main. Une idée cadeau pour un anniversaire, Noël ou juste pour rire entre joueurs.",
+   "texte_pub": "Tu connais quelqu'un qui dit « encore une partie » à 23 h ? Ce design est pour lui.",
+   "tags": [
+    "gamer",
+    "cadeau gamer",
+    "humour gamer",
+    "jeux vidéo",
+    "joueur",
+    "geek",
+    "gaming",
+    "manette",
+    "cadeau ado",
+    "cadeau geek"
+   ],
+   "designs": [
+    {
+     "type": "empile",
+     "haut": "Je suis pas mort",
+     "gros": "Il me reste 3 vies",
+     "bas": "Enfin, 2"
+    },
+    {
+     "type": "empile",
+     "haut": "Désolé pour le retard",
+     "gros": "Je finissais ma partie",
+     "bas": "Depuis hier soir"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Manger.",
+      "Dormir.",
+      "Jouer.",
+      "Recommencer."
+     ]
+    },
+    {
+     "type": "definition",
+     "mot": "Gamer",
+     "genre": "n. m.",
+     "texte": "Personne qui dit « encore une partie » à 23 h et qui regarde l'heure à 4 h."
+    },
+    {
+     "type": "empile",
+     "haut": "C'est pas moi",
+     "gros": "C'est le lag",
+     "bas": "Je le jure"
+    },
+    {
+     "type": "empile",
+     "haut": "Je ne rage pas",
+     "gros": "Je m'exprime fort",
+     "bas": "Nuance"
+    },
+    {
+     "type": "empile",
+     "haut": "Maman",
+     "gros": "Y a pas de pause en ligne",
+     "bas": "J'arrive dans 5 minutes"
+    },
+    {
+     "type": "empile",
+     "haut": "Niveau de batterie",
+     "gros": "Manette : 3 %",
+     "bas": "Moi : pareil"
+    },
+    {
+     "type": "definition",
+     "mot": "AFK",
+     "genre": "loc.",
+     "texte": "État d'une personne partie « deux secondes » chercher à manger. Durée réelle : vingt minutes."
+    },
+    {
+     "type": "empile",
+     "haut": "J'ai une vie sociale",
+     "gros": "Elle est en ligne",
+     "bas": "Et elle a un micro"
+    },
+    {
+     "type": "empile",
+     "haut": "Le dernier boss",
+     "gros": "C'est le lundi matin",
+     "bas": "Aucune sauvegarde possible"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Charger.",
+      "Mourir.",
+      "Recharger.",
+      "Insister."
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "humour",
+   "titre": "Humour du quotidien",
+   "pub": [
+    "Le t-shirt",
+    "Qui dit tout"
+   ],
+   "description": "Un design original en français, à porter sans complexe ou à offrir à la personne de la famille qui se reconnaîtra. Une idée cadeau drôle pour un anniversaire, Noël ou une soirée entre amis.",
+   "texte_pub": "On connaît tous quelqu'un comme ça. Identifie-le en commentaire.",
+   "tags": [
+    "humour",
+    "t-shirt drôle",
+    "cadeau drôle",
+    "blague",
+    "phrase drôle",
+    "cadeau rigolo",
+    "humour français",
+    "second degré",
+    "cadeau homme",
+    "cadeau femme"
+   ],
+   "designs": [
+    {
+     "type": "empile",
+     "haut": "Je ne suis pas en retard",
+     "gros": "Je suis en décalage horaire",
+     "bas": "Avec moi-même"
+    },
+    {
+     "type": "empile",
+     "haut": "J'ai un plan",
+     "gros": "Il est nul",
+     "bas": "Mais j'ai un plan"
+    },
+    {
+     "type": "empile",
+     "haut": "Régime en cours",
+     "gros": "Chargement : 2 %",
+     "bas": "Depuis 2019"
+    },
+    {
+     "type": "definition",
+     "mot": "Flemme",
+     "genre": "n. f.",
+     "texte": "Force invisible et très puissante qui s'exerce surtout le dimanche, entre le canapé et tout le reste."
+    },
+    {
+     "type": "empile",
+     "haut": "Je ne ronfle pas",
+     "gros": "Je rêve que je suis une moto",
+     "bas": "Nuance"
+    },
+    {
+     "type": "empile",
+     "haut": "Sportif de haut niveau",
+     "gros": "Catégorie canapé",
+     "bas": "Champion régional"
+    },
+    {
+     "type": "empile",
+     "haut": "Je suis de bonne humeur",
+     "gros": "N'en profitez pas",
+     "bas": "Ça ne durera pas"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Râler.",
+      "Manger.",
+      "Râler.",
+      "Dormir."
+     ]
+    },
+    {
+     "type": "empile",
+     "haut": "J'ai raison",
+     "gros": "Statistiquement",
+     "bas": "Presque toujours"
+    },
+    {
+     "type": "definition",
+     "mot": "Apéro",
+     "genre": "n. m.",
+     "texte": "Réunion de travail informelle dont l'ordre du jour est : chips, saucisson, et on verra."
+    },
+    {
+     "type": "empile",
+     "haut": "Je parle tout seul",
+     "gros": "Besoin d'un avis d'expert",
+     "bas": "C'est tout"
+    },
+    {
+     "type": "empile",
+     "haut": "Lundi",
+     "gros": "Je te déteste",
+     "bas": "Cordialement"
+    }
+   ]
+  },
+  {
+   "slug": "noel",
+   "titre": "Humour de Noël",
+   "pub": [
+    "Le t-shirt de",
+    "Noël"
+   ],
+   "accent": {
+    "clair": "#ff5a4d",
+    "fonce": "#c0261d"
+   },
+   "description": "Un design de Noël original en français, pour le réveillon, le repas de famille ou la soirée pull moche. Une idée cadeau drôle à glisser sous le sapin.",
+   "texte_pub": "Le repas de famille approche. Autant y aller avec le bon t-shirt.",
+   "tags": [
+    "noël",
+    "t-shirt noël",
+    "humour noël",
+    "cadeau noël",
+    "pull moche",
+    "réveillon",
+    "père noël",
+    "fêtes",
+    "cadeau drôle",
+    "famille"
+   ],
+   "designs": [
+    {
+     "type": "empile",
+     "haut": "Cher Père Noël",
+     "gros": "J'ai été sage",
+     "bas": "Enfin, par moments"
+    },
+    {
+     "type": "empile",
+     "haut": "Je suis là",
+     "gros": "Pour la bûche",
+     "bas": "Et les chocolats"
+    },
+    {
+     "type": "liste",
+     "lignes": [
+      "Manger.",
+      "Déballer.",
+      "Remanger.",
+      "Sieste."
+     ]
+    },
+    {
+     "type": "definition",
+     "mot": "Réveillon",
+     "genre": "n. m.",
+     "texte": "Repas qui commence à 20 h, se termine le lendemain, et dont on met trois jours à se remettre."
+    },
+    {
+     "type": "empile",
+     "haut": "Pull moche de Noël",
+     "gros": "Version t-shirt",
+     "bas": "Il fait trop chaud chez mamie"
+    },
+    {
+     "type": "empile",
+     "haut": "Cette année",
+     "gros": "J'offre ma présence",
+     "bas": "C'est déjà beaucoup"
+    },
+    {
+     "type": "empile",
+     "haut": "Équipe",
+     "gros": "Raclette de Noël",
+     "bas": "La dinde peut attendre"
+    },
+    {
+     "type": "empile",
+     "haut": "Le lutin préféré",
+     "gros": "Du Père Noël",
+     "bas": "Catégorie sieste"
+    },
+    {
+     "type": "empile",
+     "haut": "Oui, je reprends",
+     "gros": "De la bûche",
+     "bas": "Ne me jugez pas"
+    },
+    {
+     "type": "definition",
+     "mot": "Tonton",
+     "genre": "n. m.",
+     "texte": "Membre de la famille chargé des blagues nulles, du digestif et de la sieste d'après repas."
+    },
+    {
+     "type": "empile",
+     "haut": "J'ai pas grossi",
+     "gros": "C'est Noël",
+     "bas": "Qui a rétréci mes habits"
+    },
+    {
+     "type": "empile",
+     "haut": "Ma liste au Père Noël",
+     "gros": "Du calme",
+     "bas": "Et une raclette"
+    }
+   ]
+  }
+ ]
+}
