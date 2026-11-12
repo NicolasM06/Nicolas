@@ -173,6 +173,7 @@ function fiche(m, d, n) {
   return {
     id: `${m.slug}-${String(n).padStart(2, '0')}`,
     accroche,
+    blague: texte.replace(' Design façon jeu rétro en pixels.', ''),
     titre: `${d.sujet ? d.sujet + ' : ' : ''}${accroche} – ${m.titre}`.slice(0, 100),
     description: `${texte} ${m.description}`,
     tags: [...new Set([...(d.sujet ? [d.sujet.toLowerCase(), `cadeau ${d.sujet.toLowerCase()}`] : []), ...m.tags, ...D.mots_cles_communs])].slice(0, 15),
@@ -232,7 +233,7 @@ function fiche(m, d, n) {
   fs.writeFileSync(path.join(SORTIE, 'pub.json'), JSON.stringify(fiches.map((f) => ({
     id: f.id,
     collection: f.groupe.slug,
-    texte: `${f.accroche}\n\n${f.groupe.texte_pub} Disponible en t-shirt, mug et sticker.`,
+    texte: `${f.blague}\n\n${f.groupe.texte_pub} Disponible en t-shirt, mug et sticker.`,
     hashtags: f.tags.slice(0, 6).map((t) => '#' + t.replace(/[^\p{L}\p{N}]/gu, '')).join(' '),
   })), null, 1));
   console.log(`${fiches.length} designs, ${fiches.length * 2} fichiers PNG, ${fiches.length} épingles.`);
