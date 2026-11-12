@@ -229,10 +229,13 @@ def flux_rss(articles):
 
 def mentions():
     m = CFG["mentions_legales"]
+    lignes = "<br>".join(e(x) for x in (m["editeur"], m["statut"], m["adresse"]) if x)
+    if m["contact"]:
+        lignes += f'<br>Contact : <a href="mailto:{e(m["contact"])}">{e(m["contact"])}</a>'
     corps = f"""<article class="article">
   <h1>Mentions légales</h1>
   <h2>Éditeur du site</h2>
-  <p>{e(m['editeur'])}<br>{e(m['statut'])}<br>{e(m['adresse'])}<br>Contact : {e(m['contact'])}</p>
+  <p>{lignes}</p>
   <h2>Hébergement</h2>
   <p>GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
   <h2>Données personnelles</h2>
