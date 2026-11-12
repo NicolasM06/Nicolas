@@ -229,5 +229,11 @@ function fiche(m, d, n) {
     + fiches.map((f) => `## ${f.id}\n\n**Image** : pub/${f.id}.png\n\n**Titre** : ${f.accroche} – ${f.groupe.titre}\n\n`
       + `**Texte** : ${f.groupe.texte_pub} Disponible en t-shirt, mug et sticker. ${lien}\n\n`
       + `**Hashtags** : ${f.tags.slice(0, 6).map((t) => '#' + t.replace(/[^\p{L}\p{N}]/gu, '')).join(' ')}\n`).join('\n'));
+  fs.writeFileSync(path.join(SORTIE, 'pub.json'), JSON.stringify(fiches.map((f) => ({
+    id: f.id,
+    collection: f.groupe.slug,
+    texte: `${f.accroche}\n\n${f.groupe.texte_pub} Disponible en t-shirt, mug et sticker.`,
+    hashtags: f.tags.slice(0, 6).map((t) => '#' + t.replace(/[^\p{L}\p{N}]/gu, '')).join(' '),
+  })), null, 1));
   console.log(`${fiches.length} designs, ${fiches.length * 2} fichiers PNG, ${fiches.length} épingles.`);
 })();

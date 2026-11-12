@@ -30,6 +30,19 @@ Tout sort dans `impression/sortie/` (non versionné) :
 - `pub/` : une image verticale par design pour Pinterest, Instagram, Facebook.
 - `pub.md` : titre, texte et hashtags de chaque publication.
 
+## Programmer la pub sur Facebook
+
+`publier_facebook.js` programme les visuels de `sortie/pub/` sur une page Facebook via
+l'accès officiel de Meta (clé d'accès de page, jamais de mot de passe).
+
+```
+node impression/publier_facebook.js --page ID_PAGE              # affiche le plan
+node impression/publier_facebook.js --page ID_PAGE --envoyer    # programme
+```
+
+Les designs déjà programmés sont notés dans `publications-faites.json` pour ne pas
+être publiés deux fois.
+
 ## Ajouter des designs
 
 Tout se passe dans `donnees.json`. Quatre formes de design :
