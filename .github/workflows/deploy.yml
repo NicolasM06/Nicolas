@@ -2,7 +2,7 @@ name: Publier le site
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/business-semi-auto-pleahu]
   schedule:
     - cron: "17 5 * * *"   # chaque matin : met en ligne les articles programmés
   workflow_dispatch:

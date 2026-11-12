@@ -15,7 +15,7 @@ budget en français (Excel / Google Sheets), vendus depuis un site statique.
 ## Mise en route
 
 1. **Activer le site** : sur GitHub, *Settings → Pages → Source : GitHub Actions*.
-   Le workflow `Publier le site` se lance à chaque push sur `main` et chaque matin.
+   Le workflow `Publier le site` se lance à chaque push et chaque matin.
 2. **Générer les produits** :
    ```
    pip install -r requirements.txt
