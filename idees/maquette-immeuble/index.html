@@ -18,13 +18,13 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);overflow:hidden}
+body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:hidden}
 .app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr)}
 .barre{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;
   padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
   border-bottom:1px solid var(--line2);background:var(--surface)}
-.enseigne{font:500 .78rem var(--mono);letter-spacing:.22em;text-transform:uppercase}
-.maquette{font:500 .66rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.enseigne{font:500 .8rem var(--mono);letter-spacing:.22em;text-transform:uppercase}
+.maquette{font:500 .8rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
 .maquette b{color:var(--lampe);font-weight:500}
 
 /* ── La cage : un étage visible, les autres au-dessus et en dessous ── */
@@ -47,10 +47,11 @@ body{background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);overflow:
 .fiche{display:flex;flex-direction:column;justify-content:center;gap:14px;min-width:0;
   padding:24px clamp(18px,5vw,56px);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
 .niveau.ici .fiche{opacity:1;transform:none;transition-delay:calc(var(--trajet) - .25s)}
-.etat{font:500 .7rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:8px}
+.etat{font:500 .8rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:8px}
 .etat::before{content:"";width:8px;height:8px;background:var(--text3)}
 .ouvert .etat{color:var(--green)}.ouvert .etat::before{background:var(--green)}
 .note .etat{color:var(--lampe)}.note .etat::before{background:var(--lampe)}
+.accroche{margin:0 0 6px;color:var(--text);font-size:1rem;font-weight:500;max-width:30em;border-left:3px solid var(--accent);padding-left:12px}
 .nom{font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:-.035em;font-weight:700;margin:0}
 .role{font-size:1.15rem;color:var(--text2);margin:0}
 .fiche p.texte{margin:0;color:var(--text2);font-size:1.05rem;max-width:30em}
@@ -63,15 +64,44 @@ body{background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);overflow:
 .btn[aria-pressed="true"]{border-color:var(--lampe);color:var(--lampe)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
+.indice{position:absolute;left:50%;top:14px;transform:translateX(-50%);margin:0;z-index:5;background:var(--accent);color:#fff;font-weight:600;font-size:.95rem;
+  padding:10px 16px;border-radius:999px;white-space:nowrap;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.piste.bute-bas{animation:buteBas .45s ease-out}.piste.bute-haut{animation:buteHaut .45s ease-out}
+@keyframes buteBas{40%{translate:0 -18px}}@keyframes buteHaut{40%{translate:0 18px}}
+
+/* ── Le menu ── */
+.menu-btn{font:500 .8rem var(--sans);color:var(--text);background:var(--surface2);border:1px solid var(--line2);border-radius:6px;padding:8px 14px;min-height:44px;cursor:pointer}
+.menu-btn:hover{background:var(--surface3)}
+.barre .maquette{margin-left:auto}
+@media (max-width:520px){.barre .maquette span{display:none}}
+.menu{position:fixed;inset:0;z-index:20;display:flex;justify-content:flex-end}
+.menu[hidden]{display:none}
+.menu-fond{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.menu-feuille{position:relative;width:min(380px,100%);height:100%;background:var(--surface);border-left:1px solid var(--line2);display:flex;flex-direction:column;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 18px;overflow:auto;animation:tiroir .25s ease-out}
+@keyframes tiroir{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
+.menu-tete{display:flex;justify-content:space-between;align-items:center;font:500 .72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);padding-bottom:12px;border-bottom:1px solid var(--line)}
+.menu ul{list-style:none;margin:0;padding:0}
+.menu li button{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:12px;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);
+  color:var(--text);padding:14px 2px;cursor:pointer;font:inherit}
+.menu li button:hover{background:var(--surface2)}
+.menu li .et{font:500 .8rem var(--mono);color:var(--text3)}
+.menu li b{display:block;font-size:1.05rem;font-weight:600}
+.menu li small{color:var(--text2);font-size:.86rem}
+.menu li .st{font:500 .64rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.menu li .st.o{color:var(--green)}.menu li .st.n{color:var(--lampe)}
+.menu li button[aria-current="true"] .et{color:var(--accent)}
+.menu-note{margin:16px 0 0;color:var(--text3);font-size:.84rem}
+
 /* ── Le panneau d'ascenseur ── */
 .panneau{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface2);border-left:1px solid var(--line2);
   padding:14px 12px;padding-right:max(12px,env(safe-area-inset-right,0px))}
 .panneau button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line2);background:var(--surface);color:var(--text2);
-  font:500 .78rem var(--mono);cursor:pointer;position:relative;transition:background .2s,color .2s,border-color .2s}
+  font:500 .8rem var(--mono);cursor:pointer;position:relative;transition:background .2s,color .2s,border-color .2s}
 .panneau button:hover{color:var(--text);border-color:var(--text3)}
 .panneau button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .panneau button.vote::after{content:"";position:absolute;top:2px;right:2px;width:9px;height:9px;border-radius:50%;background:var(--lampe);border:2px solid var(--surface2)}
-.panneau .fleche{border-radius:8px;height:38px;font-size:1rem}
+.panneau .fleche{border-radius:8px;height:44px;font-size:1rem}
 .panneau .fleche:disabled{opacity:.25;cursor:default}
 .panneau .fleche.appel{animation:appel 1.6s ease-in-out infinite;color:var(--text);border-color:var(--accent)}
 @keyframes appel{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
@@ -79,25 +109,34 @@ body{background:var(--bg);color:var(--text);font:16px/1.55 var(--sans);overflow:
 
 @media (max-width:720px){
   .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
-  .niveau{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,42%) minmax(0,1fr)}
+  .niveau{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,36%) minmax(0,1fr)}
   .scene{border-right:0;border-bottom:1px solid var(--line)}
   .perso{height:78%;margin-bottom:16px}
   .scene .sol{height:16px}
   .fiche{justify-content:flex-start;gap:10px;padding:18px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));overflow:auto}
-  .nom{font-size:2.2rem}.role{font-size:1rem}.fiche p.texte{font-size:.98rem}
+  .nom{font-size:2rem}.role{font-size:1rem}.fiche p.texte{font-size:.98rem}.accroche{font-size:.92rem}
   .panneau{flex-direction:row;border-left:0;border-top:1px solid var(--line2);gap:6px;
     padding:10px max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px))}
-  .panneau button{width:42px;height:42px}
-  .panneau .fleche{width:42px;height:42px}
+  .panneau button,.panneau .fleche{width:44px;height:44px;flex:none}
+  .fiche .btn{position:sticky;bottom:0;z-index:2;background:var(--surface);box-shadow:0 0 0 10px var(--surface)}
+  .fiche .btn.plein{background:var(--accent)}
   .panneau .haut{order:9}
 }
 @media (prefers-reduced-motion:reduce){:root{--trajet:0s}*{animation:none!important;transition:none!important}}
 </style>
 
 <div class="app">
-  <header class="barre"><span class="enseigne">Berthier &amp; Cie</span><span class="maquette"><b>Maquette</b> · noms provisoires</span></header>
-  <main class="cage" id="cage" aria-live="polite"><div class="piste" id="piste"></div></main>
+  <header class="barre"><span class="enseigne">Berthier &amp; Cie</span><span class="maquette"><b>Maquette</b><span> · noms provisoires</span></span><button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button></header>
+  <main class="cage" id="cage" aria-live="polite"><div class="piste" id="piste"></div><p class="indice" id="indice" hidden></p></main>
   <nav class="panneau" id="panneau" aria-label="Ascenseur"></nav>
+  <div class="menu" id="menu" hidden>
+    <div class="menu-fond" data-fermer></div>
+    <div class="menu-feuille" role="dialog" aria-label="Tous les étages">
+      <div class="menu-tete"><span>Tous les étages</span><button class="menu-btn" data-fermer>Fermer</button></div>
+      <ul id="menu-liste"></ul>
+      <p class="menu-note">Maquette : seule l'appli Berthier existe. Les autres étages servent à mesurer ce qui intéresse.</p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -172,18 +211,19 @@ function niveauHTML(e,i){
   return `<section class="niveau ${e.ouvert?'ouvert':'ferme'} ${note?'note':''} ${i===ici?'ici':''}" data-i="${i}" aria-hidden="${i!==ici}">
     <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span><div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div></div>
     <div class="fiche">
+      ${e.ouvert?'<p class="accroche">Une équipe entière, une appli par personne. Les collègues de Berthier sont aux étages.</p>':''}
       <span class="etat">${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'} · ${etat}</span>
       <h1 class="nom">${e.nom}</h1>
       <p class="role">${e.role[0].toUpperCase()+e.role.slice(1)}</p>
       <p class="texte">${e.texte}</p>
-      <ul class="liste">${e.points.map(p=>`<li>${p}</li>`).join('')}</ul>
       ${action}
+      <ul class="liste">${e.points.map(p=>`<li>${p}</li>`).join('')}</ul>
       ${i===ETAGES.length-1?'':'<p class="vote-ligne"></p>'}
     </div></section>`;
 }
 function rendrePanneau(){
   panneau.innerHTML=`<button class="fleche haut ${aBouge?'':'appel'}" data-pas="-1" aria-label="Monter d'un étage" ${ici===0?'disabled':''}>▲</button>`
-    +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''}" aria-current="${i===ici}" aria-label="${e.nom}, ${e.no}">${e.no==='RDC'?'0':e.no[0]}</button>`).join('')
+    +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''}" aria-current="${i===ici}" aria-label="${e.nom}, ${e.no}">${e.no==='RDC'?'RDC':e.no[0]}</button>`).join('')
     +`<button class="fleche bas" data-pas="1" aria-label="Descendre d'un étage" ${ici===ETAGES.length-1?'disabled':''}>▼</button>`;
 }
 function placer(){
@@ -192,9 +232,16 @@ function placer(){
     n.querySelectorAll('a,button').forEach(b=>b.tabIndex=i===ici?0:-1)});
   rendrePanneau();
 }
+const indice=document.getElementById('indice');let minuterie;
+function buter(sens){            // on est au bout : petit rebond et rappel de la direction
+  piste.classList.remove('bute-bas','bute-haut');void piste.offsetWidth;piste.classList.add(sens>0?'bute-bas':'bute-haut');
+  indice.textContent=sens>0?'Les étages sont au-dessus : glisse vers le bas ou touche ▲':'C\u2019est le dernier étage';
+  indice.hidden=false;clearTimeout(minuterie);minuterie=setTimeout(()=>{indice.hidden=true},2600);
+}
 function aller(i){
-  i=Math.max(0,Math.min(ETAGES.length-1,i));
-  if(i===ici||enRoute)return;
+  if(enRoute)return;
+  if(i<0||i>ETAGES.length-1)return buter(i<0?-1:1);
+  if(i===ici)return;indice.hidden=true;
   // Trajet plus long quand on saute plusieurs étages, comme un vrai ascenseur.
   const duree=.55+.3*Math.abs(i-ici);
   document.documentElement.style.setProperty('--trajet',duree+'s');
@@ -202,6 +249,25 @@ function aller(i){
   setTimeout(()=>{enRoute=false},matchMedia('(prefers-reduced-motion:reduce)').matches?0:duree*1000);
 }
 function tout(){piste.innerHTML=ETAGES.map(niveauHTML).join('');placer()}
+
+const menu=document.getElementById('menu'), menuBtn=document.getElementById('menu-btn');
+function rendreMenu(){
+  document.getElementById('menu-liste').innerHTML=ETAGES.map((e,i)=>{
+    const note=notes.includes(e.id);
+    return `<li><button data-aller="${i}" aria-current="${i===ici}"><span class="et">${e.no}</span>
+      <span><b>${e.nom}</b><small>${e.role[0].toUpperCase()+e.role.slice(1)} · ${e.points.slice(0,3).join(', ')}</small></span>
+      <span class="st ${e.ouvert?'o':note?'n':''}">${e.ouvert?'Ouvert':note?'Noté':'Bientôt'}</span></button></li>`}).join('');
+}
+function ouvrirMenu(oui){
+  if(oui)rendreMenu();
+  menu.hidden=!oui;menuBtn.setAttribute('aria-expanded',oui);
+  if(oui)menu.querySelector('[aria-current="true"]')?.focus();else menuBtn.focus();
+}
+menuBtn.addEventListener('click',()=>ouvrirMenu(true));
+menu.addEventListener('click',ev=>{
+  if(ev.target.closest('[data-fermer]'))return ouvrirMenu(false);
+  const b=ev.target.closest('button[data-aller]');if(b){ouvrirMenu(false);aller(+b.dataset.aller)}
+});
 
 panneau.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;
   if(b.dataset.pas)aller(ici+ +b.dataset.pas);else aller(+b.dataset.aller)});
@@ -213,13 +279,17 @@ piste.addEventListener('click',ev=>{const b=ev.target.closest('button[data-id]')
   n.querySelector('.etat').textContent=`${ETAGES[ici].no} étage · ${note?'Tu seras prévenu':'Bientôt'}`;
   n.querySelector('.vote-ligne').textContent=note?'Dans la vraie version, ce clic serait compté.':'';
   rendrePanneau()});
-// Diapo suivante = étage du dessus : molette vers le bas, balayage vers le haut, ou flèche haut.
+// L'immeuble suit le doigt et la molette, comme une page : tirer vers le bas fait monter.
 let cumul=0;
-addEventListener('wheel',ev=>{if(enRoute)return;cumul+=ev.deltaY;if(Math.abs(cumul)>60){aller(ici+(cumul>0?-1:1));cumul=0}},{passive:true});
+addEventListener('wheel',ev=>{if(enRoute||!menu.hidden)return;cumul+=ev.deltaY;if(Math.abs(cumul)>60){aller(ici+(cumul>0?1:-1));cumul=0}},{passive:true});
 let y0=null;
-addEventListener('touchstart',ev=>{y0=ev.touches[0].clientY},{passive:true});
-addEventListener('touchend',ev=>{if(y0===null)return;const d=ev.changedTouches[0].clientY-y0;y0=null;if(Math.abs(d)>50)aller(ici+(d<0?-1:1))},{passive:true});
-addEventListener('keydown',ev=>{if(ev.key==='ArrowUp'||ev.key==='PageUp'){ev.preventDefault();aller(ici-1)}
+let ficheDepart=null,defilDepart=0;
+addEventListener('touchstart',ev=>{y0=ev.touches[0].clientY;ficheDepart=ev.target.closest?.('.fiche')||null;defilDepart=ficheDepart?ficheDepart.scrollTop:0},{passive:true});
+addEventListener('touchend',ev=>{if(y0===null||!menu.hidden){y0=null;return}const d=ev.changedTouches[0].clientY-y0;y0=null;
+  if(ficheDepart){const f=ficheDepart,reste=f.scrollHeight-f.clientHeight;if(f.scrollTop!==defilDepart||(d<0&&f.scrollTop<reste-1)||(d>0&&f.scrollTop>1))return}
+  if(Math.abs(d)>50)aller(ici+(d<0?1:-1))},{passive:true});
+addEventListener('keydown',ev=>{if(!menu.hidden){if(ev.key==='Escape')ouvrirMenu(false);return}
+  if(ev.key==='ArrowUp'||ev.key==='PageUp'){ev.preventDefault();aller(ici-1)}
   if(ev.key==='ArrowDown'||ev.key==='PageDown'){ev.preventDefault();aller(ici+1)}});
 piste.style.transition='none';tout();requestAnimationFrame(()=>requestAnimationFrame(()=>{piste.style.transition=''}));
 </script>
