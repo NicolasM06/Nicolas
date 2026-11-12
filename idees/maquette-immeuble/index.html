@@ -62,6 +62,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .ouvert .etat{color:var(--green)}.ouvert .etat::before{background:var(--green)}
 .note .etat{color:var(--lampe)}.note .etat::before{background:var(--lampe)}
 .accroche{margin:0 0 6px;color:var(--text);font-size:1rem;font-weight:500;max-width:30em;border-left:3px solid var(--accent);padding-left:12px}
+.mention{margin:0;color:var(--text3);font-size:.88rem;max-width:32em}
 .nom{font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:-.035em;font-weight:700;margin:0}
 .role{font-size:1.15rem;color:var(--text2);margin:0}
 .fiche p.texte{margin:0;color:var(--text2);font-size:1.05rem;max-width:30em}
@@ -84,7 +85,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .menu-btn{font:500 .8rem var(--sans);color:var(--text);background:var(--surface2);border:1px solid var(--line2);border-radius:6px;padding:8px 14px;min-height:44px;cursor:pointer}
 .menu-btn:hover{background:var(--surface3)}
 .barre .maquette{margin-left:auto}
-@media (max-width:520px){.barre .maquette span{display:none}}
+@media (max-width:520px){.barre .maquette span{display:none}.enseigne{letter-spacing:.1em;white-space:nowrap}.barre{gap:8px}}
 .menu{position:fixed;inset:0;z-index:20;display:flex;justify-content:flex-end}
 .menu[hidden]{display:none}
 .menu-fond{position:absolute;inset:0;background:rgba(0,0,0,.6)}
@@ -112,6 +113,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .panneau button:hover{color:var(--text);border-color:var(--text3)}
 .panneau button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .panneau button.vote::after{content:"";position:absolute;top:2px;right:2px;width:9px;height:9px;border-radius:50%;background:var(--lampe);border:2px solid var(--surface2)}
+.panneau button.ouvert::before{content:"";position:absolute;bottom:2px;right:2px;width:9px;height:9px;border-radius:50%;background:var(--green);border:2px solid var(--surface2)}
 .panneau .fleche{border-radius:8px;height:44px;font-size:1rem}
 .panneau .fleche:disabled{opacity:.25;cursor:default}
 .panneau .fleche.appel{animation:appel 1.6s ease-in-out infinite;color:var(--text);border-color:var(--accent)}
@@ -213,13 +215,13 @@ const ETAGES=[
    points:['Clients','Commandes','Factures'],
    look:{alt:'Marchand',gomina:true,sourire:true,oreillette:true,peau:['#f1c7a3','#d9a37f'],poil:['#4a2f1b','#8a5a2b'],tissu:['#1f2f55','#16213d'],touche:['#d93a3a','#a52a2a'],haut:'veste',cravate:true,objet:'mallette'}},
   {no:'2e',id:'legal',nom:'Delmas',role:'la juriste',texte:"Elle t'explique les démarches et te fournit des modèles : mentions légales, conditions de vente, statut.",
-   points:['Modèles','Démarches','Liens officiels'],
+   points:['Modèles','Démarches','Liens officiels'],mention:'Informations générales et modèles : ne remplace pas un avocat. Pas encore de date.',
    look:{alt:'Delmas',cheveux:'chignon',lunettes:true,peau:['#e9b998','#c99473'],poil:['#5b2c1e','#7d4230'],tissu:['#1b1c20','#101114'],touche:['#4f8cff','#2f63c9'],haut:'robe',objet:'code'}},
   {no:'1er',id:'site',nom:'Kovac',role:"l'informaticien",texte:"Il monte ton site en glissant des blocs, et il y branche le paiement en ligne.",
    points:['Créateur de site','Paiement','Export'],
    look:{alt:'Kovac',cheveux:'court',casque:true,lunettes:true,barbe:true,peau:['#f1c7a3','#d9a37f'],poil:['#3a2a20','#5a4232'],tissu:['#3b3f4a','#2a2c32'],touche:['#3ecf8e','#2a9d69'],haut:'capuche',objet:'portable'}},
   {no:'RDC',id:'berthier',nom:'Berthier',role:'le comptable',ouvert:true,texte:"Il note tes ventes en deux tapotements, suit ton stock et te dit quels marchés valent le déplacement.",
-   points:['Ventes','Stock','Marchés','Dépenses','Bilan']},
+   points:['Ventes','Stock','Marchés','Dépenses','Bilan'],mention:'Gratuit pendant la bêta, sans carte bancaire.'},
 ];
 
 
@@ -285,19 +287,20 @@ function niveauHTML(e,i){
   return `<section class="niveau ${e.ouvert?'ouvert':'ferme'} ${note?'note':''} ${i===ici?'ici':''}" data-i="${i}" aria-hidden="${i!==ici}">
     <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span>${decorHTML(e.id,e.look?e.look.touche[0]:"#4f8cff")}<div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div></div>
     <div class="fiche">
-      ${e.ouvert?'<p class="accroche">Une équipe entière, une appli par personne. Les collègues de Berthier sont aux étages.</p>':''}
+      ${e.ouvert?'<p class="accroche">Berthier et ses collègues sont des applis, une par métier. Tu ne prends que celles qu\u2019il te faut.</p>':''}
       <span class="etat">${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'} · ${etat}</span>
       <h1 class="nom">${e.nom}</h1>
       <p class="role">${e.role[0].toUpperCase()+e.role.slice(1)}</p>
       <p class="texte">${e.texte}</p>
       ${action}
+      <p class="mention">${e.mention||'Pas encore de date. Ton clic aide à décider quelle appli sort en premier.'}</p>
       <ul class="liste">${e.points.map(p=>`<li>${p}</li>`).join('')}</ul>
       ${i===ETAGES.length-1?'':'<p class="vote-ligne"></p>'}
     </div></section>`;
 }
 function rendrePanneau(){
   panneau.innerHTML=`<button class="fleche haut ${aBouge?'':'appel'}" data-pas="-1" aria-label="Monter d'un étage" ${ici===0?'disabled':''}>▲</button>`
-    +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''}" aria-current="${i===ici}" aria-label="${e.nom}, ${e.no}">${e.no==='RDC'?'RDC':e.no[0]}</button>`).join('')
+    +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''} ${e.ouvert?'ouvert':''}" aria-current="${i===ici}" title="${e.nom}, ${e.role}${e.ouvert?' — ouvert':''}" aria-label="${e.nom}, ${e.role}, ${e.no}${e.ouvert?', ouvert':', bientôt'}">${e.no==='RDC'?'RDC':e.no[0]}</button>`).join('')
     +`<button class="fleche bas" data-pas="1" aria-label="Descendre d'un étage" ${ici===ETAGES.length-1?'disabled':''}>▼</button>`;
 }
 function placer(){
@@ -352,7 +355,7 @@ piste.addEventListener('click',ev=>{const b=ev.target.closest('button[data-id]')
   const n=b.closest('.niveau'),note=notes.includes(id);
   n.classList.toggle('note',note);b.setAttribute('aria-pressed',note);b.textContent=note?'C\u2019est noté':'Préviens-moi';
   n.querySelector('.etat').textContent=`${ETAGES[ici].no} étage · ${note?'Tu seras prévenu':'Bientôt'}`;
-  n.querySelector('.vote-ligne').textContent=note?'Dans la vraie version, ce clic serait compté.':'';
+  n.querySelector('.vote-ligne').textContent=note?'Dans la vraie version, on te demanderait ton e-mail pour te prévenir.':'';
   rendrePanneau()});
 // L'immeuble suit le doigt et la molette, comme une page : tirer vers le bas fait monter.
 let cumul=0;

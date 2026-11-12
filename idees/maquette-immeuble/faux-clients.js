@@ -25,6 +25,7 @@ const verifier = () => {
   const croise = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
   const nom = n.querySelector('.nom').textContent;
   if (document.documentElement.scrollWidth > innerWidth + 1) pb.push('la page déborde en largeur');
+  { const en = document.querySelector('.enseigne'); if (en.getBoundingClientRect().height > parseFloat(getComputedStyle(en).fontSize) * 2) pb.push('enseigne sur deux lignes'); }
   if (document.documentElement.scrollHeight > innerHeight + 1) pb.push('la page déborde en hauteur');
   const btn = n.querySelector('.btn'); if (!dans(R(btn), cage)) pb.push('bouton principal hors écran');
   const pan = document.querySelector('.panneau'); if (pan.scrollHeight > pan.clientHeight + 1 || pan.scrollWidth > pan.clientWidth + 1) pb.push('panneau d\'ascenseur trop grand');
@@ -61,6 +62,19 @@ const verifier = () => {
       const ind = await p.evaluate(() => { dispatchEvent(new WheelEvent('wheel', { deltaY: 200 })); const i = document.getElementById('indice'), r = i.getBoundingClientRect(); const f = document.querySelector('.fleche.haut');
         return { vu: !i.hidden, texte: i.textContent, coupe: i.scrollWidth > i.clientWidth + 1, hors: r.left < 0 || r.right > innerWidth, fleche: getComputedStyle(f).display !== 'none' }; });
       if (!ind.vu) pbs.push('aucune aide quand on bute au rez-de-chaussée'); if (ind.coupe || ind.hors) pbs.push("message d'aide coupé : " + ind.texte); if (/▲/.test(ind.texte) && !ind.fleche) pbs.push('le message cite une flèche absente'); }
+    // Questions que se posent les faux clients en lisant : c'est gratuit ? c'est un vrai avocat ? comment on me prévient ? quel étage est ouvert ?
+    if (i === 0 || i === 6) {
+      const lire = async (k) => { await p.evaluate((k) => document.querySelector(`.panneau [data-aller="${k}"]`).click(), k); await p.waitForTimeout(c.calme ? 300 : 2600); return p.evaluate(() => document.querySelector('.niveau.ici .fiche').innerText); };
+      const rdc = await lire(4); if (!/gratuit/i.test(rdc)) pbs.push('Sylvie : « C\u2019est gratuit ? » — rien ne le dit au rez-de-chaussée');
+      if (!/applis?\b/i.test(rdc)) pbs.push('Marc : « Ce sont de vraies personnes ? » — rien ne dit que ce sont des applis');
+      const jur = await lire(2); if (!/ne remplace pas/i.test(jur)) pbs.push('Marc : « C\u2019est une vraie avocate ? » — aucune mise en garde chez la juriste');
+      const site = await lire(3); if (!/date/i.test(site)) pbs.push('Karim : « Bientôt, c\u2019est quand ? » — aucune indication');
+      await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(300);
+      const apresVote = await p.evaluate(() => document.querySelector('.niveau.ici .fiche').innerText); if (!/e-mail/i.test(apresVote)) pbs.push('Jeanne : « Me prévenir, mais comment ? » — rien ne l\u2019explique');
+      await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click());
+      const pan = await p.evaluate(() => ({ ouvert: !!document.querySelector('.panneau button.ouvert'), titres: [...document.querySelectorAll('.panneau [data-aller]')].every((b) => b.title) }));
+      if (!pan.ouvert) pbs.push('Nadia : « Quel étage est ouvert ? » — l\u2019ascenseur ne le montre pas'); if (!pan.titres) pbs.push('Nadia : « Qui est à quel étage ? » — les boutons n\u2019ont que des numéros');
+    }
     // Menu : s'ouvre, tient dans l'écran, se ferme, ramène au bon étage.
     await p.evaluate(() => document.getElementById('menu-btn').click()); await p.waitForTimeout(350);
     const menu = await p.evaluate(() => { const f = document.querySelector('.menu-feuille'), r = f.getBoundingClientRect(); const l = [...document.querySelectorAll('#menu-liste button')].map((x) => x.getBoundingClientRect());
