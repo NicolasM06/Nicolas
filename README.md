@@ -35,6 +35,17 @@ Avant d'encaisser : en France, vendre régulièrement demande un statut (la
 micro-entreprise se crée gratuitement en ligne) et la déclaration du chiffre
 d'affaires. Vérifie les règles en vigueur sur les sites officiels.
 
+## Publication automatique sur Pinterest
+
+Le site expose un flux RSS (`flux.xml`) avec une image verticale par article.
+À faire une seule fois : créer un compte Pinterest professionnel (gratuit), revendiquer
+le site, puis dans les paramètres chercher la publication automatique depuis un flux
+RSS et y coller `https://…/flux.xml`. Chaque article mis en ligne devient alors une
+épingle sans intervention. (Vérifie dans Pinterest que l'option existe toujours.)
+
+Après avoir ajouté des articles : `node outils/epingles.js` crée les images manquantes
+dans `images/epingles/` ; committe-les avec les articles.
+
 ## Routine (1 à 2 h par semaine)
 
 - **Une fois par mois** : écrire 4 articles dans `contenu/articles/`, chacun avec une

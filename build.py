@@ -13,6 +13,7 @@ import html
 import json
 import shutil
 import sys
+from email.utils import format_datetime
 from pathlib import Path
 
 import markdown
@@ -31,9 +32,10 @@ def date_fr(d):
     return f"{d.day}{'er' if d.day == 1 else ''} {MOIS[d.month - 1]} {d.year}"
 
 
-def page(titre, description, corps, racine="", chemin=""):
+def page(titre, description, corps, racine="", chemin="", image=""):
     """racine = préfixe relatif vers la racine du site ('' ou '../')."""
     titre_complet = f"{titre} — {CFG['nom']}" if titre else f"{CFG['nom']} — {CFG['slogan']}"
+    og_image = f'<meta property="og:image" content="{e(image)}">\n' if image else ""
     return f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -44,6 +46,7 @@ def page(titre, description, corps, racine="", chemin=""):
 <link rel="canonical" href="{e(CFG['url'].rstrip('/') + '/' + chemin)}">
 <meta property="og:title" content="{e(titre_complet)}">
 <meta property="og:description" content="{e(description)}">
+{og_image}<link rel="alternate" type="application/rss+xml" title="{e(CFG['nom'])}" href="{racine}flux.xml">
 <link rel="stylesheet" href="{racine}style.css">
 </head>
 <body>
@@ -195,7 +198,33 @@ def page_article(a):
 </article>
 {encart_gratuit('../')}"""
     return page(a["titre"], a["description"], corps, racine="../",
-                chemin=f"blog/{a['slug']}.html")
+                chemin=f"blog/{a['slug']}.html", image=url_epingle(a))
+
+
+def url_epingle(a):
+    if (RACINE / "images" / "epingles" / f"{a['slug']}.png").exists():
+        return f"{CFG['url'].rstrip('/')}/images/epingles/{a['slug']}.png"
+    return ""
+
+
+def flux_rss(articles):
+    """Flux lu par Pinterest (et autres) pour publier chaque nouvel article."""
+    base = CFG["url"].rstrip("/")
+    items = []
+    for a in articles[:20]:
+        lien = f"{base}/blog/{a['slug']}.html"
+        image = url_epingle(a)
+        date = dt.datetime.combine(a["date"], dt.time(6), dt.timezone.utc)
+        piece = f'<enclosure url="{e(image)}" type="image/png" length="0"/>' if image else ""
+        vignette = f'<img src="{e(image)}" alt=""> ' if image else ""
+        items.append(
+            f"<item><title>{e(a['titre'])}</title><link>{e(lien)}</link>"
+            f"<guid>{e(lien)}</guid><pubDate>{format_datetime(date)}</pubDate>"
+            f"<description><![CDATA[{vignette}{a['description']}]]></description>{piece}</item>")
+    return ('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel>'
+            f"<title>{e(CFG['nom'])}</title><link>{e(base)}/</link>"
+            f"<description>{e(CFG['description'])}</description><language>fr</language>"
+            + "".join(items) + "</channel></rss>")
 
 
 def mentions():
@@ -263,6 +292,9 @@ def main():
         sys.exit("Modèle gratuit introuvable : lance d'abord  python produits/generer.py")
     shutil.copy(source, SORTIE / "telechargements" / GRATUIT["fichier"])
 
+    if (RACINE / "images").exists():
+        shutil.copytree(RACINE / "images", SORTIE / "images")
+    (SORTIE / "flux.xml").write_text(flux_rss(articles), encoding="utf-8")
     (SORTIE / "index.html").write_text(accueil(articles), encoding="utf-8")
     (SORTIE / "mentions-legales.html").write_text(mentions(), encoding="utf-8")
     (SORTIE / "blog" / "index.html").write_text(blog_index(articles), encoding="utf-8")
