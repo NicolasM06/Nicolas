@@ -477,11 +477,11 @@
    "designs": [
     {
      "type": "pixel",
-     "haut": "Je suis pas mort",
+     "haut": "Patience restante",
      "icone": "coeurs",
-     "pleins": 3,
+     "pleins": 1,
      "total": 4,
-     "bas": "Il me reste 3 vies"
+     "bas": "Choisis bien tes mots"
     },
     {
      "type": "empile",
