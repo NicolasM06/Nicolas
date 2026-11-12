@@ -1,10 +1,12 @@
 name: Publier le site
 
 on:
-  push:
-    branches: [main, claude/business-semi-auto-pleahu]
-  schedule:
-    - cron: "17 5 * * *"   # chaque matin : met en ligne les articles programmés
+  # Projet en pause : seul le lancement manuel reste actif.
+  # Pour réactiver, décommenter les lignes ci-dessous.
+  # push:
+  #   branches: [main, claude/business-semi-auto-pleahu]
+  # schedule:
+  #   - cron: "17 5 * * *"   # chaque matin : met en ligne les articles programmés
   workflow_dispatch:
 
 permissions:
