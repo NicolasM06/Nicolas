@@ -1,0 +1,98 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Mythe ou vérité ?",
+ "publication": "Les Vikings portaient-ils des casques à cornes ?",
+ "sources": [
+  "https://www.history.com/news/did-vikings-really-wear-horned-helmets",
+  "https://www.futura-sciences.com/sciences/questions-reponses/histoire-saviez-vous-vikings-nont-jamais-porte-casques-cornes-contrairement-legende-populaire-24958/",
+  "https://www.nationalgeographic.com/history/article/facts-vs-fiction-how-the-real-vikings-compared-to-the-brutal-warriors-of-lore"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Les Vikings avaient des cornes sur leur casque, non ?",
+   "ecran": "Des cornes ?",
+   "image": "cornes"
+  },
+  {
+   "qui": "B",
+   "texte": "Non. On n'a jamais retrouvé un seul casque viking à cornes.",
+   "ecran": "Aucun casque à cornes",
+   "image": "casque"
+  },
+  {
+   "qui": "A",
+   "texte": "Jamais ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Le seul casque viking presque complet a été trouvé en Norvège, à Gjermundbu, en 1943.",
+   "ecran": "Gjermundbu, 1943",
+   "image": "pelle"
+  },
+  {
+   "qui": "B",
+   "texte": "Il est rond, sobre, sans aucune corne.",
+   "ecran": "Sans cornes",
+   "image": "casque"
+  },
+  {
+   "qui": "A",
+   "texte": "Alors qui a inventé les cornes ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Un costumier d'opéra. En 1876, Carl Emil Doepler habille les chanteurs d'un opéra de Wagner.",
+   "ecran": "Un opéra, 1876",
+   "image": "opera"
+  },
+  {
+   "qui": "B",
+   "texte": "Il leur met des casques à cornes. L'image fait le tour du monde.",
+   "ecran": "Wagner",
+   "image": "cornes"
+  },
+  {
+   "qui": "A",
+   "texte": "Il a tout inventé ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Pas tout à fait. Des casques à cornes existent vraiment, trouvés au Danemark."
+  },
+  {
+   "qui": "B",
+   "texte": "Mais ils datent de l'âge du bronze, vers neuf cents avant notre ère.",
+   "ecran": "Âge du bronze",
+   "image": "cornes"
+  },
+  {
+   "qui": "A",
+   "texte": "Donc avant les Vikings ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Près de deux mille ans avant eux.",
+   "ecran": "2000 ans avant",
+   "image": "calendrier"
+  },
+  {
+   "qui": "A",
+   "texte": "Et pourquoi personne n'a corrigé ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Parce que l'image est trop belle. Peintures, publicités, dessins animés : tout le monde l'a reprise."
+  },
+  {
+   "qui": "A",
+   "texte": "Donc le Viking à cornes est né à l'opéra.",
+   "ecran": "Né à l'opéra",
+   "image": "opera"
+  },
+  {
+   "qui": "B",
+   "texte": "En 1876. Les vrais Vikings, eux, avaient disparu depuis huit siècles."
+  }
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Ça s'est passé",
+ "publication": "Le krach de 1929 raconté en une minute",
+ "sources": [
+  "https://www.banque-france.fr/fr/publications-et-statistiques/publications/la-crise-de-1929",
+  "https://www.herodote.net/histoire/evenement.php?jour=19291024",
+  "https://www.futura-sciences.com/sciences/questions-reponses/epoque-contemporaine-sont-consequences-krach-1929-5526/"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "C'est quoi, exactement, le krach de 1929 ?",
+   "ecran": "Le krach de 1929",
+   "image": "baisse"
+  },
+  {
+   "qui": "B",
+   "texte": "L'effondrement de la Bourse de New York, en quelques jours d'octobre.",
+   "ecran": "Wall Street",
+   "image": "banque"
+  },
+  {
+   "qui": "A",
+   "texte": "Pourquoi d'un coup ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Pendant des années, les cours avaient grimpé. Beaucoup achetaient des actions à crédit.",
+   "ecran": "Acheter à crédit",
+   "image": "hausse"
+  },
+  {
+   "qui": "A",
+   "texte": "À crédit ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Tu paies une petite partie, tu empruntes le reste. Tant que ça monte, tout va bien.",
+   "ecran": "Tant que ça monte",
+   "image": "billets"
+  },
+  {
+   "qui": "B",
+   "texte": "Le jeudi 24 octobre, la panique démarre. À midi, l'indice a perdu plus de vingt pour cent.",
+   "ecran": "Jeudi noir",
+   "image": "baisse"
+  },
+  {
+   "qui": "A",
+   "texte": "Et là, tout s'écroule ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Pas encore. Les grandes banques rachètent des actions, et la journée finit à moins deux pour cent.",
+   "ecran": "Les banques achètent",
+   "image": "banque"
+  },
+  {
+   "qui": "A",
+   "texte": "Donc c'est sauvé."
+  },
+  {
+   "qui": "B",
+   "texte": "Non. Le lundi, moins treize pour cent. Le mardi 29, encore moins douze.",
+   "ecran": "Mardi noir",
+   "image": "baisse"
+  },
+  {
+   "qui": "B",
+   "texte": "Ceux qui avaient emprunté doivent vendre pour rembourser. Et plus on vend, plus ça baisse.",
+   "ecran": "Vendre pour rembourser",
+   "image": "billets"
+  },
+  {
+   "qui": "A",
+   "texte": "Ça s'arrête quand ?"
+  },
+  {
+   "qui": "B",
+   "texte": "L'indice ne touche le fond qu'en juillet 1932, presque trois ans plus tard.",
+   "ecran": "Juillet 1932",
+   "image": "calendrier"
+  },
+  {
+   "qui": "A",
+   "texte": "Trois ans de chute. Et après ?"
+  },
+  {
+   "qui": "B",
+   "texte": "C'est la Grande Dépression. Mais ça, c'est une autre histoire.",
+   "ecran": "À suivre",
+   "image": "question"
+  }
+ ]
+}

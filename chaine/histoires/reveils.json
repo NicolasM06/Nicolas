@@ -1,26 +1,102 @@
 {
  "titre": "C'était comment avant ?",
  "rubrique": "Avant les réveils",
+ "publication": "Comment on se réveillait à l'heure avant les réveils ?",
  "sources": [
   "https://en.wikipedia.org/wiki/Knocker-up",
   "https://atlasobscura.com/articles/what-did-people-use-before-alarm-clocks",
   "https://www.history.com/articles/who-invented-alarm-clock"
  ],
  "scenes": [
-  {"qui": "A", "texte": "Dis, comment on se réveillait à l'heure, avant les réveils ?", "ecran": "Avant les réveils ?", "image": "lit"},
-  {"qui": "B", "texte": "En Angleterre, pendant la révolution industrielle, on payait quelqu'un pour ça.", "ecran": "Un vrai métier", "image": "usine"},
-  {"qui": "A", "texte": "Payer quelqu'un pour te réveiller ?"},
-  {"qui": "B", "texte": "Oui. On les appelait les knocker-up : les réveilleurs.", "ecran": "Les réveilleurs", "image": "calendrier"},
-  {"qui": "B", "texte": "Chaque matin, ils tapaient aux fenêtres avec une longue perche.", "ecran": "Toc toc !", "image": "fenetre"},
-  {"qui": "A", "texte": "Et pour les étages trop hauts ?"},
-  {"qui": "B", "texte": "À Londres, Mary Smith soufflait des pois secs contre les vitres, avec une sarbacane.", "ecran": "Des pois secs", "image": "pois"},
-  {"qui": "A", "texte": "Ça coûtait cher ?"},
-  {"qui": "B", "texte": "Six pence par semaine.", "ecran": "Six pence", "image": "pieces"},
-  {"qui": "A", "texte": "Et avant eux ?"},
-  {"qui": "B", "texte": "Le coq, et les cloches de l'église.", "ecran": "Le coq", "image": "coq"},
-  {"qui": "A", "texte": "Le vrai réveil, il arrive quand ?"},
-  {"qui": "B", "texte": "Le premier réveil réglable est breveté en mille huit cent quarante-sept, par un Français : Antoine Redier.", "ecran": "1847", "image": "reveil"},
-  {"qui": "B", "texte": "Mais le métier a tenu longtemps. La fille de Mary Smith réveillait encore Londres pendant la Seconde Guerre mondiale.", "ecran": "Jusqu'à la guerre", "image": "bombe"},
-  {"qui": "A", "texte": "Attends. Qui réveillait le réveilleur ?", "ecran": "Qui réveillait le réveilleur ?", "image": "question"}
+  {
+   "qui": "A",
+   "texte": "Dis, comment on se réveillait à l'heure, avant les réveils ?",
+   "ecran": "Avant les réveils ?",
+   "image": "lit"
+  },
+  {
+   "qui": "B",
+   "texte": "En Angleterre, pendant la révolution industrielle, on payait quelqu'un pour ça.",
+   "ecran": "Un vrai métier",
+   "image": "usine"
+  },
+  {
+   "qui": "A",
+   "texte": "Payer quelqu'un pour te réveiller ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Oui. On les appelait les knocker-up : les réveilleurs.",
+   "ecran": "Les réveilleurs",
+   "image": "calendrier"
+  },
+  {
+   "qui": "B",
+   "texte": "Chaque matin, ils tapaient aux fenêtres avec une longue perche.",
+   "ecran": "Toc toc !",
+   "image": "fenetre"
+  },
+  {
+   "qui": "A",
+   "texte": "Et pour les étages trop hauts ?"
+  },
+  {
+   "qui": "B",
+   "texte": "À Londres, Mary Smith soufflait des pois secs contre les vitres, avec une sarbacane.",
+   "ecran": "Des pois secs",
+   "image": "pois"
+  },
+  {
+   "qui": "A",
+   "texte": "Une sarbacane ? Sérieusement ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Une photographie de 1931 la montre en plein travail.",
+   "ecran": "Photo de 1931",
+   "image": "fenetre"
+  },
+  {
+   "qui": "A",
+   "texte": "Ça coûtait cher ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Six pence par semaine.",
+   "ecran": "Six pence",
+   "image": "pieces"
+  },
+  {
+   "qui": "A",
+   "texte": "Et avant eux ?"
+  },
+  {
+   "qui": "B",
+   "texte": "On comptait sur le coq, et sur les cloches de l'église.",
+   "ecran": "Le coq",
+   "image": "coq"
+  },
+  {
+   "qui": "A",
+   "texte": "Le vrai réveil, il arrive quand ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Le premier réveil réglable est breveté en 1847, par un Français : Antoine Redier.",
+   "ecran": "1847",
+   "image": "reveil"
+  },
+  {
+   "qui": "B",
+   "texte": "Mais le métier a tenu longtemps. La fille de Mary Smith réveillait encore Londres pendant la Seconde Guerre mondiale.",
+   "ecran": "Jusqu'à la guerre",
+   "image": "bombe"
+  },
+  {
+   "qui": "A",
+   "texte": "Attends. Qui réveillait le réveilleur ?",
+   "ecran": "Qui réveillait le réveilleur ?",
+   "image": "question"
+  }
  ]
 }

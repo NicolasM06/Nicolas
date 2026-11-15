@@ -118,6 +118,18 @@ DESSINS = {
     "reveil": [(5, 4, 10, 10, R), (6, 5, 8, 8, Bc), (10, 6, 1, 4, Nt), (10, 9, 3, 1, Nt), (4, 2, 4, 2, Gr), (12, 2, 4, 2, Gr), (9, 1, 2, 1, Gr), (5, 14, 2, 1, Gr), (13, 14, 2, 1, Gr)],
     "calendrier": [(3, 2, 14, 12, Bc), (3, 2, 14, 3, R), (5, 7, 2, 2, Gr), (9, 7, 2, 2, Gr), (13, 7, 2, 2, Gr), (5, 10, 2, 2, Gr), (9, 10, 2, 2, Bl), (13, 10, 2, 2, Gr), (6, 1, 1, 2, Gr), (13, 1, 1, 2, Gr)],
     "lit": [(1, 9, 18, 3, Bl), (1, 6, 2, 8, Br), (17, 8, 2, 6, Br), (3, 7, 4, 2, Bc), (12, 2, 1, 1, Bc), (14, 1, 2, 1, Bc), (15, 3, 3, 1, Bc), (16, 2, 1, 1, Bc)],
+    "chapeau": [(3, 8, 14, 4, Nt), (5, 5, 10, 3, Nt), (7, 3, 6, 2, Nt), (1, 10, 2, 2, Nt), (17, 10, 2, 2, Nt), (9, 6, 2, 2, J), (4, 12, 12, 1, J)],
+    "regle": [(2, 6, 16, 4, J), (3, 6, 1, 2, Nt), (5, 6, 1, 1, Nt), (7, 6, 1, 2, Nt), (9, 6, 1, 1, Nt), (11, 6, 1, 2, Nt), (13, 6, 1, 1, Nt), (15, 6, 1, 2, Nt), (2, 12, 16, 1, Bc), (2, 11, 1, 3, Bc), (17, 11, 1, 3, Bc)],
+    "crayon": [(3, 12, 2, 2, Nt), (5, 10, 2, 2, Br), (7, 8, 2, 2, J), (9, 6, 2, 2, J), (11, 4, 2, 2, J), (13, 2, 3, 3, R), (2, 14, 6, 1, Gr), (10, 13, 7, 1, Gr), (12, 11, 5, 1, Gr)],
+    "soldat": [(8, 0, 4, 4, Nt), (8, 4, 4, 3, (236, 190, 152)), (7, 7, 6, 6, Bl), (9, 7, 2, 6, Bc), (7, 13, 2, 3, Bc), (11, 13, 2, 3, Bc), (5, 8, 2, 4, Bl), (13, 8, 2, 4, Bl), (15, 2, 1, 12, Gr)],
+    "casque": [(5, 4, 10, 7, Gr), (6, 3, 8, 1, Gr), (4, 10, 12, 2, (90, 96, 106)), (9, 9, 2, 5, (90, 96, 106)), (6, 12, 3, 2, Nt), (11, 12, 3, 2, Nt)],
+    "cornes": [(5, 5, 10, 7, Gr), (6, 4, 8, 1, Gr), (4, 11, 12, 2, (90, 96, 106)), (2, 4, 3, 3, Bc), (1, 1, 2, 3, Bc), (15, 4, 3, 3, Bc), (17, 1, 2, 3, Bc), (9, 10, 2, 4, (90, 96, 106))],
+    "opera": [(2, 2, 16, 12, R), (4, 4, 12, 10, Nt), (2, 2, 4, 12, (150, 40, 40)), (14, 2, 4, 12, (150, 40, 40)), (9, 7, 2, 4, J), (8, 11, 4, 3, J), (10, 5, 1, 2, (236, 190, 152)), (1, 14, 18, 1, Br)],
+    "pelle": [(9, 1, 2, 9, Br), (7, 10, 6, 4, Gr), (8, 14, 4, 1, Gr), (8, 0, 4, 1, Br), (2, 13, 4, 2, Br), (14, 12, 4, 3, Br)],
+    "baisse": [(2, 1, 1, 13, Bc), (2, 13, 16, 1, Bc), (4, 3, 3, 1, V), (7, 4, 2, 1, V), (9, 5, 1, 3, R), (10, 8, 2, 1, R), (12, 9, 1, 3, R), (13, 11, 3, 1, R), (16, 11, 1, 2, R)],
+    "hausse": [(2, 1, 1, 13, Bc), (2, 13, 16, 1, Bc), (4, 11, 3, 1, V), (7, 9, 2, 2, V), (9, 7, 2, 2, V), (11, 5, 2, 2, V), (13, 3, 3, 2, V), (15, 2, 2, 1, V)],
+    "banque": [(2, 5, 16, 2, Bc), (4, 2, 12, 3, Bc), (8, 0, 4, 2, Bc), (3, 7, 2, 6, Gr), (7, 7, 2, 6, Gr), (11, 7, 2, 6, Gr), (15, 7, 2, 6, Gr), (1, 13, 18, 2, Bc)],
+    "billets": [(2, 4, 13, 7, V), (3, 5, 11, 5, (42, 157, 105)), (7, 6, 3, 3, Bc), (5, 7, 13, 7, V), (6, 8, 11, 5, (42, 157, 105)), (10, 9, 3, 3, Bc)],
     "bombe": [(4, 9, 12, 3, Gr), (2, 10, 2, 1, Gr), (16, 10, 2, 1, Gr), (7, 7, 6, 2, Gr), (9, 12, 2, 3, R), (8, 14, 4, 1, J), (3, 3, 2, 1, Bc), (14, 2, 3, 1, Bc), (6, 1, 1, 1, Bc)],
 }
 
@@ -200,7 +212,7 @@ def dire(qui, texte, sortie):
         subprocess.run(["piper", "--model", str(modele), "--output_file", str(sortie)], input=texte.encode(), check=True, capture_output=True)
         return "Piper"
     voix, hauteur = ("fr+f3", "62") if qui == "A" else ("fr+m3", "34")
-    subprocess.run(["espeak-ng", "-v", voix, "-s", "158", "-p", hauteur, "-w", str(sortie), texte], check=True, capture_output=True)
+    subprocess.run(["espeak-ng", "-v", voix, "-s", "148", "-p", hauteur, "-w", str(sortie), texte], check=True, capture_output=True)
     return "voix de secours du système (espeak-ng)"
 
 
@@ -290,10 +302,16 @@ def main():
             avance = (k - debuts[i]) / max(1, debuts[i + 1] - debuts[i] - IPS * 0.22)
             n = int(np.searchsorted(poids, min(0.999, max(0, avance)) * poids[-1]))
             d = ImageDraw.Draw(img)
-            d.rectangle([34, 414, 73, 443], fill=(10, 12, 24)); d.rectangle([34, 414, 73, 443], outline=(84, 130, 240))
-            img.paste(tetes[s["qui"]], (36, 416), tetes[s["qui"]])
-            for j, l in enumerate(g[min(n, len(g) - 1)]):
-                contour(d, (80, 414 + j * 20 - (0 if len(g[min(n, len(g) - 1)]) > 1 else -8)), l, f16, Bc)
+            lignes = g[min(n, len(g) - 1)]
+            y0 = 414 if len(lignes) > 1 else 422
+            if max(len(l) for l in lignes) <= 11:                  # cas courant : la tête de celui qui parle, puis les mots
+                d.rectangle([34, 414, 73, 443], fill=(10, 12, 24)); d.rectangle([34, 414, 73, 443], outline=(84, 130, 240))
+                img.paste(tetes[s["qui"]], (36, 416), tetes[s["qui"]])
+                for j, l in enumerate(lignes):
+                    contour(d, (80, y0 + j * 20), l, f16, Bc)
+            else:                                                  # mot très long : on centre, sans la tête, pour ne rien couper
+                for j, l in enumerate(lignes):
+                    contour(d, (max(2, (L - len(l) * 16) // 2), y0 + j * 20), l, f16 if len(l) <= 16 else police(8), Bc)
             d.rectangle([0, H - 3, int(L * (k + 1) / nb), H], fill=J)
             ff.stdin.write(img.resize((L * ZOOM, H * ZOOM), Image.NEAREST).tobytes())
         ff.stdin.close()

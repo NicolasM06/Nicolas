@@ -1,0 +1,98 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Mythe ou vérité ?",
+ "publication": "Napoléon était-il vraiment petit ?",
+ "sources": [
+  "https://www.napoleon.org/histoire-des-2-empires/articles/la-taille-de-napoleon",
+  "https://www.slate.fr/story/256422/petit-napoleon-taille-invention-propagande-caricatures-grande-bretagne-james-gillray",
+  "https://www.nationalgeographic.com/history/article/napoleon-complex-height-discrimination-men-history"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Napoléon, il était vraiment tout petit ?",
+   "ecran": "Napoléon, petit ?",
+   "image": "chapeau"
+  },
+  {
+   "qui": "B",
+   "texte": "Non. Il mesurait environ un mètre soixante-huit.",
+   "ecran": "1 m 68",
+   "image": "regle"
+  },
+  {
+   "qui": "A",
+   "texte": "C'est petit, non ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Pas pour l'époque. C'était à peu près la taille moyenne des Français.",
+   "ecran": "Dans la moyenne",
+   "image": "regle"
+  },
+  {
+   "qui": "A",
+   "texte": "Alors d'où vient cette idée ?"
+  },
+  {
+   "qui": "B",
+   "texte": "D'abord d'une histoire d'unités. À sa mort, en 1821, son médecin note cinq pieds deux pouces.",
+   "ecran": "5 pieds 2 pouces",
+   "image": "regle"
+  },
+  {
+   "qui": "B",
+   "texte": "Mais ce sont des pieds français, plus longs que les pieds anglais."
+  },
+  {
+   "qui": "A",
+   "texte": "Donc les Anglais ont lu la même mesure, en plus petit."
+  },
+  {
+   "qui": "B",
+   "texte": "Exactement. Et la propagande a fait le reste.",
+   "ecran": "La propagande",
+   "image": "crayon"
+  },
+  {
+   "qui": "B",
+   "texte": "En 1803, le caricaturiste James Gillray le dessine minuscule, tenu dans la main du roi d'Angleterre.",
+   "ecran": "Gillray, 1803",
+   "image": "crayon"
+  },
+  {
+   "qui": "A",
+   "texte": "Un dessin, et ça dure deux siècles ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Les Anglais le surnomment Little Boney. Le surnom se répand partout.",
+   "ecran": "Little Boney",
+   "image": "chapeau"
+  },
+  {
+   "qui": "A",
+   "texte": "Et le petit caporal ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Un surnom venu de ses soldats, qui a entretenu la confusion."
+  },
+  {
+   "qui": "B",
+   "texte": "Et il apparaissait souvent entouré de ses grenadiers, choisis pour leur grande taille.",
+   "ecran": "Les grenadiers",
+   "image": "soldat"
+  },
+  {
+   "qui": "A",
+   "texte": "Donc à côté d'eux, forcément, il avait l'air petit."
+  },
+  {
+   "qui": "B",
+   "texte": "Deux siècles plus tard, on y croit encore.",
+   "ecran": "Mythe",
+   "image": "chapeau"
+  }
+ ]
+}
