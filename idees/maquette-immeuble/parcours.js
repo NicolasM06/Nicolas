@@ -544,6 +544,32 @@ scenario('Mathilde, ouvre le formulaire puis change d\'étage aussitôt', ordi, 
   if (Math.abs(e.ecart) > 2) pb.push('formulaire ouvert en plein trajet : étage décalé de ' + e.ecart + ' px');
 });
 
+// ───────── Tour N ─────────
+TOUR = 'N';
+// Vieil iPhone (Safari d'avant iOS 16) : on retire de la page ce que ce navigateur ne comprend pas, puis on vérifie qu'elle tient.
+const vieux = (html) => html
+  .replace(/@supports not \(color:color-mix\([^)]*\)\)/g, '@supports (display:block)')   // la condition « pas de color-mix » devient vraie
+  .replace(/@container[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '')           // pas de container queries
+  .replace(/[a-z-]+:[^;{}]*\b\d*\.?\d+cq[wh][^;{}]*;?/g, '')                 // déclarations en cqw/cqh ignorées
+  .replace(/container-type:[^;}]*;?/g, '')
+  .replace(/[a-z-]+:[^;{}]*color-mix\([^;{}]*\)[^;{}]*\)[^;{}]*;?/g, '')    // pas de color-mix
+  .replace(/text-wrap:[^;}]*;?/g, '')
+  .replace(/\.inert\s*=\s*[^;]+;/g, ';');                                      // pas d'attribut inert
+for (const [nom, w, h, m] of [['iPhone 8 sous iOS 15', 375, 553, 1], ['iPad de 2018 sous iOS 15', 768, 954, 1], ['vieux Mac sous Safari 15', 1280, 720, 0]])
+  scenario('Navigateur ancien — ' + nom, { viewport: { width: w, height: h }, hasTouch: !!m, isMobile: !!m }, async (p, pb) => {
+    const f = dir + '/vieux.html'; fs.writeFileSync(f, vieux(html)); await p.goto('file://' + f); await p.waitForTimeout(1100);
+    for (const [k, etage] of [[4, 'rez-de-chaussée'], [3, 'informaticien'], [0, 'organisatrice']]) { if (k !== 4) await va(p, k);
+      const e = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), sc = n.querySelector('.scene').getBoundingClientRect(), pe = n.querySelector('.perso').getBoundingClientRect(), c = document.querySelector('.cage').getBoundingClientRect(), pi = n.querySelector('.pied').getBoundingClientRect(), out = [];
+        if (pe.height < 70 || pe.width < 50) out.push('personnage invisible ou minuscule (' + Math.round(pe.width) + ' × ' + Math.round(pe.height) + ')'); if (pe.top < sc.top - 1) out.push('personnage coupé en haut'); if (pe.height > sc.height) out.push('personnage plus grand que la pièce');
+        for (const m of n.querySelectorAll('.meuble')) { const r = m.getBoundingClientRect(); if (r.width < 20) out.push('meuble invisible'); const part = Math.max(0, Math.min(r.right, pe.right) - Math.max(r.left, pe.left)) * Math.max(0, Math.min(r.bottom, pe.bottom) - Math.max(r.top, pe.top)) / (pe.width * pe.height); if (part > .3) out.push('meuble devant le personnage'); }
+        if (document.documentElement.scrollWidth > innerWidth + 1) out.push('la page déborde'); if (pi.bottom > c.bottom + 1) out.push('bouton hors écran'); if (Math.abs(n.getBoundingClientRect().top - c.top) > 2) out.push('étage décalé'); return [...new Set(out)]; });
+      e.forEach((x) => pb.push(etage + ' : ' + x)); }
+    await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.fill('.niveau.ici .inscription input', 'a@b.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+    if (!(await p.evaluate(() => document.querySelector('.niveau.ici').classList.contains('note')))) pb.push('inscription impossible'); await p.evaluate(() => document.getElementById('menu-btn').click()); await p.waitForTimeout(250);
+    await p.evaluate(() => document.querySelector('#menu-liste [data-aller="4"]').click()); await p.waitForTimeout(3000); if ((await ici(p)) !== 'Berthier') pb.push('le menu ne ramène pas au rez-de-chaussée');
+    if (nom.includes('iPhone')) await p.screenshot({ path: dir + '/vieux-iphone.png' });
+  });
+
 (async () => {
   const b = await chromium.launch(); let total = 0; const seul = process.argv[3]; const tour = (process.argv.find((v) => v.startsWith('--tour=')) || '').slice(7);
   for (const [nom, opts, f, tr] of S) {

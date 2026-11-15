@@ -1,6 +1,9 @@
 <title>Immeuble Berthier</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"></noscript>
 <style>
 /* Mise en page : un seul étage à l'écran. L'immeuble défile verticalement comme vu depuis un
    ascenseur ; le panneau de boutons d'étage sert de navigation. Couleurs et polices du site
@@ -36,9 +39,10 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .mur{position:absolute;inset:0;background:
   linear-gradient(to top,color-mix(in srgb,var(--teinte) 16%,transparent),transparent 60%),
   repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.018) 46px 48px)}
-.meuble{position:absolute;bottom:20px;width:min(23cqw,31cqh,340px);aspect-ratio:20/28;image-rendering:pixelated;transition:filter .6s .3s}
-.meuble.gauche{left:2.5cqw}.meuble.droite{right:2.5cqw}
-.objet-mur{position:absolute;top:8%;right:5%;width:min(17cqw,12cqh,170px);aspect-ratio:16/12;image-rendering:pixelated;transition:filter .6s .3s}
+@supports not (color:color-mix(in srgb,red 50%,blue)){.mur{background:repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.018) 46px 48px)}}
+.meuble{position:absolute;bottom:20px;width:19%;width:min(23cqw,31cqh,340px);aspect-ratio:20/28;image-rendering:pixelated;transition:filter .6s .3s}
+.meuble.gauche{left:2.5%;left:2.5cqw}.meuble.droite{right:2.5%;right:2.5cqw}
+.objet-mur{position:absolute;top:8%;right:5%;width:13%;width:min(17cqw,12cqh,170px);aspect-ratio:16/12;image-rendering:pixelated;transition:filter .6s .3s}
 .ferme .meuble,.ferme .objet-mur{filter:brightness(.5) saturate(.45)}
 .ferme.note .meuble,.ferme.note .objet-mur{filter:none}
 .led{animation:led 1.3s steps(1) infinite}.led.b{animation-delay:.6s}
@@ -47,7 +51,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .ouvert .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(79,140,255,.28),transparent 70%)}
 .ferme .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(255,217,138,.16),transparent 70%)}
 .niveau.ici.ouvert .lueur,.niveau.ici.note .lueur{opacity:1}
-.perso{position:relative;width:min(44cqw,45cqh,460px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
+.perso{position:relative;width:34%;max-height:62%;width:min(44cqw,45cqh,460px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
 .perso svg,.perso img{width:100%;height:100%;display:block}
 .ferme .perso{filter:brightness(.55) saturate(.45)}
 .ferme.note .perso{filter:none}
@@ -155,11 +159,11 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
   .niveau{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,36%) minmax(0,1fr)}
   .scene{border-right:0;border-bottom:1px solid var(--line)}
-  .perso{width:min(36cqw,58cqh);margin-bottom:16px}
+  .perso{width:24%;width:min(36cqw,58cqh);margin-bottom:16px}
   .scene .sol{height:16px}
   .monter{left:8px;top:8px;transform:none;padding:8px 11px;font-size:.84rem}.monter span{display:none}
   .indice{left:8px;top:60px;transform:none;text-align:left;max-width:min(270px,calc(100% - 16px));font-size:.88rem;padding:8px 12px;border-radius:14px}
-  .meuble{bottom:14px;width:min(24cqw,36cqh)}
+  .meuble{bottom:14px;width:15%;width:min(24cqw,36cqh)}
   .objet-mur{top:7%;right:4%;width:13%}
   .fiche{justify-content:flex-start;gap:10px;padding:18px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));overflow:auto}
   .titre{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
