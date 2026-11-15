@@ -158,6 +158,13 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .panneau .haut{order:9}
 }
 @media (max-width:380px){.panneau .fleche{display:none}}
+@media (max-width:330px){.barre .maquette{display:none}.enseigne{letter-spacing:.04em}.panneau{gap:4px;padding-inline:8px}}
+/* Écran très bas (zoom à 400 %, clavier ouvert) : on garde le texte et le bouton, on retire le décor. */
+@media (max-width:720px) and (max-height:430px){
+  .piste .niveau{grid-template-rows:minmax(0,1fr)}.piste .scene{display:none}
+  .barre{padding-block:4px}.panneau{padding-block:4px}.piste .fiche{gap:6px;padding-top:8px}.piste .accroche{display:none}
+  .piste .pied{position:static}.piste .niveau.suite .pied::before,.piste .niveau.suite .pied::after{display:none}
+}
 @media (max-width:720px) and (max-height:620px){.niveau{grid-template-rows:minmax(0,30%) minmax(0,1fr)}.fiche{gap:8px;padding-top:12px}}
 @media (min-width:721px) and (max-height:520px){
   .panneau{display:grid;grid-template-columns:44px 44px;align-content:center;gap:6px;padding:8px}
@@ -371,7 +378,7 @@ function aller(i){
   if(enRoute){attente=i;return}
   if(i===ici)return;indice.hidden=true;
   // Trajet plus long quand on saute plusieurs étages, comme un vrai ascenseur.
-  const duree=.55+.3*Math.abs(i-ici);
+  const duree=.5+.2*Math.abs(i-ici);
   document.documentElement.style.setProperty('--trajet',duree+'s');
   ici=i;aBouge=true;enRoute=true;placer();
   setTimeout(()=>{enRoute=false;if(attente!==null){const a=attente;attente=null;aller(a)}},matchMedia('(prefers-reduced-motion:reduce)').matches?0:duree*1000);
@@ -462,5 +469,9 @@ document.documentElement.lang='fr';
 function depuisAdresse(){const i=ETAGES.findIndex(e=>'#'+e.id===location.hash);return i}
 {const i=depuisAdresse();if(i>=0){ici=i;aBouge=i!==ETAGES.length-1}}
 addEventListener('hashchange',()=>{const i=depuisAdresse();if(i>=0&&i!==ici)aller(i)});
-piste.style.transition='none';tout();requestAnimationFrame(()=>requestAnimationFrame(()=>{piste.style.transition=''}));
+piste.style.transition='none';tout();
+if(ici!==ETAGES.length-1){    // arrivée par un lien direct : on situe la personne
+  indice.textContent='Chaque étage est une appli. Celle de Berthier, au rez-de-chaussée, est déjà ouverte.';indice.hidden=false;
+  minuterie=setTimeout(()=>{indice.hidden=true},8000);
+}requestAnimationFrame(()=>requestAnimationFrame(()=>{piste.style.transition=''}));
 </script>

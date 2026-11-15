@@ -191,6 +191,85 @@ scenario('Sylvie bis, gros doigts : les boutons sont-ils assez espacés ?', tel,
   if (g < 6) pb.push('champ e-mail et bouton Valider trop proches (' + Math.round(g) + ' px)');
 });
 
+// ───────── Tour D ─────────
+const coherent = () => { const pb = [], cage = document.querySelector('.cage').getBoundingClientRect(), n = document.querySelectorAll('.niveau.ici');
+  if (n.length !== 1) return ['plusieurs étages « actifs » à la fois (' + n.length + ')']; const i = +n[0].dataset.i, e = ETAGES[i];
+  if (Math.abs(n[0].getBoundingClientRect().top - cage.top) > 2) pb.push('étage affiché à cheval');
+  if (document.querySelector('.panneau [aria-current="true"]')?.dataset.aller !== String(i)) pb.push('l\'ascenseur n\'indique pas l\'étage affiché');
+  if (location.hash !== '#' + e.id) pb.push('l\'adresse ne correspond pas à l\'étage');
+  if (!document.getElementById('menu').hidden && !document.querySelector('.cage').inert) pb.push('menu ouvert mais page active derrière');
+  if (document.getElementById('menu').hidden && document.querySelector('.cage').inert) pb.push('page restée bloquée');
+  document.querySelectorAll('.niveau').forEach((v, k) => { const id = ETAGES[k].id, b = v.querySelector('button[data-id]'); if (!b) return; const note = v.classList.contains('note');
+    if (note !== (b.getAttribute('aria-pressed') === 'true')) pb.push(ETAGES[k].nom + ' : bouton et état en désaccord');
+    if (note !== !!document.querySelector(`.panneau [data-aller="${k}"].vote`)) pb.push(ETAGES[k].nom + ' : point de l\'ascenseur en désaccord');
+    if (k !== i && !v.querySelector('.inscription').hidden) pb.push(ETAGES[k].nom + ' : formulaire ouvert sur un étage caché');
+    if (!b.hidden && !v.querySelector('.inscription').hidden) pb.push(ETAGES[k].nom + ' : bouton et formulaire affichés ensemble');
+    if (b.hidden && v.querySelector('.inscription').hidden) pb.push(ETAGES[k].nom + ' : ni bouton ni formulaire'); });
+  return pb; };
+scenario('Le singe à la souris : 120 actions au hasard, puis on vérifie que tout est cohérent', ordi, async (p, pb) => {
+  let g = 7; const alea = (n) => { g = (g * 1103515245 + 12345) % 2147483648; return g % n; };
+  for (let k = 0; k < 120; k++) { const a = alea(11);
+    try { if (a < 3) await p.evaluate((i) => document.querySelector(`.panneau [data-aller="${i}"]`).click(), alea(5));
+      else if (a === 3) await p.keyboard.press(['ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'Escape', 'Tab', 'Enter'][alea(8)]);
+      else if (a === 4) await p.evaluate(() => { const b = document.querySelector('.niveau.ici button[data-id]'); if (b && !b.hidden) b.click(); });
+      else if (a === 5) await p.evaluate((ok) => { const f = document.querySelector('.niveau.ici .inscription'); if (f && !f.hidden) { f.querySelector('input').value = ok ? 'a@b.fr' : 'zut'; f.requestSubmit(); } }, alea(2));
+      else if (a === 6) await p.evaluate(() => document.getElementById('menu-btn').click());
+      else if (a === 7) await p.evaluate((i) => { const m = document.getElementById('menu'); if (!m.hidden) (i < 5 ? m.querySelector(`[data-aller="${i}"]`) : m.querySelector('[data-fermer]')).click(); }, alea(7));
+      else if (a === 8) await p.mouse.wheel(0, alea(2) ? 140 : -140);
+      else if (a === 9) await p.evaluate(() => document.querySelector('.niveau.ici .perso').click());
+      else await p.evaluate(() => document.querySelector('.fleche.' + (Math.random() < .5 ? 'haut' : 'bas'))?.click());
+    } catch (e) { pb.push('action ' + k + ' : ' + e.message.split('\n')[0].slice(0, 70)); }
+    await p.waitForTimeout([30, 120, 400][alea(3)]); }
+  await p.keyboard.press('Escape'); await p.evaluate(() => { const m = document.getElementById('menu'); if (!m.hidden) m.querySelector('[data-fermer]').click(); }); await p.waitForTimeout(4500);
+  (await p.evaluate(coherent)).forEach((x) => pb.push(x));
+});
+scenario('Le singe au doigt : 80 glissements et tapes au hasard', tel, async (p, pb) => {
+  let g = 99; const alea = (n) => { g = (g * 1103515245 + 12345) % 2147483648; return g % n; };
+  for (let k = 0; k < 80; k++) { const a = alea(6);
+    if (a < 3) await p.evaluate(([dx, dy]) => { const c = document.querySelector('.niveau.ici ' + (Math.random() < .5 ? '.scene' : '.fiche')), x = innerWidth / 2, y = innerHeight / 2;
+      const t = (type, xx, yy) => { const touch = new Touch({ identifier: 1, target: c, clientX: xx, clientY: yy }); c.dispatchEvent(new TouchEvent(type, { touches: type === 'touchend' ? [] : [touch], changedTouches: [touch], bubbles: true })); }; t('touchstart', x, y); t('touchend', x + dx, y + dy); }, [alea(200) - 100, alea(500) - 250]);
+    else if (a === 3) await p.evaluate(() => { const b = document.querySelector('.niveau.ici .pied button:not([hidden])'); if (b) b.click(); });
+    else if (a === 4) await p.evaluate((i) => document.querySelector(`.panneau [data-aller="${i}"]`).click(), alea(5));
+    else await p.evaluate(() => { const m = document.getElementById('menu'); if (m.hidden) document.getElementById('menu-btn').click(); else m.querySelector('[data-fermer]').click(); });
+    await p.waitForTimeout([40, 150, 500][alea(3)]); }
+  await p.evaluate(() => { const m = document.getElementById('menu'); if (!m.hidden) m.querySelector('[data-fermer]').click(); }); await p.waitForTimeout(4500);
+  (await p.evaluate(coherent)).forEach((x) => pb.push(x));
+});
+const tient = () => { const n = document.querySelector('.niveau.ici'), cage = document.querySelector('.cage').getBoundingClientRect(), pi = n.querySelector('.pied').getBoundingClientRect(), t = n.querySelector('.texte'), tr = t.getBoundingClientRect(), pan = document.querySelector('.panneau'), pb = [];
+  const lh = parseFloat(getComputedStyle(t).lineHeight), f = n.querySelector('.fiche');
+  if (document.documentElement.scrollWidth > innerWidth + 1) pb.push('la page déborde en largeur'); if (pan.scrollWidth > pan.clientWidth + 1 || pan.scrollHeight > pan.clientHeight + 1) pb.push('l\'ascenseur déborde');
+  if (cage.height < 120) pb.push('il ne reste que ' + Math.round(cage.height) + ' px pour le contenu');
+  if (innerHeight < 300) {   // écran minuscule : tout doit défiler normalement, sans rien de collé par-dessus
+    const nr = n.querySelector('.nom').getBoundingClientRect(), fr = f.getBoundingClientRect(); if (nr.top < fr.top - 1 || nr.bottom > fr.bottom + 1) pb.push('le nom du personnage n\'est pas visible à l\'arrivée');
+    if (getComputedStyle(n.querySelector('.pied')).position === 'sticky') pb.push('un bouton collé recouvre le texte sur un écran aussi bas');
+    if (f.scrollHeight > f.clientHeight + 2 && getComputedStyle(f).overflowY !== 'auto') pb.push('le contenu est coupé sans pouvoir défiler');
+    for (const e of [n.querySelector('.titre'), n.querySelector('.etat')]) { const r = e.getBoundingClientRect(); const dessus = document.elementFromPoint(r.left + 6, r.top + r.height / 2); if (dessus && !e.contains(dessus) && !dessus.contains(e)) pb.push('quelque chose recouvre « ' + e.textContent.trim().slice(0, 14) + ' »'); }
+  } else {
+    if (pi.bottom > cage.bottom + 1 || pi.top < cage.top - 1) pb.push('bouton principal hors écran');
+    const lisible = f.clientHeight - pi.height; if (lisible < lh * 2) pb.push('moins de deux lignes lisibles au-dessus du bouton (' + Math.round(lisible) + ' px)');
+  }
+  for (const b of pan.querySelectorAll('button')) { if (getComputedStyle(b).display === 'none') continue; const r = b.getBoundingClientRect(); if (r.width < 43.5 || r.height < 43.5) { pb.push('bouton d\'ascenseur trop petit'); break; } }
+  return pb; };
+for (const [nom, w, h] of [['Fanny, téléphone pliable fermé (280 px de large)', 280, 653], ['Robert, zoom à 400 % sur ordinateur (équivaut à 320 × 256)', 320, 256], ['Sonia, fenêtre d\'ordinateur toute plate', 1366, 400], ['Denis, demi-écran étroit sur ordinateur', 480, 900]])
+  scenario(nom, { viewport: { width: w, height: h } }, async (p, pb) => { (await p.evaluate(tient)).forEach((x) => pb.push('rez-de-chaussée : ' + x)); await va(p, 2); (await p.evaluate(tient)).forEach((x) => pb.push('juriste : ' + x)); });
+scenario('L\'amie de Bruno, arrive par un lien direct sans rien connaître', tel, async (p, pb) => {
+  await p.goto(url + '#legal'); await p.reload(); await p.waitForTimeout(1300);
+  const t = await p.evaluate(() => document.querySelector('.niveau.ici .fiche').innerText + ' ' + (document.getElementById('indice').hidden ? '' : document.getElementById('indice').textContent));
+  if (!/appli/i.test(t)) pb.push('arrivée directe chez la juriste : rien n\'explique que chaque étage est une appli');
+  if (!/Berthier|rez-de-chaussée/i.test(t)) pb.push('arrivée directe : rien n\'indique qu\'une appli est déjà ouverte en bas');
+});
+scenario('Noémie bis, pressée : du rez-de-chaussée au 4e en combien de temps ?', ordi, async (p, pb) => {
+  const t = await p.evaluate(() => new Promise((res) => { const t0 = performance.now(); document.querySelector('.panneau [data-aller="0"]').click();
+    const voir = () => { const n = document.querySelector('.niveau.ici'), c = document.querySelector('.cage').getBoundingClientRect(); if (Math.abs(n.getBoundingClientRect().top - c.top) < 1 && getComputedStyle(n.querySelector('.fiche')).opacity > .95) res(performance.now() - t0); else requestAnimationFrame(voir); }; requestAnimationFrame(voir); }));
+  if (t > 1700) pb.push('quatre étages d\'un coup : ' + (t / 1000).toFixed(1) + ' s avant de pouvoir lire');
+});
+scenario('Maëlle, daltonienne : l\'état se lit-il sans la couleur ?', tel, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.fill('.niveau.ici .inscription input', 'm@ex.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  const e = await p.evaluate(() => { const o = document.querySelector('.panneau button.ouvert'), v = document.querySelector('.panneau button.vote'); const po = getComputedStyle(o, '::before'), pv = getComputedStyle(v, '::after');
+    return { memeCoin: po.top === pv.top && po.right === pv.right && po.bottom === pv.bottom, etat: document.querySelector('.niveau.ici .etat').textContent, btn: document.querySelector('.niveau.ici button[data-id]').textContent }; });
+  if (e.memeCoin) pb.push('« ouvert » et « noté » ne diffèrent que par la couleur dans l\'ascenseur'); if (!/prévenu/i.test(e.etat) || !/noté/i.test(e.btn)) pb.push('l\'inscription ne se lit que par la couleur');
+});
+
 (async () => {
   const b = await chromium.launch(); let total = 0; const seul = process.argv[3];
   for (const [nom, opts, f] of S.map(([n, o, f]) => [n, o, f])) {
