@@ -1,0 +1,5 @@
+sorties/
+extraits/
+voix/*.onnx
+voix/*.json
+__pycache__/

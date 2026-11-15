@@ -1,0 +1,305 @@
+#!/usr/bin/env python3
+"""Fabrique une vidéo verticale en pixels : deux personnages discutent devant un panneau qui illustre.
+
+    python outils/video.py histoires/reveils.json
+
+Une histoire est une liste de répliques. Chaque réplique a :
+    "qui"    "A" (la curieuse, à gauche) ou "B" (le conteur, à droite),
+    "texte"  ce qui est dit,
+    "ecran"  les mots affichés en grand sur le panneau (facultatif : sinon le panneau ne change pas),
+    "image"  le nom d'un dessin (voir DESSINS).
+
+Tout est dessiné sur une petite grille de 270 × 480, agrandie quatre fois : c'est ce qui donne le grain « pixel ».
+
+La voix : si deux modèles Piper sont posés dans voix/ (a.onnx et b.onnx), ils sont utilisés.
+Sinon la voix de secours du système (espeak-ng) sert à régler le rythme.
+"""
+import json
+import random
+import shutil
+import subprocess
+import sys
+import tempfile
+import wave
+from pathlib import Path
+
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+
+RACINE = Path(__file__).resolve().parent.parent
+IPS, L, H, ZOOM = 25, 270, 480, 4
+POLICE = str(RACINE.parent / "impression" / "polices" / "PressStart2P-Regular.ttf")
+
+
+def police(taille):
+    try:
+        return ImageFont.truetype(POLICE, taille)
+    except OSError:
+        return ImageFont.load_default(taille)
+
+
+# ── Les deux personnages, sur une grille de 24 × 32 ─────────────────────────
+COMMUN = {"K": (22, 23, 26), "E": (22, 23, 26), "W": (242, 243, 245), "m": (150, 78, 70), "L": (110, 30, 36),
+          "P": (42, 44, 50), "G": (22, 23, 26), "g": (230, 238, 252)}
+LOOKS = {
+    "A": {"S": (240, 200, 168), "s": (212, 164, 130), "H": (150, 84, 40), "h": (190, 118, 62), "T": (232, 112, 58), "t": (194, 86, 42),
+          "A": (62, 207, 142), "a": (42, 157, 105), "B": (60, 64, 76), "b": (44, 46, 54)},
+    "B": {"S": (236, 190, 152), "s": (203, 152, 116), "H": (92, 60, 40), "h": (128, 88, 60), "T": (38, 70, 110), "t": (27, 50, 82),
+          "A": (255, 197, 49), "a": (201, 150, 26), "B": (120, 74, 40), "b": (88, 52, 28)},
+}
+
+
+def perso(qui, bouche=0, yeux=True):
+    """bouche : 0 fermée, 1 entrouverte, 2 ouverte."""
+    Lg, Hg = 24, 32
+    g = [["."] * Lg for _ in range(Hg)]
+
+    def r(x0, y0, x1, y1, c):
+        for y in range(y0, y1 + 1):
+            for x in range(x0, x1 + 1):
+                g[y][x] = c
+
+    r(6, 2, 17, 11, "S"); r(5, 6, 5, 7, "S"); r(18, 6, 18, 7, "S"); r(7, 11, 16, 11, "s"); r(10, 12, 13, 12, "s")
+    if qui == "A":      # la curieuse : queue de cheval, sweat orange, sac à dos
+        r(6, 0, 17, 2, "H"); r(5, 2, 6, 6, "H"); r(17, 2, 18, 5, "H"); r(7, 3, 9, 3, "H"); r(9, 0, 13, 0, "h")
+        r(19, 3, 21, 5, "H"); r(20, 6, 21, 10, "H"); g[11][21] = "H"
+        r(8, 5, 9, 5, "H"); r(14, 5, 15, 5, "H")
+    else:               # le conteur : casquette, lunettes rondes, moustache, écharpe, livre
+        r(5, 0, 18, 2, "T"); r(4, 3, 14, 3, "t"); r(6, 0, 17, 0, "t"); r(6, 4, 6, 6, "H"); r(17, 3, 17, 6, "H")
+        r(7, 6, 10, 6, "G"); r(13, 6, 16, 6, "G"); r(11, 6, 12, 6, "G"); r(7, 7, 10, 7, "g"); r(13, 7, 16, 7, "g")
+    if yeux:
+        g[7][9] = "E"; g[7][14] = "E"
+    else:
+        r(8, 7, 9, 7, "s"); r(14, 7, 15, 7, "s")
+    g[8][11] = "s"; g[8][12] = "s"
+    if qui == "B":
+        r(8, 9, 15, 9, "H"); g[9][11] = "S"; g[9][12] = "S"
+    if bouche == 0:
+        r(10, 10, 13, 10, "m")
+    elif bouche == 1:
+        r(10, 10, 13, 10, "L")
+    else:
+        r(10, 10, 13, 11, "L"); r(11, 11, 12, 11, "m")
+    r(5, 13, 18, 24, "T"); r(5, 14, 5, 24, "t"); r(18, 14, 18, 24, "t"); r(3, 14, 4, 22, "T"); r(19, 14, 20, 22, "T")
+    r(3, 23, 4, 23, "S"); r(19, 23, 20, 23, "S")
+    if qui == "A":
+        r(8, 13, 15, 13, "t"); g[14][10] = "W"; g[15][10] = "W"; g[14][13] = "W"; g[15][13] = "W"; r(8, 20, 15, 22, "t")
+        r(6, 13, 7, 19, "B"); r(16, 13, 17, 19, "B")
+    else:
+        r(8, 13, 15, 14, "A"); r(9, 15, 10, 19, "A"); r(9, 20, 10, 20, "a"); r(8, 13, 15, 13, "a")
+        r(12, 17, 20, 24, "B"); r(12, 17, 12, 24, "b"); r(14, 19, 18, 19, "A"); r(14, 21, 17, 21, "A")
+    r(6, 25, 17, 28, "P"); r(11, 27, 12, 28, "."); r(6, 29, 10, 29, "P"); r(13, 29, 17, 29, "P")
+    r(5, 30, 10, 30, "K"); r(13, 30, 18, 30, "K")
+    plein = [[c != "." for c in ligne] for ligne in g]
+    for y in range(Hg):
+        for x in range(Lg):
+            if g[y][x] == "." and any(0 <= y + dy < Hg and 0 <= x + dx < Lg and plein[y + dy][x + dx]
+                                       for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                g[y][x] = "K"
+    pal = {**COMMUN, **LOOKS[qui]}
+    img = Image.new("RGBA", (Lg, Hg), (0, 0, 0, 0))
+    for y in range(Hg):
+        for x in range(Lg):
+            if g[y][x] != ".":
+                img.putpixel((x, y), pal[g[y][x]] + (255,))
+    return img
+
+
+# ── Les dessins du panneau : des rectangles sur une grille de 20 × 16 ───────
+J, R, V, Bl, Br, Gr, Nt, Bc = (255, 197, 49), (217, 72, 72), (62, 207, 142), (79, 140, 255), (120, 74, 40), (120, 126, 136), (22, 26, 40), (242, 243, 245)
+DESSINS = {
+    "question": [(7, 1, 6, 2, J), (12, 3, 2, 4, J), (9, 7, 4, 2, J), (9, 9, 2, 2, J), (9, 13, 2, 2, J), (5, 3, 2, 2, J)],
+    "usine": [(1, 8, 18, 7, Gr), (2, 3, 3, 5, Gr), (7, 5, 3, 3, Gr), (3, 10, 2, 2, J), (7, 10, 2, 2, J), (11, 10, 2, 2, J), (15, 10, 2, 2, J),
+              (2, 1, 2, 1, Bc), (4, 0, 2, 1, Bc), (7, 3, 2, 1, Bc)],
+    "fenetre": [(5, 1, 12, 14, Br), (6, 2, 10, 12, Nt), (10, 2, 2, 12, Br), (6, 7, 10, 2, Br), (13, 3, 2, 2, J), (7, 4, 1, 1, Bc), (8, 10, 1, 1, Bc), (0, 12, 6, 1, J), (1, 11, 1, 1, J)],
+    "pois": [(1, 9, 9, 2, Br), (10, 9, 1, 2, J), (12, 8, 1, 1, V), (14, 6, 1, 1, V), (16, 4, 1, 1, V), (18, 2, 2, 12, Bl), (17, 5, 1, 1, Bc)],
+    "pieces": [(3, 9, 7, 5, J), (4, 8, 5, 1, J), (5, 10, 3, 3, (201, 150, 26)), (10, 6, 7, 5, J), (11, 5, 5, 1, J), (12, 7, 3, 3, (201, 150, 26))],
+    "coq": [(8, 5, 6, 6, Bc), (12, 2, 4, 5, Bc), (13, 0, 3, 2, R), (16, 4, 2, 1, J), (14, 3, 1, 1, Nt), (15, 6, 1, 2, R), (4, 3, 4, 6, R), (9, 11, 1, 3, J), (12, 11, 1, 3, J), (8, 14, 3, 1, J), (11, 14, 3, 1, J)],
+    "reveil": [(5, 4, 10, 10, R), (6, 5, 8, 8, Bc), (10, 6, 1, 4, Nt), (10, 9, 3, 1, Nt), (4, 2, 4, 2, Gr), (12, 2, 4, 2, Gr), (9, 1, 2, 1, Gr), (5, 14, 2, 1, Gr), (13, 14, 2, 1, Gr)],
+    "calendrier": [(3, 2, 14, 12, Bc), (3, 2, 14, 3, R), (5, 7, 2, 2, Gr), (9, 7, 2, 2, Gr), (13, 7, 2, 2, Gr), (5, 10, 2, 2, Gr), (9, 10, 2, 2, Bl), (13, 10, 2, 2, Gr), (6, 1, 1, 2, Gr), (13, 1, 1, 2, Gr)],
+    "lit": [(1, 9, 18, 3, Bl), (1, 6, 2, 8, Br), (17, 8, 2, 6, Br), (3, 7, 4, 2, Bc), (12, 2, 1, 1, Bc), (14, 1, 2, 1, Bc), (15, 3, 3, 1, Bc), (16, 2, 1, 1, Bc)],
+    "bombe": [(4, 9, 12, 3, Gr), (2, 10, 2, 1, Gr), (16, 10, 2, 1, Gr), (7, 7, 6, 2, Gr), (9, 12, 2, 3, R), (8, 14, 4, 1, J), (3, 3, 2, 1, Bc), (14, 2, 3, 1, Bc), (6, 1, 1, 1, Bc)],
+}
+
+
+def dessin(nom, facteur):
+    img = Image.new("RGBA", (20, 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    for x, y, l, h, c in DESSINS.get(nom, DESSINS["question"]):
+        d.rectangle([x, y, x + l - 1, y + h - 1], fill=c + (255,))
+    return img.resize((20 * facteur, 16 * facteur), Image.NEAREST)
+
+
+# ── Le décor : une rue de nuit et un grand panneau ─────────────────────────
+PX0, PY0, PX1, PY1 = 22, 70, 247, 330          # le panneau
+
+
+def decor():
+    img = Image.new("RGB", (L, H), (16, 18, 40))
+    d = ImageDraw.Draw(img)
+    for y in range(0, 300, 6):                                     # ciel en bandes
+        t = y / 300
+        d.rectangle([0, y, L, y + 6], fill=(int(16 + 30 * t), int(18 + 14 * t), int(40 + 38 * t)))
+    hasard = random.Random(7)
+    for _ in range(40):
+        d.point((hasard.randrange(L), hasard.randrange(170)), fill=(200, 205, 230))
+    d.ellipse([222, 16, 246, 40], fill=(226, 226, 204)); d.ellipse([228, 20, 234, 26], fill=(200, 200, 180))
+    x = 0
+    while x < L:                                                   # immeubles au loin
+        larg, haut = hasard.randrange(26, 46), hasard.randrange(70, 150)
+        d.rectangle([x, 372 - haut, x + larg, 372], fill=(26, 28, 52))
+        for fy in range(372 - haut + 6, 366, 9):
+            for fx in range(x + 4, x + larg - 4, 7):
+                if hasard.random() < 0.28:
+                    d.rectangle([fx, fy, fx + 2, fy + 3], fill=(236, 190, 90))
+        x += larg + 2
+    d.rectangle([0, 372, L, 404], fill=(58, 60, 74)); d.rectangle([0, 372, L, 374], fill=(86, 90, 106))    # trottoir
+    d.rectangle([0, 404, L, H], fill=(22, 23, 30))                                                           # chaussée
+    for lx in range(10, L, 46):
+        d.rectangle([lx, 438, lx + 20, 440], fill=(70, 72, 84))
+    for lx in (60, 110, 160, 210):                                 # projecteurs du panneau
+        d.rectangle([lx, PY0 - 12, lx + 1, PY0 - 2], fill=(90, 94, 110)); d.rectangle([lx - 4, PY0 - 14, lx + 5, PY0 - 11], fill=(200, 204, 220))
+    d.rectangle([PX0, PY0, PX1, PY1], fill=(36, 84, 200)); d.rectangle([PX0, PY0, PX1, PY0 + 2], fill=(84, 130, 240))
+    d.rectangle([PX0 + 8, PY0 + 8, PX1 - 8, PY1 - 8], fill=(12, 16, 40))
+    for px in (PX0 + 40, PX1 - 44):                                # pieds du panneau
+        d.rectangle([px, PY1, px + 4, 372], fill=(60, 64, 80))
+    return img
+
+
+def couper(texte, largeur):
+    lignes, cur = [], ""
+    for mot in texte.split():
+        if cur and len(cur) + 1 + len(mot) > largeur:
+            lignes.append(cur); cur = mot
+        else:
+            cur = (cur + " " + mot).strip()
+    return lignes + ([cur] if cur else [])
+
+
+def panneau(base, titre, mots, image):
+    img = base.copy()
+    d = ImageDraw.Draw(img)
+    cx = (PX0 + PX1) // 2
+    d.rectangle([PX0 + 8, PY0 + 8, PX1 - 8, PY0 + 26], fill=(24, 34, 80))
+    d.text((cx, PY0 + 13), titre.upper()[:24], font=police(8), fill=(160, 180, 240), anchor="ma")
+    ic = dessin(image, 7)
+    img.paste(ic, (cx - ic.width // 2, PY0 + 38), ic)
+    lignes = couper(mots.upper(), 12)[:3]
+    taille = 16 if all(len(l) <= 12 for l in lignes) else 8
+    y = PY0 + 164
+    for k, l in enumerate(lignes):
+        d.text((cx, y), l, font=police(taille), fill=J if k == len(lignes) - 1 else Bc, anchor="ma")
+        y += taille + 8
+    return img
+
+
+# ── La voix ────────────────────────────────────────────────────────────────
+def dire(qui, texte, sortie):
+    modele = RACINE / "voix" / f"{qui.lower()}.onnx"
+    if modele.exists() and shutil.which("piper"):
+        subprocess.run(["piper", "--model", str(modele), "--output_file", str(sortie)], input=texte.encode(), check=True, capture_output=True)
+        return "Piper"
+    voix, hauteur = ("fr+f3", "62") if qui == "A" else ("fr+m3", "34")
+    subprocess.run(["espeak-ng", "-v", voix, "-s", "158", "-p", hauteur, "-w", str(sortie), texte], check=True, capture_output=True)
+    return "voix de secours du système (espeak-ng)"
+
+
+def lire_wav(chemin):
+    with wave.open(str(chemin)) as w:
+        canaux, cadence, largeur, brut = w.getnchannels(), w.getframerate(), w.getsampwidth(), w.readframes(w.getnframes())
+    son = np.frombuffer(brut, dtype=np.int16 if largeur == 2 else np.uint8).astype(np.float32)
+    return (son.reshape(-1, canaux).mean(axis=1) if canaux > 1 else son), cadence
+
+
+def reechantillonner(son, de, vers):
+    if de == vers:
+        return son
+    n = int(len(son) * vers / de)
+    return np.interp(np.linspace(0, len(son) - 1, n), np.arange(len(son)), son).astype(np.float32)
+
+
+def groupes(texte):
+    """Découpe une réplique en petits groupes de mots (deux lignes de 11 caractères au plus), comme des sous-titres rapides."""
+    lignes = couper(texte, 11)
+    return [lignes[i:i + 2] for i in range(0, len(lignes), 2)]
+
+
+def contour(d, xy, texte, f, couleur):
+    x, y = xy
+    for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1), (0, 2), (2, 2)):
+        d.text((x + dx, y + dy), texte, font=f, fill=(8, 9, 14))
+    d.text((x, y), texte, font=f, fill=couleur)
+
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit(__doc__)
+    histoire = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    repliques = histoire["scenes"]
+    sortie = RACINE / "sorties" / (Path(sys.argv[1]).stem + ".mp4")
+    sortie.parent.mkdir(exist_ok=True)
+    CAD = 22050
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        pistes, moteur = [], ""
+        for i, s in enumerate(repliques):                          # 1. la voix, réplique par réplique
+            f = tmp / f"{i:03d}.wav"
+            moteur = dire(s["qui"], s["texte"], f)
+            son, cad = lire_wav(f)
+            son = reechantillonner(son, cad, CAD)
+            pistes.append(np.concatenate([son, np.zeros(int(CAD * 0.22), dtype=np.float32)]))
+        audio = np.concatenate(pistes)
+        with wave.open(str(tmp / "voix.wav"), "wb") as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(CAD)
+            w.writeframes(np.clip(audio, -32768, 32767).astype(np.int16).tobytes())
+        par_image = CAD // IPS
+        nb = len(audio) // par_image
+        volume = np.array([np.abs(audio[k * par_image:(k + 1) * par_image]).mean() for k in range(nb)])
+        seuil = max(volume.max() * 0.10, 1)
+        debuts = np.cumsum([0] + [len(p) for p in pistes]) / par_image
+        base = decor()                                             # 2. les panneaux successifs
+        fonds, courant = [], panneau(base, histoire["titre"], histoire["titre"], "question")
+        for s in repliques:
+            if s.get("ecran"):
+                courant = panneau(base, histoire.get("rubrique", histoire["titre"]), s["ecran"], s.get("image", "question"))
+            fonds.append(courant)
+        sprites = {(q, b, y): perso(q, b, y).resize((48, 64), Image.NEAREST) for q in "AB" for b in (0, 1, 2) for y in (True, False)}
+        sprites.update({("B", b, y, "m"): sprites[("B", b, y)].transpose(Image.FLIP_LEFT_RIGHT) for b in (0, 1, 2) for y in (True, False)})
+        tetes = {q: perso(q).crop((3, 0, 21, 13)).resize((36, 26), Image.NEAREST) for q in "AB"}
+        decoupes = [groupes(s["texte"]) for s in repliques]
+        ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{L * ZOOM}x{H * ZOOM}", "-r", str(IPS),
+                               "-i", "-", "-i", str(tmp / "voix.wav"), "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
+                               "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart", str(sortie)],
+                              stdin=subprocess.PIPE)
+        f16, i = police(16), 0
+        for k in range(nb):                                        # 3. les images
+            while i + 1 < len(repliques) and k >= debuts[i + 1]:
+                i += 1
+            s, v = repliques[i], volume[k]
+            bouche = 0 if v < seuil else (2 if v > seuil * 3 and (k // 2) % 2 == 0 else 1)
+            img = fonds[i].copy()
+            for q, x in (("A", 26), ("B", 196)):
+                parle = q == s["qui"]
+                b = bouche if parle else 0
+                yeux = ((k + (0 if q == "A" else 37)) % (IPS * 4)) > 3
+                sp = sprites[("B", b, yeux, "m")] if q == "B" else sprites[("A", b, yeux)]
+                img.paste(sp, (x, 340 - (2 if parle and b == 2 else 0)), sp)
+            # sous-titre : le groupe de mots en cours, avec la tête de celui qui parle
+            g = decoupes[i]
+            poids = np.cumsum([sum(len(l) for l in gr) + 2 for gr in g])
+            avance = (k - debuts[i]) / max(1, debuts[i + 1] - debuts[i] - IPS * 0.22)
+            n = int(np.searchsorted(poids, min(0.999, max(0, avance)) * poids[-1]))
+            d = ImageDraw.Draw(img)
+            d.rectangle([34, 414, 73, 443], fill=(10, 12, 24)); d.rectangle([34, 414, 73, 443], outline=(84, 130, 240))
+            img.paste(tetes[s["qui"]], (36, 416), tetes[s["qui"]])
+            for j, l in enumerate(g[min(n, len(g) - 1)]):
+                contour(d, (80, 414 + j * 20 - (0 if len(g[min(n, len(g) - 1)]) > 1 else -8)), l, f16, Bc)
+            d.rectangle([0, H - 3, int(L * (k + 1) / nb), H], fill=J)
+            ff.stdin.write(img.resize((L * ZOOM, H * ZOOM), Image.NEAREST).tobytes())
+        ff.stdin.close()
+        ff.wait()
+    print(f"écrit {sortie.relative_to(RACINE)} : {nb / IPS:.0f} s, {len(repliques)} répliques, voix : {moteur}")
+
+
+if __name__ == "__main__":
+    main()
