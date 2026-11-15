@@ -58,6 +58,9 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .monter{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:3;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:rgba(8,9,10,.82);color:var(--text);font:600 .9rem var(--sans);cursor:pointer;white-space:nowrap;animation:appel 1.8s ease-in-out 5}
 .monter:hover{background:var(--accent-plein)}
 @container (max-width:440px){.monter span{display:none}}
+/* Décor étroit par rapport à la taille du texte : il ne reste que la flèche. */
+@container (max-width:17em){.monter b{display:none}.monter{min-width:44px;padding-inline:0;text-align:center}}
+.monter b{font-weight:inherit}
 .monter{max-width:calc(100% - 16px)}
 .scene .sol{position:absolute;left:0;right:0;bottom:0;height:22px;background:var(--surface3);border-top:2px solid var(--line2)}
 .fiche{display:flex;flex-direction:column;justify-content:safe center;gap:14px;min-width:0;min-height:0;overflow:auto;
@@ -335,7 +338,7 @@ function niveauHTML(e,i){
     ?`<a class="btn plein" href="https://ariane-app.onrender.com" target="_blank" rel="noopener" aria-label="Ouvrir Berthier (nouvel onglet)">Ouvrir Berthier <span aria-hidden="true">↗</span></a>`
     :`<button class="btn" id="btn-${e.id}" data-id="${e.id}" aria-pressed="${note}">${note?'C\u2019est noté':'Préviens-moi'}</button>`;
   return `<section class="niveau ${e.ouvert?'ouvert':'ferme'} ${note?'note':''} ${i===ici?'ici':''}" data-i="${i}" aria-hidden="${i!==ici}">
-    <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span>${decorHTML(e.id,e.look?e.look.touche[0]:"#4f8cff")}<div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div>${e.ouvert?'<button class="monter" id="monter">▲ Monter<span> voir les collègues</span></button>':''}</div>
+    <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span>${decorHTML(e.id,e.look?e.look.touche[0]:"#4f8cff")}<div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div>${e.ouvert?'<button class="monter" id="monter" aria-label="Monter voir les collègues">▲<b> Monter</b><span> voir les collègues</span></button>':''}</div>
     <div class="fiche">
       ${e.ouvert?'<p class="accroche">Une appli par métier. Tu ne prends que celles qu\u2019il te faut.</p>':''}
       <span class="etat">${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'} · ${etat}</span>
