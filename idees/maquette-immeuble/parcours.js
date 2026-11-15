@@ -303,11 +303,94 @@ scenario('Nadia bis, à la souris : les éléments cliquables réagissent-ils au
     if (apres.split('|')[0] === avant) pb.push('aucune réaction au survol : ' + sel); if (!apres.endsWith('pointer')) pb.push('pas de curseur « main » sur ' + sel); }
 });
 
+// ───────── Tour F ─────────
+scenario('Paul bis, JavaScript bloqué par son navigateur', { viewport: { width: 390, height: 780 }, javaScriptEnabled: false }, async (p, pb) => {
+  const t = await p.evaluate(() => document.body.innerText).catch(() => ''); const txt = t || await p.locator('body').innerText();
+  if (!/Berthier/.test(txt) || !/JavaScript|navigateur/i.test(txt)) pb.push('sans JavaScript, la page est vide et ne dit pas pourquoi');
+});
+scenario('Rachid bis, deux onglets ouverts', tel, async (p, pb) => {
+  const q = await p.context().newPage(); await q.goto(url); await q.waitForTimeout(1000);
+  await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.fill('.niveau.ici .inscription input', 'r@ex.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(600);
+  const vu = await q.evaluate(() => !!document.querySelector('.panneau button.vote')); if (!vu) pb.push('l\'inscription faite dans un onglet n\'apparaît pas dans l\'autre');
+  if ((await q.evaluate(() => document.querySelector('.niveau.ici .nom').textContent)) !== 'Berthier') pb.push('l\'autre onglet a changé d\'étage tout seul'); await q.close();
+});
+scenario('Odile bis, réglage « augmenter le contraste »', ordi, async (p, pb) => {
+  const lum = () => p.evaluate(() => { const c = getComputedStyle(document.querySelector('.niveau.ici .mention')).color.match(/[\d.]+/g).map(Number); return c[0] + c[1] + c[2]; });
+  const avant = await lum(); await p.emulateMedia({ contrast: 'more' }); await p.waitForTimeout(200); const apres = await lum();
+  if (apres <= avant) pb.push('le réglage « augmenter le contraste » ne change rien aux textes gris');
+});
+scenario('Marc bis, méfiant : qui est derrière, comment les joindre ?', tel, async (p, pb) => {
+  await p.evaluate(() => document.getElementById('menu-btn').click()); await p.waitForTimeout(250);
+  const t = await p.evaluate(() => document.querySelector('.menu-feuille').innerText); if (!/contact|mentions légales/i.test(t)) pb.push('aucune trace de contact ni de mentions légales, même annoncée');
+});
+for (const graine of [2024, 31337]) scenario('Un autre singe (tirage ' + graine + ') : 250 actions au hasard', graine % 2 ? tel : ordi, async (p, pb) => {
+  let g = graine; const alea = (n) => { g = (g * 1103515245 + 12345) % 2147483648; return g % n; };
+  for (let k = 0; k < 250; k++) { const a = alea(10);
+    try { if (a < 3) await p.evaluate((i) => document.querySelector(`.panneau [data-aller="${i}"]`).click(), alea(5));
+      else if (a === 3) await p.keyboard.press(['ArrowUp', 'ArrowDown', 'Home', 'End', 'Escape', 'Enter', 'Tab', 'Space'][alea(8)]);
+      else if (a === 4) await p.evaluate(() => { const b = document.querySelector('.niveau.ici .pied button:not([hidden])'); if (b) b.click(); });
+      else if (a === 5) await p.evaluate((v) => { const f = document.querySelector('.niveau.ici .inscription'); if (f && !f.hidden) { f.querySelector('input').value = v; f.requestSubmit(); } }, ['a@b.fr', '', 'x', ' y@z.org '][alea(4)]);
+      else if (a === 6) await p.evaluate(() => { const m = document.getElementById('menu'); if (m.hidden) document.getElementById('menu-btn').click(); else m.querySelectorAll('button')[Math.floor(Math.random() * 6)].click(); });
+      else if (a === 7) await p.evaluate((d) => dispatchEvent(new WheelEvent('wheel', { deltaY: d, bubbles: true })), alea(2) ? 150 : -150);
+      else if (a === 8) await p.evaluate(() => document.querySelector('.niveau.ici .perso').click());
+      else await p.evaluate((h) => { location.hash = h; }, ['#site', '#legal', '#berthier', '#agenda', '#commerce', '#rien'][alea(6)]);
+    } catch (e) { pb.push('action ' + k + ' : ' + e.message.split('\n')[0].slice(0, 70)); }
+    await p.waitForTimeout([20, 90, 350][alea(3)]); }
+  await p.evaluate(() => { const m = document.getElementById('menu'); if (!m.hidden) m.querySelector('[data-fermer]').click(); }); await p.waitForTimeout(5000);
+  (await p.evaluate(coherent)).forEach((x) => pb.push(x));
+});
+
+// ───────── Tour G ─────────
+scenario('Regard direct : le rappel d\'inscription est-il près du bouton, les flèches dans le bon ordre ?', tel, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.fill('.niveau.ici .inscription input', 'a@b.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  const e = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), b = n.querySelector('.pied').getBoundingClientRect(), l = n.querySelector('.vote-ligne').getBoundingClientRect(); const h = document.querySelector('.fleche.haut').getBoundingClientRect(), d = document.querySelector('.fleche.bas').getBoundingClientRect();
+    return { ecart: l.top - b.bottom, ordre: h.left < d.left || h.top < d.top }; });
+  if (e.ecart > 24) pb.push('le rappel d\'inscription est à ' + Math.round(e.ecart) + ' px sous le bouton, après d\'autres textes'); if (!e.ordre) pb.push('flèches de l\'ascenseur dans l\'ordre « descendre, monter »');
+});
+scenario('Jeanne, zoome avec deux doigts pour mieux lire', tel, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => { const c = document.querySelector('.niveau.ici .scene'); const mk = (id, x, y) => new Touch({ identifier: id, target: c, clientX: x, clientY: y });
+    c.dispatchEvent(new TouchEvent('touchstart', { touches: [mk(1, 150, 300), mk(2, 240, 420)], changedTouches: [mk(1, 150, 300), mk(2, 240, 420)], bubbles: true }));
+    c.dispatchEvent(new TouchEvent('touchend', { touches: [mk(2, 280, 520)], changedTouches: [mk(1, 110, 180)], bubbles: true }));
+    c.dispatchEvent(new TouchEvent('touchend', { touches: [], changedTouches: [mk(2, 280, 520)], bubbles: true })); });
+  await p.waitForTimeout(1800); const ou = await ici(p); if (ou !== 'Kovac') pb.push('un pincement à deux doigts change d\'étage (arrive chez ' + ou + ')');
+});
+scenario('Théo bis, tire depuis la barre du haut ou depuis l\'ascenseur', tel, async (p, pb) => {
+  await va(p, 3);
+  for (const sel of ['.barre', '.panneau']) { await p.evaluate((sel) => { const c = document.querySelector(sel), r = c.getBoundingClientRect(), x = r.left + 60, y = r.top + r.height / 2; const mk = (yy) => new Touch({ identifier: 1, target: c, clientX: x, clientY: yy });
+      c.dispatchEvent(new TouchEvent('touchstart', { touches: [mk(y)], changedTouches: [mk(y)], bubbles: true })); c.dispatchEvent(new TouchEvent('touchend', { touches: [], changedTouches: [mk(y + (sel === '.barre' ? 260 : -260))], bubbles: true })); }, sel);
+    await p.waitForTimeout(1800); const ou = await ici(p); if (ou !== 'Kovac') { pb.push('un glissement parti de ' + (sel === '.barre' ? 'la barre du haut' : 'l\'ascenseur') + ' change d\'étage'); await va(p, 3); } }
+});
+scenario('Gaël, dyslexique : il augmente l\'espacement des lettres et des lignes', tel, async (p, pb) => {
+  await p.addStyleTag({ content: '*{line-height:1.6!important;letter-spacing:.12em!important;word-spacing:.16em!important}' }); await p.waitForTimeout(400);
+  for (const k of [4, 2]) { if (k !== 4) await va(p, k);
+    const e = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), cage = document.querySelector('.cage').getBoundingClientRect(), out = []; if (document.documentElement.scrollWidth > innerWidth + 1) out.push('la page déborde');
+      for (const b of document.querySelectorAll('.niveau.ici .btn, .panneau button, .menu-btn, .niveau.ici .monter, .enseigne, .niveau.ici .etat')) { if (getComputedStyle(b).display === 'none') continue; if (b.scrollWidth > b.clientWidth + 2) out.push('texte coupé dans « ' + b.textContent.trim().slice(0, 14) + ' »'); const r = b.getBoundingClientRect(); if (r.right > innerWidth + 1) out.push('« ' + b.textContent.trim().slice(0, 14) + ' » sort de l\'écran'); }
+      const pi = n.querySelector('.pied').getBoundingClientRect(); if (pi.bottom > cage.bottom + 1) out.push('bouton hors écran'); const pan = document.querySelector('.panneau'); if (pan.scrollWidth > pan.clientWidth + 1) out.push('l\'ascenseur déborde'); return out; });
+    e.forEach((m) => pb.push(m)); }
+});
+scenario('Anna, fait traduire la page : les libellés deviennent plus longs', tel, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => { document.querySelector('.niveau.ici button[data-id]').textContent = 'Benachrichtigen Sie mich bitte sofort'; document.querySelector('.niveau.ici .nom').textContent = 'Kovacinovitchenko'; document.querySelector('.niveau.ici .etat').textContent = 'Erste Etage · Demnächst verfügbar für alle'; document.getElementById('menu-btn').textContent = 'Hauptmenü'; });
+  await p.waitForTimeout(300); const e = await p.evaluate(() => { const out = []; if (document.documentElement.scrollWidth > innerWidth + 1) out.push('la page déborde'); for (const s of ['.niveau.ici button[data-id]', '.niveau.ici .nom', '.niveau.ici .etat', '#menu-btn']) { const el = document.querySelector(s), r = el.getBoundingClientRect(); if (r.right > innerWidth + 1 || el.scrollWidth > el.clientWidth + 2) out.push('libellé long coupé : ' + s); } return out; });
+  e.forEach((m) => pb.push(m));
+});
+scenario('Karim ter, tape son e-mail : le clavier prend la moitié de l\'écran', tel, async (p, pb) => {
+  await va(p, 2); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(250); await p.setViewportSize({ width: 390, height: 340 }); await p.waitForTimeout(600);
+  const e = await p.evaluate(() => { const i = document.querySelector('.niveau.ici .inscription input').getBoundingClientRect(), v = document.querySelector('.niveau.ici .inscription button').getBoundingClientRect(), c = document.querySelector('.cage').getBoundingClientRect(); return { champ: i.top >= c.top - 1 && i.bottom <= c.bottom + 1, valider: v.top >= c.top - 1 && v.bottom <= c.bottom + 1, focus: document.activeElement.tagName }; });
+  if (!e.champ) pb.push('clavier ouvert : le champ e-mail n\'est plus visible'); if (!e.valider) pb.push('clavier ouvert : le bouton Valider n\'est plus visible'); if (e.focus !== 'INPUT') pb.push('clavier ouvert : le champ a perdu le focus');
+  await p.keyboard.type('karim@exemple.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300); await p.setViewportSize({ width: 390, height: 780 }); await p.waitForTimeout(500);
+  const f = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), c = document.querySelector('.cage').getBoundingClientRect(), b = n.querySelector('.pied').getBoundingClientRect(); return { note: n.classList.contains('note'), btn: b.bottom <= c.bottom + 1 && b.top >= c.top - 1, cale: Math.abs(n.getBoundingClientRect().top - c.top) < 2 }; });
+  if (!f.note) pb.push('inscription perdue quand le clavier se referme'); if (!f.btn || !f.cale) pb.push('mise en page décalée après la fermeture du clavier');
+});
+scenario('Monique bis, tablette tactile : un tap = une seule action', { viewport: { width: 768, height: 1024 }, hasTouch: true, isMobile: true }, async (p, pb) => {
+  await p.tap('.panneau [data-aller="3"]'); await p.waitForTimeout(2600); if ((await ici(p)) !== 'Kovac') pb.push('un tap sur « 1 » n\'amène pas au 1er');
+  await p.tap('.niveau.ici button[data-id]'); await p.waitForTimeout(400); if (await p.evaluate(() => document.querySelector('.niveau.ici .inscription').hidden)) pb.push('un tap sur « Préviens-moi » ouvre puis referme le formulaire');
+});
+
 (async () => {
   const b = await chromium.launch(); let total = 0; const seul = process.argv[3];
   for (const [nom, opts, f] of S.map(([n, o, f]) => [n, o, f])) {
     if (seul && !nom.includes(seul)) continue;
-    const ctx = await b.newContext(opts); const p = await ctx.newPage(); const pb = []; p.on('pageerror', (e) => pb.push('erreur script : ' + e.message.slice(0, 80)));
+    const ctx = await b.newContext(opts); const p = await ctx.newPage(); const pb = []; p.on('pageerror', (e) => pb.push('erreur script : ' + e.message.slice(0, 80))); p.on('console', (m) => { if (m.type() === 'error' && !/fonts\.g|ERR_|net::/i.test(m.text())) pb.push('erreur console : ' + m.text().slice(0, 80)); });
     await p.goto(url); await p.waitForTimeout(1100);
     try { await f(p, pb); } catch (e) { pb.push('scénario interrompu : ' + e.message.split('\n')[0].slice(0, 110)); }
     total += pb.length; console.log((pb.length ? '✗ ' : '✓ ') + nom + pb.map((x) => '\n     - ' + x).join('')); await ctx.close();
