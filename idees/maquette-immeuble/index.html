@@ -357,7 +357,7 @@ function niveauHTML(e,i){
 }
 function rendrePanneau(){
   panneau.innerHTML=`<button class="fleche haut ${aBouge?'':'appel'}" data-pas="-1" aria-label="Monter d'un étage" ${ici===0?'disabled':''}>▲</button>`
-    +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''} ${e.ouvert?'ouvert':''}" aria-current="${i===ici}" title="${e.nom}, ${e.role}${e.ouvert?' — ouvert':''}" aria-label="${e.nom}, ${e.role}, ${e.no}${e.ouvert?', ouvert':', bientôt'}">${e.no==='RDC'?'RDC':e.no[0]}</button>`).join('')
+    +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''} ${e.ouvert?'ouvert':''}" aria-current="${i===ici}" title="${e.nom}, ${e.role}${e.ouvert?' — ouvert':''}" aria-label="${e.no==='RDC'?'RDC':e.no[0]} : ${e.nom}, ${e.role}${e.ouvert?', ouvert':', bientôt'}">${e.no==='RDC'?'RDC':e.no[0]}</button>`).join('')
     +`<button class="fleche bas" data-pas="1" aria-label="Descendre d'un étage" ${ici===ETAGES.length-1?'disabled':''}>▼</button>`;
 }
 function majSuite(){
