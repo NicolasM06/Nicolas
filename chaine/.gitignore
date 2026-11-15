@@ -1,5 +1,5 @@
 sorties/
 extraits/
 voix/*.onnx
-voix/*.json
+voix/*.onnx.json
 __pycache__/

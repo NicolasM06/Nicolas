@@ -28,12 +28,24 @@ un, il suffit d'une liste de rectangles sur une grille de 20 × 16.
 
 ### La voix
 
-Sans rien installer, la vidéo sort avec la voix de secours du système. Elle est robotique
-et ne sert qu'à régler le rythme : **ne publie rien avec elle**.
+Deux voix françaises libres (Piper), une par personnage. À télécharger une fois, environ 140 Mo :
 
-Pour une vraie voix, pose deux modèles Piper français dans `voix/` sous les noms `a.onnx`
-et `b.onnx` (avec leur fichier `.json`). Ils sont utilisés automatiquement. Vérifie la
-licence de chaque voix avant un usage commercial.
+```
+pip install piper-tts
+sh outils/voix.sh
+```
+
+| Personnage | Voix | Licence des données |
+|---|---|---|
+| La curieuse | SIWIS | CC BY 4.0 |
+| Le conteur | UPMC « Pierre » | CC BY-SA 4.0 |
+
+Ces licences autorisent l'usage commercial à condition de créditer les auteurs. La ligne de
+crédit à coller dans la description de chaque vidéo est dans `publication/textes.md`.
+Une troisième voix (« Tom ») a été écartée : sa licence est incertaine pour un usage commercial.
+
+Sans ces fichiers, la vidéo sort avec la voix de secours du système, robotique : ne publie
+rien avec elle. L'outil signale aussi toute vidéo de moins de 61 secondes, que TikTok ne rémunère pas.
 
 ## Les règles qui protègent la monétisation
 

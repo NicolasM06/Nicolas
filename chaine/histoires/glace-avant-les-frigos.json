@@ -37,6 +37,12 @@
    "image": "bateau"
   },
   {
+   "qui": "B",
+   "texte": "La glace venait d'un étang de sa famille, à Saugus, près de Boston.",
+   "ecran": "Un étang familial",
+   "image": "glace"
+  },
+  {
    "qui": "A",
    "texte": "De la glace, en bateau, sous les tropiques ?"
   },

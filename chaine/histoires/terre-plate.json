@@ -52,7 +52,7 @@
   },
   {
    "qui": "B",
-   "texte": "Pas de la forme de la Terre. Il avait lui-même lu les calculs antiques de sa circonférence.",
+   "texte": "Pas de la forme de la Terre. Il avait lui-même lu les calculs antiques de sa circonférence, notamment dans l'Imago mundi de Pierre d'Ailly.",
    "ecran": "Colomb le savait",
    "image": "bateau"
   },
@@ -71,6 +71,16 @@
    "texte": "L'image du navigateur seul contre des savants ignorants plaît. Elle se répand.",
    "ecran": "Seul contre tous",
    "image": "bateau"
+  },
+  {
+   "qui": "A",
+   "texte": "Et les historiens, ils en disent quoi ?"
+  },
+  {
+   "qui": "B",
+   "texte": "L'historien Jeffrey Burton Russell l'a résumé : depuis le troisième siècle avant notre ère, presque aucune personne instruite n'a cru que la Terre était plate.",
+   "ecran": "Presque personne",
+   "image": "livre"
   },
   {
    "qui": "A",

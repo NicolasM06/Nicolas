@@ -11,8 +11,8 @@ Une histoire est une liste de répliques. Chaque réplique a :
 
 Tout est dessiné sur une petite grille de 270 × 480, agrandie quatre fois : c'est ce qui donne le grain « pixel ».
 
-La voix : si deux modèles Piper sont posés dans voix/ (a.onnx et b.onnx), ils sont utilisés.
-Sinon la voix de secours du système (espeak-ng) sert à régler le rythme.
+La voix : deux voix libres Piper, à télécharger une fois avec outils/voix.sh.
+Sans elles, la voix de secours du système (espeak-ng) sert seulement à régler le rythme.
 """
 import json
 import random
@@ -28,6 +28,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 RACINE = Path(__file__).resolve().parent.parent
 IPS, L, H, ZOOM = 25, 270, 480, 4
+PAUSE = 0.34          # respiration entre deux répliques, en secondes
+FIN = {"qui": "B", "texte": "Abonne-toi : une histoire vraie chaque jour.", "ecran": "Abonne-toi", "image": "livre"}
 POLICE = str(RACINE.parent / "impression" / "polices" / "PressStart2P-Regular.ttf")
 
 
@@ -219,11 +221,21 @@ def panneau(base, titre, mots, image):
 
 
 # ── La voix ────────────────────────────────────────────────────────────────
+# Une voix par personnage. Les deux sont libres et utilisables dans des vidéos monétisées,
+# à condition de créditer leurs auteurs (voir README) :
+#   A, la curieuse : SIWIS (CC BY 4.0) ; B, le conteur : UPMC « Pierre » (CC BY-SA 4.0).
+VOIX = {"A": ("fr_FR-siwis-medium.onnx", None), "B": ("fr_FR-upmc-medium.onnx", "1")}
+
+
 def dire(qui, texte, sortie):
-    modele = RACINE / "voix" / f"{qui.lower()}.onnx"
+    fichier, locuteur = VOIX[qui]
+    modele = RACINE / "voix" / fichier
     if modele.exists() and shutil.which("piper"):
-        subprocess.run(["piper", "--model", str(modele), "--output_file", str(sortie)], input=texte.encode(), check=True, capture_output=True)
-        return "Piper"
+        commande = ["piper", "--model", str(modele), "--output_file", str(sortie), "--length_scale", "1.10", "--sentence_silence", "0.22"]
+        if locuteur:
+            commande += ["--speaker", locuteur]
+        subprocess.run(commande, input=texte.encode(), check=True, capture_output=True)
+        return "Piper (SIWIS et UPMC Pierre)"
     voix, hauteur = ("fr+f3", "62") if qui == "A" else ("fr+m3", "34")
     subprocess.run(["espeak-ng", "-v", voix, "-s", "148", "-p", hauteur, "-w", str(sortie), texte], check=True, capture_output=True)
     return "voix de secours du système (espeak-ng)"
@@ -260,7 +272,7 @@ def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     histoire = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-    repliques = histoire["scenes"]
+    repliques = histoire["scenes"] + ([] if histoire.get("sans_fin") else [FIN])
     sortie = RACINE / "sorties" / (Path(sys.argv[1]).stem + ".mp4")
     sortie.parent.mkdir(exist_ok=True)
     CAD = 22050
@@ -272,7 +284,7 @@ def main():
             moteur = dire(s["qui"], s["texte"], f)
             son, cad = lire_wav(f)
             son = reechantillonner(son, cad, CAD)
-            pistes.append(np.concatenate([son, np.zeros(int(CAD * 0.22), dtype=np.float32)]))
+            pistes.append(np.concatenate([son, np.zeros(int(CAD * PAUSE), dtype=np.float32)]))
         audio = np.concatenate(pistes)
         with wave.open(str(tmp / "voix.wav"), "wb") as w:
             w.setnchannels(1); w.setsampwidth(2); w.setframerate(CAD)
@@ -312,7 +324,7 @@ def main():
             # sous-titre : le groupe de mots en cours, avec la tête de celui qui parle
             g = decoupes[i]
             poids = np.cumsum([sum(len(l) for l in gr) + 2 for gr in g])
-            avance = (k - debuts[i]) / max(1, debuts[i + 1] - debuts[i] - IPS * 0.22)
+            avance = (k - debuts[i]) / max(1, debuts[i + 1] - debuts[i] - IPS * PAUSE)
             n = int(np.searchsorted(poids, min(0.999, max(0, avance)) * poids[-1]))
             d = ImageDraw.Draw(img)
             lignes = g[min(n, len(g) - 1)]
@@ -329,7 +341,8 @@ def main():
             ff.stdin.write(img.resize((L * ZOOM, H * ZOOM), Image.NEAREST).tobytes())
         ff.stdin.close()
         ff.wait()
-    print(f"écrit {sortie.relative_to(RACINE)} : {nb / IPS:.0f} s, {len(repliques)} répliques, voix : {moteur}")
+    alerte = "" if nb / IPS >= 61 else "  ATTENTION : moins de 61 s, non rémunérée sur TikTok"
+    print(f"écrit {sortie.relative_to(RACINE)} : {nb / IPS:.0f} s, {len(repliques)} répliques, voix : {moteur}{alerte}")
 
 
 if __name__ == "__main__":

@@ -3,6 +3,9 @@
 Un bloc par vidéo. Le fichier vidéo est le même sur toutes les plateformes.
 Coche la case « contenu généré ou modifié par IA » là où la plateforme la propose : la voix est une voix de synthèse.
 
+**Crédit à ajouter à la fin de chaque description** (demandé par les licences des voix) :
+Voix de synthèse Piper : SIWIS (CC BY 4.0) et UPMC Pierre (CC BY-SA 4.0).
+
 ## Comment on avait des glaçons avant les congélateurs ?
 
 **Fichier** : `sorties/glace-avant-les-frigos.mp4`
