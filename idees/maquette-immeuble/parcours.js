@@ -109,7 +109,7 @@ scenario('Gilles, navigation privée : le stockage du navigateur est bloqué', t
 scenario('Noémie, impatiente : valide deux fois, colle n\'importe quoi', tel, async (p, pb) => {
   await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click());
   await p.fill('.niveau.ici .inscription input', '  Noemie.TRES-longue.adresse.de.messagerie.professionnelle+marches-de-noel@un-domaine-vraiment-interminable.exemple.fr  ');
-  await p.keyboard.press('Enter'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  await p.keyboard.press('Enter'); await p.keyboard.press('Enter'); await p.waitForTimeout(800);
   const e = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), l = n.querySelector('.vote-ligne'), f = n.querySelector('.fiche'); return { note: n.classList.contains('note'), deborde: l.scrollWidth > l.clientWidth + 1 || f.scrollWidth > f.clientWidth + 1 || document.documentElement.scrollWidth > innerWidth + 1, espaces: /à\s{2,}/.test(l.textContent) }; });
   if (!e.note) pb.push('adresse valide avec espaces autour refusée ou double validation qui annule'); if (e.deborde) pb.push('une adresse très longue fait déborder la page'); if (e.espaces) pb.push('les espaces collés avec l\'adresse sont réaffichés');
   await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click());
@@ -268,6 +268,39 @@ scenario('Maëlle, daltonienne : l\'état se lit-il sans la couleur ?', tel, asy
   const e = await p.evaluate(() => { const o = document.querySelector('.panneau button.ouvert'), v = document.querySelector('.panneau button.vote'); const po = getComputedStyle(o, '::before'), pv = getComputedStyle(v, '::after');
     return { memeCoin: po.top === pv.top && po.right === pv.right && po.bottom === pv.bottom, etat: document.querySelector('.niveau.ici .etat').textContent, btn: document.querySelector('.niveau.ici button[data-id]').textContent }; });
   if (e.memeCoin) pb.push('« ouvert » et « noté » ne diffèrent que par la couleur dans l\'ascenseur'); if (!/prévenu/i.test(e.etat) || !/noté/i.test(e.btn)) pb.push('l\'inscription ne se lit que par la couleur');
+});
+
+// ───────── Tour E ─────────
+scenario('Jeanne ter, lit lentement : les messages restent-ils assez longtemps ?', tel, async (p, pb) => {
+  await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: 200 }))); await p.waitForTimeout(4200);
+  if (await p.evaluate(() => document.getElementById('indice').hidden)) pb.push('le message d\'aide disparaît en moins de 4 secondes');
+});
+scenario('Mathilde bis, valide sans rien écrire', tel, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.keyboard.press('Enter'); await p.waitForTimeout(200);
+  const m = await p.evaluate(() => document.querySelector('.niveau.ici .erreur').textContent); if (!m) pb.push('champ vide validé sans message'); else if (/incomplète/i.test(m)) pb.push('champ vide : le message parle d\'adresse « incomplète » au lieu de demander de l\'écrire');
+});
+scenario('Hélène quater, clavier : où est le focus après s\'être inscrite ?', ordi, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').focus()); await p.keyboard.press('Enter'); await p.waitForTimeout(200);
+  await p.keyboard.type('helene@exemple.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  const f = await p.evaluate(() => ({ sur: document.activeElement === document.querySelector('.niveau.ici button[data-id]'), quoi: document.activeElement.tagName, dit: document.getElementById('annonce').textContent }));
+  if (!f.sur) pb.push('après l\'inscription, le focus est perdu (sur ' + f.quoi + ')'); if (!/prévenu|inscri/i.test(f.dit)) pb.push('l\'inscription n\'est pas annoncée au lecteur d\'écran');
+  await p.waitForTimeout(600); await p.keyboard.press('Enter'); await p.waitForTimeout(200); const g = await p.evaluate(() => ({ note: document.querySelector('.niveau.ici').classList.contains('note'), dit: document.getElementById('annonce').textContent }));
+  if (g.note) pb.push('Entrée sur « C\'est noté » n\'annule pas'); else if (!/annul/i.test(g.dit)) pb.push('l\'annulation n\'est pas annoncée');
+  if ((await p.evaluate(() => document.querySelector('.menu-feuille').getAttribute('aria-modal'))) !== 'true') pb.push('le menu ne se déclare pas comme fenêtre modale');
+});
+scenario('Lucas bis, a fait défiler un texte puis revient sur l\'étage', { viewport: { width: 320, height: 568 }, hasTouch: true, isMobile: true }, async (p, pb) => {
+  const a = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), f = n.querySelector('.fiche'); const avant = n.classList.contains('suite'); f.scrollTop = 9999; return { avant, max: f.scrollTop }; });
+  await p.waitForTimeout(300); if (a.max > 4) { if (!a.avant) pb.push('texte coupé sans indice'); if (await p.evaluate(() => document.querySelector('.niveau.ici').classList.contains('suite'))) pb.push('l\'indice « la suite plus bas » reste affiché une fois en bas'); }
+  await va(p, 3); await va(p, 4); const s = await p.evaluate(() => document.querySelector('.niveau.ici .fiche').scrollTop); if (s > 2) pb.push('en revenant sur un étage, le texte est resté défilé au milieu');
+});
+scenario('Bruno ter, bouton Retour du navigateur', ordi, async (p, pb) => {
+  await p.goto('about:blank'); await p.goto(url); await p.waitForTimeout(1100); await va(p, 3); await va(p, 1); await p.goBack(); await p.waitForTimeout(800);
+  const u = p.url(); if (u.startsWith('file:')) { const n = await ici(p).catch(() => '?'); if (n !== 'Marchand') pb.push('Retour laisse sur la page mais à un étage inattendu (' + n + ')'); }
+});
+scenario('Nadia bis, à la souris : les éléments cliquables réagissent-ils au survol ?', ordi, async (p, pb) => {
+  for (const sel of ['.panneau [data-aller="1"]', '#menu-btn', '.niveau.ici .btn', '#monter']) { const avant = await p.evaluate((s) => { const c = getComputedStyle(document.querySelector(s)); return c.backgroundColor + c.borderColor + c.color; }, sel);
+    await p.hover(sel, { force: true }); await p.waitForTimeout(350); const apres = await p.evaluate((s) => { const c = getComputedStyle(document.querySelector(s)); return c.backgroundColor + c.borderColor + c.color + '|' + c.cursor; }, sel);
+    if (apres.split('|')[0] === avant) pb.push('aucune réaction au survol : ' + sel); if (!apres.endsWith('pointer')) pb.push('pas de curseur « main » sur ' + sel); }
 });
 
 (async () => {

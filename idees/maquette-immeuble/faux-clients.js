@@ -93,6 +93,7 @@ const verifier = () => {
       await p.fill('.niveau.ici .inscription input', 'jeanne@exemple.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(250);
       const e2 = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), cage = document.querySelector('.cage').getBoundingClientRect(), b = n.querySelector('button[data-id]').getBoundingClientRect(); return { note: n.classList.contains('note'), txt: n.querySelector('.vote-ligne').textContent, btn: n.querySelector('button[data-id]').textContent, visible: b.bottom <= cage.bottom + 1 && b.height > 0 }; });
       if (!e2.note || !/jeanne@exemple\.fr/.test(e2.txt)) pbs.push('inscription non confirmée avec l\u2019adresse'); if (!e2.visible) pbs.push('bouton « C\u2019est noté » hors écran');
+      await p.waitForTimeout(700);   // une personne met au moins une demi-seconde à décider d'annuler
       await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(150);
       if (await p.evaluate(() => document.querySelector('.niveau.ici').classList.contains('note'))) pbs.push('impossible d\u2019annuler son inscription'); }
     // Menu : s'ouvre, tient dans l'écran, se ferme, ramène au bon étage.

@@ -185,7 +185,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   <nav class="panneau" id="panneau" aria-label="Ascenseur"></nav>
   <div class="menu" id="menu" hidden>
     <div class="menu-fond" data-fermer></div>
-    <div class="menu-feuille" role="dialog" aria-label="Tous les étages">
+    <div class="menu-feuille" role="dialog" aria-modal="true" aria-label="Tous les étages">
       <div class="menu-tete"><span>Tous les étages</span><button class="menu-btn" data-fermer>Fermer</button></div>
       <ul id="menu-liste"></ul>
       <p class="menu-note">Maquette : seule l'appli Berthier existe. Les autres étages servent à mesurer ce qui intéresse.</p>
@@ -355,7 +355,7 @@ function fermerFormulaire(n,focus){
 }
 function placer(){
   piste.style.transform=`translateY(${-ici*100}%)`;
-  piste.querySelectorAll('.niveau').forEach((n,i)=>{if(i!==ici)fermerFormulaire(n)});
+  piste.querySelectorAll('.niveau').forEach((n,i)=>{if(i!==ici){fermerFormulaire(n);n.querySelector('.fiche').scrollTop=0}});
   const e=ETAGES[ici];
   document.getElementById('annonce').textContent=`${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'}, ${e.nom}, ${e.role}, ${e.ouvert?'ouvert':notes.includes(e.id)?'tu seras prévenu':'bientôt'}`;
   try{history.replaceState(null,'','#'+e.id)}catch(err){}
@@ -370,7 +370,7 @@ const indice=document.getElementById('indice');let minuterie;
 function buter(sens){            // on est au bout : petit rebond et rappel de la direction
   piste.classList.remove('bute-bas','bute-haut');void piste.offsetWidth;piste.classList.add(sens>0?'bute-bas':'bute-haut');
   indice.textContent=sens>0?'Les étages sont au-dessus : glisse vers le bas ou touche un numéro':'C\u2019est le dernier étage';
-  indice.hidden=false;clearTimeout(minuterie);minuterie=setTimeout(()=>{indice.hidden=true},2600);
+  indice.hidden=false;clearTimeout(minuterie);minuterie=setTimeout(()=>{indice.hidden=true},6500);
 }
 let attente=null;
 function aller(i){
@@ -413,15 +413,21 @@ menu.addEventListener('click',ev=>{
 
 panneau.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;
   if(b.dataset.pas)aller((attente??ici)+ +b.dataset.pas);else aller(+b.dataset.aller)});
+let inscritA=0;   // protège contre le double appui juste après une inscription
 function noter(id,oui,mail){
+  if(oui)inscritA=performance.now();
   notes=oui?[...new Set([...notes,id])]:notes.filter(n=>n!==id);
   try{localStorage.setItem('immeuble-notes',JSON.stringify(notes))}catch(e){}
   const n=piste.querySelector(`.niveau [data-id="${id}"]`).closest('.niveau'),b=n.querySelector('button[data-id]'),e=ETAGES.find(x=>x.id===id);
   n.classList.toggle('note',oui);b.hidden=false;b.setAttribute('aria-pressed',oui);b.textContent=oui?'C\u2019est noté':'Préviens-moi';
+  const avaitFocus=n.contains(document.activeElement);
   n.querySelector('.inscription').hidden=true;
   n.querySelector('.etat').textContent=`${e.no} étage · ${oui?'Tu seras prévenu':'Bientôt'}`;
   n.querySelector('.vote-ligne').textContent=oui?`On t\u2019écrira à ${mail} à l\u2019ouverture. Touche « C\u2019est noté » pour annuler. (Maquette : rien n\u2019est envoyé ni conservé.)`:'';
   rendrePanneau();
+  if(avaitFocus)b.focus({preventScroll:true});
+  document.getElementById('annonce').textContent=oui?`Inscription enregistrée pour ${e.nom}. Tu seras prévenu.`:`Inscription annulée pour ${e.nom}.`;
+  requestAnimationFrame(majSuite);
 }
 piste.addEventListener('click',ev=>{
   if(ev.target.closest('.monter'))return aller(ici-1);
@@ -430,13 +436,13 @@ piste.addEventListener('click',ev=>{
     const bt=pe.closest('.niveau').querySelector('button[data-id]');if(bt&&!notes.includes(bt.dataset.id)&&!bt.hidden)bt.click();return}
   const b=ev.target.closest('button[data-id]');if(!b)return;
   const id=b.dataset.id;
-  if(notes.includes(id))return noter(id,false);
+  if(notes.includes(id)){if(performance.now()-inscritA<500)return;return noter(id,false)}
   const f=b.closest('.niveau').querySelector('.inscription');b.hidden=true;f.hidden=false;f.querySelector('input').focus();
 });
 piste.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&ev.target.matches('.inscription input')){ev.stopPropagation();fermerFormulaire(ev.target.closest('.niveau'),true)}});
 piste.addEventListener('submit',ev=>{
   ev.preventDefault();const f=ev.target,champ=f.querySelector('input'),err=f.querySelector('.erreur'),mail=champ.value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)){err.textContent='Cette adresse semble incomplète. Exemple : prenom@exemple.fr';champ.setAttribute('aria-invalid','true');champ.focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)){err.textContent=mail?'Cette adresse semble incomplète. Exemple : prenom@exemple.fr':'Écris ton e-mail pour être prévenu.';champ.setAttribute('aria-invalid','true');champ.focus();return}
   err.textContent='';champ.removeAttribute('aria-invalid');noter(f.dataset.pour,true,mail);
 });
 // L'immeuble suit le doigt et la molette, comme une page : tirer vers le bas fait monter.
