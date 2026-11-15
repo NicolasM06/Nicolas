@@ -36,9 +36,9 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .mur{position:absolute;inset:0;background:
   linear-gradient(to top,color-mix(in srgb,var(--teinte) 16%,transparent),transparent 60%),
   repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.018) 46px 48px)}
-.meuble{position:absolute;bottom:20px;width:min(23cqw,31cqh,230px);aspect-ratio:20/28;image-rendering:pixelated;transition:filter .6s .3s}
+.meuble{position:absolute;bottom:20px;width:min(23cqw,31cqh,340px);aspect-ratio:20/28;image-rendering:pixelated;transition:filter .6s .3s}
 .meuble.gauche{left:2.5cqw}.meuble.droite{right:2.5cqw}
-.objet-mur{position:absolute;top:8%;right:5%;width:min(17cqw,120px);aspect-ratio:16/12;image-rendering:pixelated;transition:filter .6s .3s}
+.objet-mur{position:absolute;top:8%;right:5%;width:min(17cqw,12cqh,170px);aspect-ratio:16/12;image-rendering:pixelated;transition:filter .6s .3s}
 .ferme .meuble,.ferme .objet-mur{filter:brightness(.5) saturate(.45)}
 .ferme.note .meuble,.ferme.note .objet-mur{filter:none}
 .led{animation:led 1.3s steps(1) infinite}.led.b{animation-delay:.6s}
@@ -47,7 +47,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .ouvert .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(79,140,255,.28),transparent 70%)}
 .ferme .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(255,217,138,.16),transparent 70%)}
 .niveau.ici.ouvert .lueur,.niveau.ici.note .lueur{opacity:1}
-.perso{position:relative;width:min(44cqw,45cqh,285px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
+.perso{position:relative;width:min(44cqw,45cqh,460px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
 .perso svg,.perso img{width:100%;height:100%;display:block}
 .ferme .perso{filter:brightness(.55) saturate(.45)}
 .ferme.note .perso{filter:none}
@@ -55,7 +55,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .niveau.ici .perso.salut{animation:salut .45s ease-out}
 @keyframes salut{0%,100%{translate:0 0}35%{translate:0 -14px}70%{translate:0 -3px}}
 @keyframes arrivee{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
-.monter{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:3;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:rgba(8,9,10,.82);color:var(--text);font:600 .9rem var(--sans);cursor:pointer;white-space:nowrap;animation:appel 1.8s ease-in-out infinite}
+.monter{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:3;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:rgba(8,9,10,.82);color:var(--text);font:600 .9rem var(--sans);cursor:pointer;white-space:nowrap;animation:appel 1.8s ease-in-out 5}
 .monter:hover{background:var(--accent-plein)}
 .scene .sol{position:absolute;left:0;right:0;bottom:0;height:22px;background:var(--surface3);border-top:2px solid var(--line2)}
 .fiche{display:flex;flex-direction:column;justify-content:safe center;gap:14px;min-width:0;min-height:0;overflow:auto;
@@ -72,14 +72,20 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .inscription input{flex:1 1 180px;min-width:0;min-height:44px;font:inherit;color:var(--text);background:var(--surface2);border:1px solid var(--line2);border-radius:6px;padding:8px 12px}
 .inscription input[aria-invalid="true"]{border-color:#ff8a8a}
 
+.usage{margin:0;color:var(--text3);font-size:.84rem}
+.vote-ligne{overflow-wrap:anywhere}
 .erreur{margin:0;color:#ff8a8a;font-size:.88rem;min-height:0}
 .mention{margin:0;color:var(--text3);font-size:.88rem;max-width:32em}
+.titre{display:flex;flex-direction:column;gap:14px}
+.nom:focus{outline:none}
 .nom{font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:-.035em;font-weight:700;margin:0}
 .role{font-size:1.15rem;color:var(--text2);margin:0}
 .fiche p.texte{margin:0;color:var(--text2);font-size:1.05rem;max-width:30em}
 .liste{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0;margin:0;list-style:none;font:400 .8rem var(--mono);color:var(--text3)}
 .liste li::before{content:"· "}
 /* Le bas de fiche reste visible : une bande pleine largeur, pour que le texte ne dépasse pas autour du bouton. */
+.niveau.suite .pied::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:30px;background:linear-gradient(transparent,var(--surface));pointer-events:none}
+.niveau.suite .pied::after{content:"▾ la suite plus bas";position:absolute;right:0;bottom:calc(100% + 2px);font:500 .72rem var(--mono);color:var(--text2);background:var(--surface);padding:1px 6px;border-radius:4px}
 .pied{position:sticky;bottom:0;z-index:2;background:var(--surface);padding-block:10px;margin-block:-10px;display:flex;flex-direction:column;align-items:flex-start}
 .btn{align-self:flex-start;font:600 .95rem var(--sans);border-radius:6px;padding:12px 18px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;text-decoration:none}
 .btn:hover{background:var(--surface2)}
@@ -112,6 +118,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .menu li button:hover{background:var(--surface2)}
 .menu li .et{font:500 .8rem var(--mono);color:var(--text3)}
 .menu li b{display:block;font-size:1.05rem;font-weight:600}
+.menu li em{font-style:normal;font-weight:400;font-size:.82rem;color:var(--accent)}
 .menu li small{color:var(--text2);font-size:.86rem}
 .menu li .st{font:500 .64rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
 .menu li .st.o{color:var(--green)}.menu li .st.n{color:var(--lampe)}
@@ -129,7 +136,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .panneau button.ouvert::before{content:"";position:absolute;bottom:2px;right:2px;width:9px;height:9px;border-radius:50%;background:var(--green);border:2px solid var(--surface2)}
 .panneau .fleche{border-radius:8px;height:44px;font-size:1rem}
 .panneau .fleche:disabled{opacity:.25;cursor:default}
-.panneau .fleche.appel{animation:appel 1.6s ease-in-out infinite;color:var(--text);border-color:var(--accent)}
+.panneau .fleche.appel{animation:appel 1.6s ease-in-out 5;color:var(--text);border-color:var(--accent)}
 @keyframes appel{0%,100%{translate:0 0}50%{translate:0 -4px}}
 .vote-ligne{font:400 .74rem var(--mono);color:var(--lampe);min-height:1.3em;margin:0}
 
@@ -143,6 +150,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .meuble{bottom:14px;width:min(24cqw,36cqh)}
   .objet-mur{top:7%;right:4%;width:13%}
   .fiche{justify-content:flex-start;gap:10px;padding:18px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));overflow:auto}
+  .titre{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
   .nom{font-size:2rem}.role{font-size:1rem}.fiche p.texte{font-size:.98rem}.accroche{font-size:.92rem}
   .panneau{flex-direction:row;border-left:0;border-top:1px solid var(--line2);gap:6px;
     padding:10px max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px))}
@@ -150,10 +158,15 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .panneau .haut{order:9}
 }
 @media (max-width:380px){.panneau .fleche{display:none}}
+@media (max-width:720px) and (max-height:620px){.niveau{grid-template-rows:minmax(0,30%) minmax(0,1fr)}.fiche{gap:8px;padding-top:12px}}
 @media (min-width:721px) and (max-height:520px){
   .panneau{display:grid;grid-template-columns:44px 44px;align-content:center;gap:6px;padding:8px}
   .panneau button,.panneau .fleche{width:44px;height:44px}
   .fiche{gap:8px;padding-block:12px}.nom{font-size:2rem}.accroche{font-size:.9rem}
+}
+@media (forced-colors:active){
+  .panneau button[aria-current="true"]{outline:3px solid Highlight;outline-offset:2px}
+  .btn,.menu-btn,.monter{border:1px solid ButtonText}
 }
 @media (prefers-reduced-motion:reduce){:root{--trajet:0s}*{animation:none!important;transition:none!important}}
 </style>
@@ -233,10 +246,10 @@ const ETAGES=[
    points:['Modèles','Démarches','Liens officiels'],mention:'Informations générales et modèles : ne remplace pas un avocat. Pas encore de date.',
    look:{alt:'Delmas',cheveux:'chignon',lunettes:true,peau:['#e9b998','#c99473'],poil:['#5b2c1e','#7d4230'],tissu:['#1b1c20','#101114'],touche:['#4f8cff','#2f63c9'],haut:'robe',objet:'code'}},
   {no:'1er',id:'site',nom:'Kovac',role:"l'informaticien",texte:"Il monte ton site en glissant des blocs, et il y branche le paiement en ligne.",
-   points:['Créateur de site','Paiement','Export'],
+   points:['Créateur de site','Paiement','Mise en ligne'],
    look:{alt:'Kovac',cheveux:'court',casque:true,lunettes:true,barbe:true,peau:['#f1c7a3','#d9a37f'],poil:['#3a2a20','#5a4232'],tissu:['#3b3f4a','#2a2c32'],touche:['#3ecf8e','#2a9d69'],haut:'capuche',objet:'portable'}},
   {no:'RDC',id:'berthier',nom:'Berthier',role:'le comptable',ouvert:true,texte:"Il note tes ventes en deux tapotements, suit ton stock et te dit quels marchés valent le déplacement.",
-   points:['Ventes','Stock','Marchés','Dépenses','Bilan'],mention:'Gratuit pendant la bêta, sans carte bancaire.'},
+   points:['Ventes','Stock','Marchés','Dépenses','Bilan'],mention:'Gratuit pendant la phase de test, sans carte bancaire.'},
 ];
 
 
@@ -303,16 +316,16 @@ function niveauHTML(e,i){
   return `<section class="niveau ${e.ouvert?'ouvert':'ferme'} ${note?'note':''} ${i===ici?'ici':''}" data-i="${i}" aria-hidden="${i!==ici}">
     <div class="scene"><span class="no" aria-hidden="true">${e.no==='RDC'?'0':e.no[0]}</span>${decorHTML(e.id,e.look?e.look.touche[0]:"#4f8cff")}<div class="lueur"></div><div class="perso">${figure}</div><div class="sol"></div>${e.ouvert?'<button class="monter" id="monter">▲ Monter<span> voir les collègues</span></button>':''}</div>
     <div class="fiche">
-      ${e.ouvert?'<p class="accroche">Berthier et ses collègues sont des applis, une par métier. Tu ne prends que celles qu\u2019il te faut.</p>':''}
+      ${e.ouvert?'<p class="accroche">Une appli par métier. Tu ne prends que celles qu\u2019il te faut.</p>':''}
       <span class="etat">${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'} · ${etat}</span>
-      <h1 class="nom">${e.nom}</h1>
-      <p class="role">${e.role[0].toUpperCase()+e.role.slice(1)}</p>
+      <div class="titre"><h1 class="nom" tabindex="-1">${e.nom}</h1>
+      <p class="role">${e.role[0].toUpperCase()+e.role.slice(1)}</p></div>
       <p class="texte">${e.texte}</p>
       <div class="pied">${action}
       ${e.ouvert?'':`<form class="inscription" data-pour="${e.id}" hidden novalidate>
         <label for="mail-${e.id}">Ton e-mail, pour te prévenir de l\u2019ouverture</label>
         <div class="ligne"><input id="mail-${e.id}" type="email" inputmode="email" autocomplete="email" placeholder="prenom@exemple.fr"><button class="btn plein" type="submit">Valider</button></div>
-        <p class="erreur" role="alert"></p></form>`}</div>
+        <p class="usage">Il ne sert qu\u2019à ça. Désinscription en un clic.</p><p class="erreur" role="alert"></p></form>`}</div>
       <p class="mention">${e.mention||'Pas encore de date. Ton clic aide à décider quelle appli sort en premier.'}</p>
       <ul class="liste">${e.points.map(p=>`<li>${p}</li>`).join('')}</ul>
       ${i===ETAGES.length-1?'':`<p class="vote-ligne">${note?RAPPEL:''}</p>`}
@@ -323,6 +336,11 @@ function rendrePanneau(){
     +ETAGES.map((e,i)=>`<button data-aller="${i}" class="${notes.includes(e.id)?'vote':''} ${e.ouvert?'ouvert':''}" aria-current="${i===ici}" title="${e.nom}, ${e.role}${e.ouvert?' — ouvert':''}" aria-label="${e.nom}, ${e.role}, ${e.no}${e.ouvert?', ouvert':', bientôt'}">${e.no==='RDC'?'RDC':e.no[0]}</button>`).join('')
     +`<button class="fleche bas" data-pas="1" aria-label="Descendre d'un étage" ${ici===ETAGES.length-1?'disabled':''}>▼</button>`;
 }
+function majSuite(){
+  piste.querySelectorAll('.niveau').forEach((n,i)=>{const f=n.querySelector('.fiche');n.classList.toggle('suite',i===ici&&f.scrollHeight-f.clientHeight-f.scrollTop>6)});
+}
+addEventListener('resize',majSuite);
+piste.addEventListener('scroll',majSuite,true);
 function fermerFormulaire(n,focus){
   const f=n.querySelector('.inscription');if(!f||f.hidden)return;
   f.hidden=true;f.querySelector('input').value='';f.querySelector('input').removeAttribute('aria-invalid');f.querySelector('.erreur').textContent='';
@@ -334,9 +352,12 @@ function placer(){
   const e=ETAGES[ici];
   document.getElementById('annonce').textContent=`${e.no==='RDC'?'Rez-de-chaussée':e.no+' étage'}, ${e.nom}, ${e.role}, ${e.ouvert?'ouvert':notes.includes(e.id)?'tu seras prévenu':'bientôt'}`;
   try{history.replaceState(null,'','#'+e.id)}catch(err){}
-  piste.querySelectorAll('.niveau').forEach((n,i)=>{n.classList.toggle('ici',i===ici);n.setAttribute('aria-hidden',i!==ici);
+  const perdu=document.activeElement&&document.activeElement.closest&&document.activeElement.closest('.niveau')&&document.activeElement.closest('.niveau')!==piste.children[ici];
+  piste.querySelectorAll('.niveau').forEach((n,i)=>{n.classList.toggle('ici',i===ici);n.setAttribute('aria-hidden',i!==ici);n.inert=i!==ici;
     n.querySelectorAll('a,button').forEach(b=>b.tabIndex=i===ici?0:-1)});
   rendrePanneau();
+  if(perdu)piste.children[ici].querySelector('.nom').focus({preventScroll:true});
+  requestAnimationFrame(majSuite);
 }
 const indice=document.getElementById('indice');let minuterie;
 function buter(sens){            // on est au bout : petit rebond et rappel de la direction
@@ -362,7 +383,7 @@ function rendreMenu(){
   document.getElementById('menu-liste').innerHTML=ETAGES.map((e,i)=>{
     const note=notes.includes(e.id);
     return `<li><button data-aller="${i}" aria-current="${i===ici}"><span class="et">${e.no}</span>
-      <span><b>${e.nom}</b><small>${e.role[0].toUpperCase()+e.role.slice(1)} · ${e.points.slice(0,3).join(', ')}</small></span>
+      <span><b>${e.nom}${i===ici?' <em>· tu es ici</em>':''}</b><small>${e.role[0].toUpperCase()+e.role.slice(1)} · ${e.points.slice(0,3).join(', ')}</small></span>
       <span class="st ${e.ouvert?'o':note?'n':''}">${e.ouvert?'Ouvert':note?'Noté':'Bientôt'}</span></button></li>`}).join('');
 }
 function ouvrirMenu(oui){
@@ -416,6 +437,8 @@ let cumul=0,dernier=0,elan=false;
 addEventListener('wheel',ev=>{
   const t=performance.now(),pause=t-dernier>180;dernier=t;
   if(!menu.hidden)return;
+  const fi=ev.target.closest&&ev.target.closest('.niveau.ici .fiche');
+  if(fi){const reste=fi.scrollHeight-fi.clientHeight;if((ev.deltaY>0&&fi.scrollTop<reste-1)||(ev.deltaY<0&&fi.scrollTop>1))return}
   if(elan){if(pause&&!enRoute){elan=false;cumul=0}else return}
   if(enRoute)return;
   if(pause)cumul=0;
@@ -432,7 +455,9 @@ addEventListener('touchend',ev=>{if(y0===null||!menu.hidden){y0=null;return}cons
 addEventListener('keydown',ev=>{if(ev.target.matches?.('input,textarea'))return;
   if(!menu.hidden){if(ev.key==='Escape')ouvrirMenu(false);return}
   if(ev.key==='ArrowUp'||ev.key==='PageUp'){ev.preventDefault();aller(ici-1)}
-  if(ev.key==='ArrowDown'||ev.key==='PageDown'){ev.preventDefault();aller(ici+1)}});
+  if(ev.key==='ArrowDown'||ev.key==='PageDown'){ev.preventDefault();aller(ici+1)}
+  if(ev.key==='Home'){ev.preventDefault();aller(0)}
+  if(ev.key==='End'){ev.preventDefault();aller(ETAGES.length-1)}});
 document.documentElement.lang='fr';
 function depuisAdresse(){const i=ETAGES.findIndex(e=>'#'+e.id===location.hash);return i}
 {const i=depuisAdresse();if(i>=0){ici=i;aBouge=i!==ETAGES.length-1}}
