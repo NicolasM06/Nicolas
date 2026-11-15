@@ -57,6 +57,8 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 @keyframes arrivee{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 .monter{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:3;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--accent);background:rgba(8,9,10,.82);color:var(--text);font:600 .9rem var(--sans);cursor:pointer;white-space:nowrap;animation:appel 1.8s ease-in-out 5}
 .monter:hover{background:var(--accent-plein)}
+@container (max-width:440px){.monter span{display:none}}
+.monter{max-width:calc(100% - 16px)}
 .scene .sol{position:absolute;left:0;right:0;bottom:0;height:22px;background:var(--surface3);border-top:2px solid var(--line2)}
 .fiche{display:flex;flex-direction:column;justify-content:safe center;gap:14px;min-width:0;min-height:0;overflow:auto;
   padding:24px clamp(18px,5vw,56px);opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
@@ -100,8 +102,8 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .sans-js{padding:28px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px;align-items:flex-start;max-width:34em}
 .sans-js h1{margin:0;font-size:1.8rem}.sans-js p{margin:0;color:var(--text2)}
 .sr-annonce{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-.indice{position:absolute;left:50%;top:68px;transform:translateX(-50%);cursor:pointer;margin:0;z-index:5;background:var(--accent-plein);color:#fff;font-weight:600;font-size:.95rem;
-  padding:10px 18px;border-radius:18px;width:max-content;max-width:calc(100% - 24px);text-align:center;line-height:1.35;text-wrap:balance;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.indice{position:absolute;left:22.7%;top:68px;transform:translateX(-50%);cursor:pointer;margin:0;z-index:5;background:var(--accent-plein);color:#fff;font-weight:600;font-size:.95rem;
+  padding:10px 18px;border-radius:18px;width:max-content;max-width:calc(45.4% - 24px);text-align:center;line-height:1.35;text-wrap:balance;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .piste.bute-bas{animation:buteBas .45s ease-out}.piste.bute-haut{animation:buteHaut .45s ease-out}
 @keyframes buteBas{40%{translate:0 -18px}}@keyframes buteHaut{40%{translate:0 18px}}
 
@@ -149,9 +151,9 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
   .niveau{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,36%) minmax(0,1fr)}
   .scene{border-right:0;border-bottom:1px solid var(--line)}
-  .perso{width:min(40cqw,58cqh);margin-bottom:16px}
+  .perso{width:min(36cqw,58cqh);margin-bottom:16px}
   .scene .sol{height:16px}
-  .monter{left:8px;top:8px;transform:none;padding:8px 14px}.monter span{display:none}
+  .monter{left:8px;top:8px;transform:none;padding:8px 11px;font-size:.84rem}.monter span{display:none}
   .indice{left:8px;top:60px;transform:none;text-align:left;max-width:min(270px,calc(100% - 16px));font-size:.88rem;padding:8px 12px;border-radius:14px}
   .meuble{bottom:14px;width:min(24cqw,36cqh)}
   .objet-mur{top:7%;right:4%;width:13%}
@@ -165,7 +167,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 @media (max-width:380px){.panneau .fleche{display:none}}
 @media (max-width:330px){.barre .maquette{display:none}.enseigne{letter-spacing:.04em}.panneau{gap:4px;padding-inline:8px}}
 /* Écran très bas (zoom à 400 %, clavier ouvert) : on garde le texte et le bouton, on retire le décor. */
-@media (max-width:720px) and (max-height:430px){
+@media (max-width:720px) and (max-height:520px){
   .piste .niveau{grid-template-rows:minmax(0,1fr)}.piste .scene{display:none}
   .barre{padding-block:4px}.panneau{padding-block:4px}.piste .fiche{gap:6px;padding-top:8px}.piste .accroche{display:none}
   .piste .pied{position:static}.piste .niveau.suite .pied::before,.piste .niveau.suite .pied::after{display:none}
@@ -175,6 +177,10 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
   .panneau{display:grid;grid-template-columns:44px 44px;align-content:center;gap:6px;padding:8px}
   .panneau button,.panneau .fleche{width:44px;height:44px}
   .fiche{gap:8px;padding-block:12px}.nom{font-size:2rem}.accroche{font-size:.9rem}
+}
+@media (max-height:340px){
+  .piste .pied{position:static}.piste .niveau.suite .pied::before,.piste .niveau.suite .pied::after{display:none}
+  .piste .monter{display:none}.piste .fiche{justify-content:flex-start}
 }
 @media (prefers-contrast:more){:root{--text2:#d6d9de;--text3:#bfc3ca;--line:rgba(255,255,255,.22);--line2:rgba(255,255,255,.4)}}
 @media (forced-colors:active){
@@ -186,7 +192,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 
 <div class="app">
   <header class="barre"><span class="enseigne">Berthier &amp; Cie</span><span class="maquette"><b>Maquette</b><span> · noms provisoires</span></span><button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button></header>
-  <main class="cage" id="cage"><div class="piste" id="piste"></div><noscript><div class="sans-js"><h1>Berthier &amp; Cie</h1><p>Cette page a besoin de JavaScript pour afficher l'immeuble. Active-le dans ton navigateur, ou va directement sur l'appli Berthier.</p><a class="btn plein" href="https://ariane-app.onrender.com">Ouvrir Berthier</a></div></noscript><p class="indice" id="indice" hidden></p></main>
+  <main class="cage" id="cage"><div class="piste" id="piste"></div><noscript><div class="sans-js"><h1>Berthier &amp; Cie</h1><p>Cette page a besoin de JavaScript pour afficher l'immeuble. Active-le dans ton navigateur, ou va directement sur l'appli Berthier.</p><a class="btn plein" href="https://ariane-app.onrender.com">Ouvrir Berthier</a></div></noscript><p class="indice" id="indice" role="status" hidden></p></main>
   <p class="sr-annonce" id="annonce" role="status"></p>
   <nav class="panneau" id="panneau" aria-label="Ascenseur"></nav>
   <div class="menu" id="menu" hidden>

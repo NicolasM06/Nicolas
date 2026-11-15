@@ -1,6 +1,7 @@
 // Faux clients, parcours d'usage : chaque scénario rejoue ce qu'une personne précise ferait.
 //   node parcours.js            tous les scénarios (une dizaine de minutes)
 //   node parcours.js --tour=H   un seul tour
+//   node parcours.js --tour=L --graine=777   trente autres écrans au hasard
 // Complète faux-clients.js (qui vérifie l'affichage sur dix écrans).
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path'); const os = require('os');
 const dir = (process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[2] : '') || fs.mkdtempSync(path.join(os.tmpdir(), 'parcours-'));
@@ -30,13 +31,13 @@ scenario('Hélène, clavier seulement : tout atteindre avec Tab, voir où elle e
 scenario('Yanis, non-voyant, lecteur d\'écran : la page se décrit-elle ?', ordi, async (p, pb) => {
   const a = await p.evaluate(() => ({ lang: document.documentElement.lang, h1: [...document.querySelectorAll('h1')].filter((h) => !h.closest('[aria-hidden="true"]')).length,
     sansNom: [...document.querySelectorAll('button,a,input')].filter((e) => !e.closest('[aria-hidden="true"]') && !e.closest('[hidden]') && !(e.textContent.trim() || e.getAttribute('aria-label') || (e.id && document.querySelector(`label[for="${e.id}"]`)))).length,
-    annonce: !!document.querySelector('[role="status"],.sr-annonce'), cageLive: document.getElementById('cage').hasAttribute('aria-live'),
+    annonce: !!document.getElementById('annonce'), cageLive: document.getElementById('cage').hasAttribute('aria-live'),
     decorLu: [...document.querySelectorAll('.niveau.ici .meuble,.niveau.ici .objet-mur')].some((s) => s.getAttribute('aria-hidden') !== 'true') }));
   if (a.lang !== 'fr') pb.push('langue de la page non déclarée (lue avec le mauvais accent)');
   if (a.h1 !== 1) pb.push(a.h1 + ' titres principaux visibles au lieu d\'un');
   if (a.sansNom) pb.push(a.sansNom + ' bouton(s) sans nom'); if (a.decorLu) pb.push('le décor est lu à voix haute');
   if (a.cageLive) pb.push('toute la fiche est relue à chaque changement (zone « live » trop large)');
-  await va(p, 3); const dit = await p.evaluate(() => document.querySelector('[role="status"]')?.textContent || '');
+  await va(p, 3); const dit = await p.evaluate(() => document.getElementById('annonce')?.textContent || '');
   if (!/Kovac/.test(dit) || !/1er/.test(dit)) pb.push('le changement d\'étage n\'est pas annoncé (« ' + dit.slice(0, 40) + ' »)');
 });
 scenario('Camille, pavé tactile de portable : un geste = un étage', ordi, async (p, pb) => {
@@ -243,9 +244,10 @@ const tient = () => { const n = document.querySelector('.niveau.ici'), cage = do
   const lh = parseFloat(getComputedStyle(t).lineHeight), f = n.querySelector('.fiche');
   if (document.documentElement.scrollWidth > innerWidth + 1) pb.push('la page déborde en largeur'); if (pan.scrollWidth > pan.clientWidth + 1 || pan.scrollHeight > pan.clientHeight + 1) pb.push('l\'ascenseur déborde');
   if (cage.height < 120) pb.push('il ne reste que ' + Math.round(cage.height) + ' px pour le contenu');
-  if (innerHeight < 300) {   // écran minuscule : tout doit défiler normalement, sans rien de collé par-dessus
+  const colle = getComputedStyle(n.querySelector('.pied')).position === 'sticky';
+  if (colle && cage.height < 230) pb.push('un bouton collé recouvre le texte sur un écran aussi bas');
+  if (!colle) {   // mode compact choisi par la page : tout doit défiler normalement, sans rien de collé par-dessus
     const nr = n.querySelector('.nom').getBoundingClientRect(), fr = f.getBoundingClientRect(); if (nr.top < fr.top - 1 || nr.bottom > fr.bottom + 1) pb.push('le nom du personnage n\'est pas visible à l\'arrivée');
-    if (getComputedStyle(n.querySelector('.pied')).position === 'sticky') pb.push('un bouton collé recouvre le texte sur un écran aussi bas');
     if (f.scrollHeight > f.clientHeight + 2 && getComputedStyle(f).overflowY !== 'auto') pb.push('le contenu est coupé sans pouvoir défiler');
     for (const e of [n.querySelector('.titre'), n.querySelector('.etat')]) { const r = e.getBoundingClientRect(); const dessus = document.elementFromPoint(r.left + 6, r.top + r.height / 2); if (dessus && !e.contains(dessus) && !dessus.contains(e)) pb.push('quelque chose recouvre « ' + e.textContent.trim().slice(0, 14) + ' »'); }
   } else {
@@ -479,6 +481,53 @@ scenario('Karim sexies : au deuxième étage, il veut donner une autre adresse',
   await p.waitForTimeout(600); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.keyboard.press('Escape'); await p.waitForTimeout(150);
   await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); const v = await p.evaluate(() => document.querySelector('.niveau.ici .inscription input').value); if (v !== 'pro@savons.fr') pb.push('après avoir refermé le formulaire, la dernière adresse n\'est plus proposée');
 });
+
+// ───────── Tour K ─────────
+TOUR = 'K';
+for (const [nom, w, h, m] of [['téléphone', 390, 780, 1], ['téléphone en paysage', 780, 360, 1], ['portable', 1366, 700, 0]])
+  scenario('Tout en haut de l\'immeuble sur ' + nom + ' : le message « dernier étage »', { viewport: { width: w, height: h }, hasTouch: !!m, isMobile: !!m }, async (p, pb) => {
+    await va(p, 0); await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: -200 }))); await p.waitForTimeout(500);
+    (await p.evaluate(gene)).forEach((x) => pb.push(x)); const t = await p.evaluate(() => document.getElementById('indice').textContent); if (!/dernier/i.test(t)) pb.push('en haut, le message ne dit pas que c\'est le dernier étage (« ' + t + ' »)');
+  });
+scenario('Yanis bis, lecteur d\'écran : entend-il le message d\'aide ?', ordi, async (p, pb) => {
+  const r = await p.evaluate(() => { const i = document.getElementById('indice'); return i.getAttribute('role') || i.getAttribute('aria-live'); }); if (!r) pb.push('le message d\'aide n\'est pas annoncé aux lecteurs d\'écran');
+});
+scenario('Monique ter, tablette en paysage : un parcours complet au doigt', { viewport: { width: 1024, height: 768 }, hasTouch: true, isMobile: true }, async (p, pb) => {
+  await p.tap('#monter'); await p.waitForTimeout(2300); if ((await ici(p)) !== 'Kovac') pb.push('« Monter » ne répond pas au doigt');
+  await p.tap('.niveau.ici .perso'); await p.waitForTimeout(300); await p.keyboard.type('monique@exemple.fr'); await p.tap('.niveau.ici .inscription button'); await p.waitForTimeout(400);
+  if (!(await p.evaluate(() => document.querySelector('.niveau.ici').classList.contains('note')))) pb.push('inscription au doigt impossible');
+  await p.tap('#menu-btn'); await p.waitForTimeout(300); await p.tap('#menu-liste [data-aller="0"]'); await p.waitForTimeout(3000); if ((await ici(p)) !== 'Vasseur') pb.push('le menu au doigt n\'emmène pas au 4e');
+  await glisser(p, 0, -220); if ((await ici(p)) !== 'Marchand') pb.push('glisser vers le haut ne redescend pas d\'un étage');
+  (await p.evaluate(coherent)).forEach((x) => pb.push(x));
+});
+scenario('Relecture : fautes de frappe et ponctuation française', ordi, async (p, pb) => {
+  await p.evaluate(() => document.getElementById('menu-btn').click()); await p.waitForTimeout(200);
+  const t = await p.evaluate(() => [...document.querySelectorAll('.fiche, .menu-feuille, .barre')].map((e) => e.textContent).join('\n') + '\n' + RAPPEL + '\n' + new DOMParser().parseFromString(document.querySelector('noscript').textContent, 'text/html').body.textContent);
+  const soucis = []; if (/\s{2,}[,.;:!?]/.test(t.replace(/\n/g, ''))) soucis.push('espaces doubles avant ponctuation'); if (/[a-zé]\?|[a-zé]!|[a-zé];/.test(t)) soucis.push('ponctuation double sans espace avant'); if (/\bca\b|\bCa\b|etage|a l'ouverture|deja|prevenu\b/.test(t)) soucis.push('accents manquants');
+  if (/''|"[^"]*"/.test(t)) soucis.push('guillemets droits au lieu de « »'); if (/\.\.\./.test(t)) soucis.push('trois points au lieu de …'); soucis.forEach((s) => pb.push(s));
+});
+
+// ───────── Tour L ─────────
+TOUR = 'L';
+// Trente écrans tirés au hasard (taille et grossissement du texte) : un faux client par écran.
+{ let g = +((process.argv.find((v) => v.startsWith('--graine=')) || '').slice(9)) || 4242; const alea = (n) => { g = (g * 1103515245 + 12345) % 2147483648; return g % n; };
+  for (let k = 0; k < 30; k++) { const w = 280 + alea(1721), h = 256 + alea(1045), z = [100, 100, 100, 125, 150, 200][alea(6)], doigt = w < 1100 && alea(2) === 0;
+    scenario(`Écran au hasard n° ${k + 1} : ${w} × ${h}, texte à ${z} %${doigt ? ', tactile' : ''}`, { viewport: { width: w, height: h }, hasTouch: doigt, isMobile: doigt }, async (p, pb) => {
+      if (z !== 100) { await p.addStyleTag({ content: `html{font-size:${z}%}` }); await p.waitForTimeout(300); }
+      for (const [k2, nom] of [[4, 'rez-de-chaussée'], [2, 'juriste']]) { if (k2 !== 4) await va(p, k2);
+        (await p.evaluate(tient)).forEach((x) => pb.push(nom + ' : ' + x));
+        const d = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), out = [], sc = n.querySelector('.scene'); if (getComputedStyle(sc).display !== 'none') { const s = sc.getBoundingClientRect(), pe = n.querySelector('.perso').getBoundingClientRect();
+            if (pe.top < s.top - 1 || pe.left < s.left - 1 || pe.right > s.right + 1) out.push('personnage coupé'); if (pe.height < 80) out.push('personnage minuscule (' + Math.round(pe.height) + ' px)');
+            for (const m of n.querySelectorAll('.meuble')) { const r = m.getBoundingClientRect(); const part = Math.max(0, Math.min(r.right, pe.right) - Math.max(r.left, pe.left)) * Math.max(0, Math.min(r.bottom, pe.bottom) - Math.max(r.top, pe.top)) / (pe.width * pe.height); if (part > .22) out.push('meuble devant le personnage'); }
+            const mo = n.querySelector('.monter'); if (mo) { const r = mo.getBoundingClientRect(); if (r.left < s.left - 1 || r.right > s.right + 1) out.push('bouton « Monter » coupé'); if (Math.min(r.right, pe.right) > Math.max(r.left, pe.left) + 2 && r.bottom > pe.top + 2 && r.top < pe.top + pe.height * .4) out.push('bouton « Monter » sur le visage'); } }
+          for (const e of n.querySelectorAll('.nom, .etat, .btn')) if (e.getClientRects().length && e.scrollWidth > e.clientWidth + 2) out.push('texte coupé : ' + e.textContent.trim().slice(0, 14));
+          const en = document.querySelector('.enseigne'); if (en.getBoundingClientRect().height > parseFloat(getComputedStyle(en).fontSize) * 2) out.push('enseigne sur deux lignes'); return out; });
+        d.forEach((x) => pb.push(nom + ' : ' + x)); }
+      await p.evaluate(() => document.getElementById('menu-btn').click()); await p.waitForTimeout(250);
+      const m = await p.evaluate(() => { const f = document.querySelector('.menu-feuille'), r = f.getBoundingClientRect(), fe = f.querySelector('[data-fermer]').getBoundingClientRect(); return (r.right > innerWidth + 1 || r.left < -1 ? 'menu plus large que l\'écran;' : '') + (fe.top < -1 || fe.bottom > innerHeight + 1 ? 'bouton Fermer hors écran;' : '') + (f.scrollWidth > f.clientWidth + 1 ? 'menu qui déborde en largeur;' : ''); });
+      m.split(';').filter(Boolean).forEach((x) => pb.push(x)); await p.keyboard.press('Escape');
+      await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: -400 }))); await p.waitForTimeout(2300); (await p.evaluate(coherent)).forEach((x) => pb.push(x));
+    }); } }
 
 (async () => {
   const b = await chromium.launch(); let total = 0; const seul = process.argv[3]; const tour = (process.argv.find((v) => v.startsWith('--tour=')) || '').slice(7);
