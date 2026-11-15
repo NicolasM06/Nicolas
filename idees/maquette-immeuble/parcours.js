@@ -548,6 +548,7 @@ scenario('Mathilde, ouvre le formulaire puis change d\'étage aussitôt', ordi, 
 TOUR = 'N';
 // Vieil iPhone (Safari d'avant iOS 16) : on retire de la page ce que ce navigateur ne comprend pas, puis on vérifie qu'elle tient.
 const vieux = (html) => html
+  .replace(/@supports not \(width:1cqw\)/g, '@supports (display:block)')                    // « pas d'unités de conteneur » devient vrai
   .replace(/@supports not \(color:color-mix\([^)]*\)\)/g, '@supports (display:block)')   // la condition « pas de color-mix » devient vraie
   .replace(/@container[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '')           // pas de container queries
   .replace(/[a-z-]+:[^;{}]*\b\d*\.?\d+cq[wh][^;{}]*;?/g, '')                 // déclarations en cqw/cqh ignorées

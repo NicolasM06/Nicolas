@@ -39,6 +39,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .mur{position:absolute;inset:0;background:
   linear-gradient(to top,color-mix(in srgb,var(--teinte) 16%,transparent),transparent 60%),
   repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.018) 46px 48px)}
+@supports not (width:1cqw){.perso{max-height:62%}}
 @supports not (color:color-mix(in srgb,red 50%,blue)){.mur{background:repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.018) 46px 48px)}}
 .meuble{position:absolute;bottom:20px;width:19%;width:min(23cqw,31cqh,340px);aspect-ratio:20/28;image-rendering:pixelated;transition:filter .6s .3s}
 .meuble.gauche{left:2.5%;left:2.5cqw}.meuble.droite{right:2.5%;right:2.5cqw}
@@ -51,7 +52,7 @@ body{background:var(--bg);color:var(--text);font:1rem/1.55 var(--sans);overflow:
 .ouvert .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(79,140,255,.28),transparent 70%)}
 .ferme .lueur{background:radial-gradient(90% 70% at 50% 100%,rgba(255,217,138,.16),transparent 70%)}
 .niveau.ici.ouvert .lueur,.niveau.ici.note .lueur{opacity:1}
-.perso{position:relative;width:34%;max-height:62%;width:min(44cqw,45cqh,460px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
+.perso{position:relative;width:34%;width:min(44cqw,45cqh,460px);aspect-ratio:24/32;margin-bottom:22px;image-rendering:pixelated;transition:filter .6s .3s}
 .perso svg,.perso img{width:100%;height:100%;display:block}
 .ferme .perso{filter:brightness(.55) saturate(.45)}
 .ferme.note .perso{filter:none}
