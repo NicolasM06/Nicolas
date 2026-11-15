@@ -1,0 +1,104 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Avant le téléphone",
+ "publication": "Comment on envoyait un message urgent avant le téléphone ?",
+ "sources": [
+  "https://www.britannica.com/EBchecked/topic/106172/Claude-Chappe",
+  "https://en.wikipedia.org/wiki/Claude_Chappe",
+  "https://www.historyofinformation.com/detail.php?entryid=496"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Comment on envoyait un message urgent, avant le téléphone ?",
+   "ecran": "Avant le téléphone ?",
+   "image": "cheval"
+  },
+  {
+   "qui": "B",
+   "texte": "À cheval. De Paris à Lille, il fallait environ vingt-quatre heures.",
+   "ecran": "24 heures",
+   "image": "cheval"
+  },
+  {
+   "qui": "A",
+   "texte": "Et on ne pouvait pas faire plus vite ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Si. En 1794, Claude Chappe met en service un télégraphe sans électricité.",
+   "ecran": "Chappe, 1794",
+   "image": "tour"
+  },
+  {
+   "qui": "A",
+   "texte": "Sans électricité ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Des tours, avec de grands bras articulés au sommet.",
+   "ecran": "Des bras articulés",
+   "image": "tour"
+  },
+  {
+   "qui": "B",
+   "texte": "Chaque position des bras correspond à un signe."
+  },
+  {
+   "qui": "A",
+   "texte": "Et qui les lit ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Un guetteur, dans la tour suivante, avec une longue-vue. Il recopie le signal pour la tour d'après.",
+   "ecran": "À la longue-vue",
+   "image": "lunette"
+  },
+  {
+   "qui": "A",
+   "texte": "De tour en tour, jusqu'au bout ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Une quinzaine de tours entre Paris et Lille.",
+   "ecran": "15 tours",
+   "image": "tour"
+  },
+  {
+   "qui": "A",
+   "texte": "Et ça va vite ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Un signe traverse toute la ligne en neuf minutes.",
+   "ecran": "9 minutes",
+   "image": "calendrier"
+  },
+  {
+   "qui": "B",
+   "texte": "Le 30 août 1794, le premier message officiel annonce la reprise de Condé-sur-l'Escaut.",
+   "ecran": "30 août 1794",
+   "image": "livre"
+  },
+  {
+   "qui": "A",
+   "texte": "Arrivé en combien de temps ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Moins d'une heure. Au lieu d'une journée à cheval.",
+   "ecran": "Moins d'une heure",
+   "image": "cheval"
+  },
+  {
+   "qui": "A",
+   "texte": "Un message plus rapide qu'un cheval, avec des bras en bois."
+  },
+  {
+   "qui": "B",
+   "texte": "Et une longue-vue.",
+   "ecran": "Et une longue-vue",
+   "image": "lunette"
+  }
+ ]
+}

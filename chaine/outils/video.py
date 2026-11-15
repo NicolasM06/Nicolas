@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fabrique une vidéo verticale en pixels : deux personnages discutent devant un panneau qui illustre.
+"""Fabrique une vidéo verticale en pixels : deux personnages discutent dans un musée, devant un tableau qui illustre.
 
     python outils/video.py histoires/reveils.json
 
@@ -130,6 +130,13 @@ DESSINS = {
     "hausse": [(2, 1, 1, 13, Bc), (2, 13, 16, 1, Bc), (4, 11, 3, 1, V), (7, 9, 2, 2, V), (9, 7, 2, 2, V), (11, 5, 2, 2, V), (13, 3, 3, 2, V), (15, 2, 2, 1, V)],
     "banque": [(2, 5, 16, 2, Bc), (4, 2, 12, 3, Bc), (8, 0, 4, 2, Bc), (3, 7, 2, 6, Gr), (7, 7, 2, 6, Gr), (11, 7, 2, 6, Gr), (15, 7, 2, 6, Gr), (1, 13, 18, 2, Bc)],
     "billets": [(2, 4, 13, 7, V), (3, 5, 11, 5, (42, 157, 105)), (7, 6, 3, 3, Bc), (5, 7, 13, 7, V), (6, 8, 11, 5, (42, 157, 105)), (10, 9, 3, 3, Bc)],
+    "tour": [(8, 7, 4, 9, Gr), (6, 14, 8, 2, Gr), (9, 2, 2, 5, Br), (4, 2, 12, 1, Br), (4, 0, 1, 3, Br), (15, 2, 1, 4, Br), (9, 10, 2, 2, J)],
+    "cheval": [(4, 6, 10, 5, Br), (13, 2, 3, 6, Br), (15, 1, 3, 3, Br), (17, 2, 1, 1, Nt), (5, 11, 2, 4, Br), (11, 11, 2, 4, Br), (2, 5, 2, 5, Nt), (13, 1, 1, 2, Nt), (8, 4, 3, 2, R)],
+    "lunette": [(2, 10, 5, 3, J), (7, 9, 5, 4, Br), (12, 8, 5, 5, J), (17, 9, 1, 3, Bl), (1, 11, 1, 1, Nt), (4, 4, 1, 1, Bc), (9, 2, 1, 1, Bc), (15, 3, 1, 1, Bc)],
+    "globe": [(6, 2, 8, 10, Bl), (5, 4, 10, 6, Bl), (7, 3, 3, 3, V), (10, 6, 4, 3, V), (6, 8, 2, 2, V), (9, 12, 2, 2, Br), (6, 14, 8, 1, Br)],
+    "livre": [(2, 4, 8, 9, Bc), (10, 4, 8, 9, Bc), (9, 4, 2, 10, Br), (3, 6, 5, 1, Gr), (3, 8, 5, 1, Gr), (3, 10, 4, 1, Gr), (12, 6, 5, 1, Gr), (12, 8, 5, 1, Gr), (12, 10, 3, 1, Gr), (1, 13, 18, 1, Br)],
+    "bateau": [(3, 10, 14, 3, Br), (5, 13, 10, 1, Br), (9, 1, 1, 9, Br), (10, 2, 6, 6, Bc), (4, 4, 5, 5, Bc), (0, 14, 20, 2, Bl), (2, 13, 1, 1, Bl), (17, 13, 1, 1, Bl)],
+    "glace": [(4, 5, 8, 8, (170, 220, 250)), (5, 6, 3, 2, Bc), (10, 8, 7, 6, (140, 200, 245)), (11, 9, 2, 2, Bc), (2, 13, 16, 1, Gr), (8, 3, 4, 2, (170, 220, 250))],
     "bombe": [(4, 9, 12, 3, Gr), (2, 10, 2, 1, Gr), (16, 10, 2, 1, Gr), (7, 7, 6, 2, Gr), (9, 12, 2, 3, R), (8, 14, 4, 1, J), (3, 3, 2, 1, Bc), (14, 2, 3, 1, Bc), (6, 1, 1, 1, Bc)],
 }
 
@@ -146,35 +153,41 @@ def dessin(nom, facteur):
 PX0, PY0, PX1, PY1 = 22, 70, 247, 330          # le panneau
 
 
+OR, OR2, OR3 = (201, 162, 39), (150, 116, 22), (236, 206, 110)
+
+
 def decor():
-    img = Image.new("RGB", (L, H), (16, 18, 40))
+    """Une salle de musée : mur sombre, parquet, appliques, et un grand tableau au cadre doré."""
+    img = Image.new("RGB", (L, H), (58, 24, 32))
     d = ImageDraw.Draw(img)
-    for y in range(0, 300, 6):                                     # ciel en bandes
-        t = y / 300
-        d.rectangle([0, y, L, y + 6], fill=(int(16 + 30 * t), int(18 + 14 * t), int(40 + 38 * t)))
-    hasard = random.Random(7)
-    for _ in range(40):
-        d.point((hasard.randrange(L), hasard.randrange(170)), fill=(200, 205, 230))
-    d.ellipse([222, 16, 246, 40], fill=(226, 226, 204)); d.ellipse([228, 20, 234, 26], fill=(200, 200, 180))
-    x = 0
-    while x < L:                                                   # immeubles au loin
-        larg, haut = hasard.randrange(26, 46), hasard.randrange(70, 150)
-        d.rectangle([x, 372 - haut, x + larg, 372], fill=(26, 28, 52))
-        for fy in range(372 - haut + 6, 366, 9):
-            for fx in range(x + 4, x + larg - 4, 7):
-                if hasard.random() < 0.28:
-                    d.rectangle([fx, fy, fx + 2, fy + 3], fill=(236, 190, 90))
-        x += larg + 2
-    d.rectangle([0, 372, L, 404], fill=(58, 60, 74)); d.rectangle([0, 372, L, 374], fill=(86, 90, 106))    # trottoir
-    d.rectangle([0, 404, L, H], fill=(22, 23, 30))                                                           # chaussée
-    for lx in range(10, L, 46):
-        d.rectangle([lx, 438, lx + 20, 440], fill=(70, 72, 84))
-    for lx in (60, 110, 160, 210):                                 # projecteurs du panneau
-        d.rectangle([lx, PY0 - 12, lx + 1, PY0 - 2], fill=(90, 94, 110)); d.rectangle([lx - 4, PY0 - 14, lx + 5, PY0 - 11], fill=(200, 204, 220))
-    d.rectangle([PX0, PY0, PX1, PY1], fill=(36, 84, 200)); d.rectangle([PX0, PY0, PX1, PY0 + 2], fill=(84, 130, 240))
-    d.rectangle([PX0 + 8, PY0 + 8, PX1 - 8, PY1 - 8], fill=(12, 16, 40))
-    for px in (PX0 + 40, PX1 - 44):                                # pieds du panneau
-        d.rectangle([px, PY1, px + 4, 372], fill=(60, 64, 80))
+    for y in range(0, 372, 6):                                     # mur, plus sombre vers le haut
+        t = y / 372
+        d.rectangle([0, y, L, y + 6], fill=(int(34 + 30 * t), int(14 + 12 * t), int(20 + 16 * t)))
+    for x in range(0, L, 18):                                      # tenture à rayures discrètes
+        d.rectangle([x, 0, x, 372], fill=(48, 20, 27))
+    d.rectangle([0, 0, L, 9], fill=(30, 20, 14)); d.rectangle([0, 9, L, 11], fill=OR2)          # corniche
+    d.rectangle([0, 344, L, 372], fill=(46, 30, 22)); d.rectangle([0, 344, L, 346], fill=OR2)   # plinthe en bois
+    for x in range(8, L, 44):
+        d.rectangle([x, 351, x + 30, 366], outline=(70, 46, 32))
+    d.rectangle([0, 372, L, H], fill=(86, 56, 34))                                               # parquet
+    for y in range(372, H, 12):
+        d.rectangle([0, y, L, y], fill=(64, 40, 24))
+        for x in range((y // 12 % 2) * 22, L, 44):
+            d.rectangle([x, y, x, y + 12], fill=(64, 40, 24))
+    d.rectangle([0, 372, L, 374], fill=(110, 74, 46))
+    for ax in (8, L - 13):                                         # deux appliques et leur halo
+        for r in range(26, 4, -4):
+            d.ellipse([ax + 2 - r, 40 - r, ax + 2 + r, 40 + r], fill=(int(70 + (26 - r) * 3), int(34 + (26 - r) * 2), int(34 + (26 - r))))
+        d.rectangle([ax, 36, ax + 4, 46], fill=OR3); d.rectangle([ax + 1, 46, ax + 3, 54], fill=OR2)
+    # le tableau : cadre doré mouluré, toile sombre
+    d.rectangle([PX0, PY0, PX1, PY1], fill=OR2)
+    d.rectangle([PX0 + 2, PY0 + 2, PX1 - 2, PY1 - 2], fill=OR)
+    d.rectangle([PX0 + 5, PY0 + 5, PX1 - 5, PY1 - 5], fill=OR3)
+    d.rectangle([PX0 + 7, PY0 + 7, PX1 - 7, PY1 - 7], fill=OR2)
+    for cx, cy in ((PX0, PY0), (PX1 - 8, PY0), (PX0, PY1 - 8), (PX1 - 8, PY1 - 8)):
+        d.rectangle([cx, cy, cx + 8, cy + 8], fill=OR3); d.rectangle([cx + 3, cy + 3, cx + 5, cy + 5], fill=OR2)
+    d.rectangle([PX0 + 9, PY0 + 9, PX1 - 9, PY1 - 9], fill=(18, 26, 30))
+    d.rectangle([(PX0 + PX1) // 2 - 1, 11, (PX0 + PX1) // 2, PY0], fill=(90, 70, 40))             # fil d'accrochage
     return img
 
 
@@ -192,13 +205,13 @@ def panneau(base, titre, mots, image):
     img = base.copy()
     d = ImageDraw.Draw(img)
     cx = (PX0 + PX1) // 2
-    d.rectangle([PX0 + 8, PY0 + 8, PX1 - 8, PY0 + 26], fill=(24, 34, 80))
-    d.text((cx, PY0 + 13), titre.upper()[:24], font=police(8), fill=(160, 180, 240), anchor="ma")
+    d.rectangle([cx - 86, PY1 + 5, cx + 86, PY1 + 19], fill=OR3); d.rectangle([cx - 86, PY1 + 5, cx + 86, PY1 + 19], outline=OR2)
+    d.text((cx, PY1 + 8), titre.upper()[:20], font=police(8), fill=(40, 26, 12), anchor="ma")
     ic = dessin(image, 7)
-    img.paste(ic, (cx - ic.width // 2, PY0 + 38), ic)
+    img.paste(ic, (cx - ic.width // 2, PY0 + 28), ic)
     lignes = couper(mots.upper(), 12)[:3]
     taille = 16 if all(len(l) <= 12 for l in lignes) else 8
-    y = PY0 + 164
+    y = PY0 + 156
     for k, l in enumerate(lignes):
         d.text((cx, y), l, font=police(taille), fill=J if k == len(lignes) - 1 else Bc, anchor="ma")
         y += taille + 8
@@ -303,15 +316,15 @@ def main():
             n = int(np.searchsorted(poids, min(0.999, max(0, avance)) * poids[-1]))
             d = ImageDraw.Draw(img)
             lignes = g[min(n, len(g) - 1)]
-            y0 = 414 if len(lignes) > 1 else 422
-            if max(len(l) for l in lignes) <= 11:                  # cas courant : la tête de celui qui parle, puis les mots
-                d.rectangle([34, 414, 73, 443], fill=(10, 12, 24)); d.rectangle([34, 414, 73, 443], outline=(84, 130, 240))
-                img.paste(tetes[s["qui"]], (36, 416), tetes[s["qui"]])
-                for j, l in enumerate(lignes):
-                    contour(d, (80, y0 + j * 20), l, f16, Bc)
-            else:                                                  # mot très long : on centre, sans la tête, pour ne rien couper
-                for j, l in enumerate(lignes):
-                    contour(d, (max(2, (L - len(l) * 16) // 2), y0 + j * 20), l, f16 if len(l) <= 16 else police(8), Bc)
+            couleur = (255, 150, 90) if s["qui"] == "A" else (120, 170, 255)
+            y0 = 416 if len(lignes) > 1 else 426
+            for j, l in enumerate(lignes):
+                f = f16 if len(l) <= 16 else police(8)
+                contour(d, (max(2, (L - int(d.textlength(l, font=f))) // 2), y0 + j * 20), l, f, Bc)
+            larg = max(int(d.textlength(l, font=f16)) for l in lignes)
+            d.rectangle([(L - larg) // 2, y0 + len(lignes) * 20 + 1, (L + larg) // 2, y0 + len(lignes) * 20 + 3], fill=couleur)
+            fx = 50 if s["qui"] == "A" else 220                    # petite flèche vers celui qui parle
+            d.polygon([(fx - 4, 408), (fx + 4, 408), (fx, 403)], fill=couleur)
             d.rectangle([0, H - 3, int(L * (k + 1) / nb), H], fill=J)
             ff.stdin.write(img.resize((L * ZOOM, H * ZOOM), Image.NEAREST).tobytes())
         ff.stdin.close()

@@ -1,0 +1,86 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Mythe ou vérité ?",
+ "publication": "Au Moyen Âge, croyait-on vraiment que la Terre était plate ?",
+ "sources": [
+  "https://www.str.org/w/columbus-and-the-flat-earth-myth",
+  "https://www.neozone.org/science/terre-plate-les-platistes-etaient-moins-nombreux-au-moyen-age-quaujourdhui",
+  "https://st.network/science/the-flat-earth-theory-in-the-middle-ages.html"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Au Moyen Âge, les gens croyaient que la Terre était plate, non ?",
+   "ecran": "La Terre plate ?",
+   "image": "globe"
+  },
+  {
+   "qui": "B",
+   "texte": "Non. Les savants du Moyen Âge savaient qu'elle était ronde.",
+   "ecran": "Ronde",
+   "image": "globe"
+  },
+  {
+   "qui": "A",
+   "texte": "Mais on me l'a répété cent fois !"
+  },
+  {
+   "qui": "B",
+   "texte": "C'est une légende, fabriquée bien plus tard.",
+   "ecran": "Une légende",
+   "image": "livre"
+  },
+  {
+   "qui": "B",
+   "texte": "Depuis l'Antiquité, les gens instruits admettent que la Terre est une sphère.",
+   "ecran": "Depuis l'Antiquité",
+   "image": "globe"
+  },
+  {
+   "qui": "A",
+   "texte": "Personne ne disait le contraire ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Quelques rares auteurs, comme Lactance, au quatrième siècle. Ils sont restés des exceptions.",
+   "ecran": "Des exceptions",
+   "image": "livre"
+  },
+  {
+   "qui": "A",
+   "texte": "Et Christophe Colomb ? Il n'a pas dû convaincre tout le monde ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Pas de la forme de la Terre. Il avait lui-même lu les calculs antiques de sa circonférence.",
+   "ecran": "Colomb le savait",
+   "image": "bateau"
+  },
+  {
+   "qui": "A",
+   "texte": "Alors d'où vient cette histoire ?"
+  },
+  {
+   "qui": "B",
+   "texte": "En 1828, l'écrivain Washington Irving publie une vie de Colomb.",
+   "ecran": "Irving, 1828",
+   "image": "livre"
+  },
+  {
+   "qui": "B",
+   "texte": "L'image du navigateur seul contre des savants ignorants plaît. Elle se répand.",
+   "ecran": "Seul contre tous",
+   "image": "bateau"
+  },
+  {
+   "qui": "A",
+   "texte": "Donc le mythe a moins de deux cents ans."
+  },
+  {
+   "qui": "B",
+   "texte": "Et on le répète encore aujourd'hui.",
+   "ecran": "Mythe",
+   "image": "globe"
+  }
+ ]
+}

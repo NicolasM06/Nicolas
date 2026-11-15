@@ -1,7 +1,7 @@
 # « C'était comment avant ? » — la chaîne
 
 Des histoires vraies d'une minute, racontées par deux personnages en pixels devant un
-panneau : comment on faisait avant, les mythes démontés, les grands événements.
+tableau, dans un musée : comment on faisait avant, les mythes démontés, les grands événements.
 
 Le nom est provisoire : vérifie qu'il est libre sur chaque plateforme avant de créer les comptes.
 
@@ -77,6 +77,9 @@ faudra aussi des vidéos longues : par exemple une compilation de dix histoires 
 | `napoleon.json` | Napoléon était-il vraiment petit ? |
 | `vikings.json` | Les casques à cornes des Vikings |
 | `krach-1929.json` | Le krach de 1929 |
+| `telegraphe-chappe.json` | Le télégraphe de Chappe, avant le téléphone |
+| `terre-plate.json` | La Terre plate au Moyen Âge, un mythe de 1828 |
+| `glace-avant-les-frigos.json` | Le commerce de la glace avant les congélateurs |
 
 ## Le reste du dossier
 

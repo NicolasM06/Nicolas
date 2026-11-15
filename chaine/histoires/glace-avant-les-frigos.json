@@ -1,0 +1,100 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Avant les congélateurs",
+ "publication": "Comment on avait des glaçons avant les congélateurs ?",
+ "sources": [
+  "https://americanheritage.com/cold-mine",
+  "https://www.atlasobscura.com/articles/how-did-people-get-ice",
+  "https://shop.hachettebookgroup.com/products/the-frozen-water-trade"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Comment on avait des glaçons, avant les congélateurs ?",
+   "ecran": "Avant les congélateurs ?",
+   "image": "glace"
+  },
+  {
+   "qui": "B",
+   "texte": "On les récoltait. En hiver, on découpait la glace des étangs gelés.",
+   "ecran": "Récolter la glace",
+   "image": "glace"
+  },
+  {
+   "qui": "A",
+   "texte": "Et dans les pays chauds ?"
+  },
+  {
+   "qui": "B",
+   "texte": "C'est là qu'arrive Frederic Tudor, un marchand de Boston.",
+   "ecran": "Frederic Tudor",
+   "image": "bateau"
+  },
+  {
+   "qui": "B",
+   "texte": "En février 1806, il charge un navire de glace à destination de la Martinique.",
+   "ecran": "Boston, 1806",
+   "image": "bateau"
+  },
+  {
+   "qui": "A",
+   "texte": "De la glace, en bateau, sous les tropiques ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Il l'isole avec du foin et de la sciure.",
+   "ecran": "Foin et sciure",
+   "image": "glace"
+  },
+  {
+   "qui": "A",
+   "texte": "Et il continue ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Pendant des années, en améliorant l'isolation à chaque voyage."
+  },
+  {
+   "qui": "B",
+   "texte": "En 1833, il tente plus fou : Calcutta, en Inde. Quatre mois de mer.",
+   "ecran": "Calcutta, 1833",
+   "image": "bateau"
+  },
+  {
+   "qui": "A",
+   "texte": "Quatre mois ! Il reste quelque chose à l'arrivée ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Plus de cent tonnes de glace arrivent à bon port.",
+   "ecran": "Plus de 100 tonnes",
+   "image": "glace"
+  },
+  {
+   "qui": "A",
+   "texte": "Et ça se vend ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Calcutta devient sa destination la plus rentable.",
+   "ecran": "La plus rentable",
+   "image": "pieces"
+  },
+  {
+   "qui": "B",
+   "texte": "En 1846, sa compagnie expédie soixante-cinq mille tonnes de glace par an.",
+   "ecran": "65 000 tonnes",
+   "image": "bateau"
+  },
+  {
+   "qui": "A",
+   "texte": "Il avait un surnom, ce monsieur ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Le roi de la glace.",
+   "ecran": "Le roi de la glace",
+   "image": "glace"
+  }
+ ]
+}
