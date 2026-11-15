@@ -80,5 +80,7 @@ faudra aussi des vidéos longues : par exemple une compilation de dix histoires 
 
 ## Le reste du dossier
 
-- `outils/decouper.py` : découpe une vidéo longue en extraits verticaux. Écrit, pas encore testé.
+- `outils/decouper.py` : découpe une vidéo longue en extraits verticaux sous-titrés. Testé sur une vidéo d'essai.
+- `outils/marque.py` : refait la photo de profil et la bannière (`marque/`).
+- `publication/textes.md` : titres, descriptions et mots-clés de chaque vidéo, plateforme par plateforme.
 - `ebauche-berthier/` : un premier plan de chaîne centré sur l'appli Berthier, mis de côté.

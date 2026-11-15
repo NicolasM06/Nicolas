@@ -102,7 +102,7 @@ def main():
                 if srt_extrait(blocs, debut, fin, sous):
                     filtres += (f";[v2]subtitles='{echapper(sous)}':force_style='FontName={POLICE},FontSize=15,Bold=1,"
                                 "PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,"
-                                "Alignment=2,MarginV=70'[v3]")
+                                "Alignment=2,MarginV=28'[v3]")
                     derniere = "v3"
             commande = ["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{debut}", "-t", f"{duree}", "-i", str(video),
                         "-filter_complex", filtres, "-map", f"[{derniere}]", "-map", "0:a?",
