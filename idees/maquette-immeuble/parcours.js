@@ -529,6 +529,21 @@ TOUR = 'L';
       await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: -400 }))); await p.waitForTimeout(2300); (await p.evaluate(coherent)).forEach((x) => pb.push(x));
     }); } }
 
+// ───────── Tour M ─────────
+TOUR = 'M';
+scenario('Hélène, appuie sur Tab pendant que l\'ascenseur roule', ordi, async (p, pb) => {
+  for (const [k, n] of [[0, 3], [4, 2], [1, 5], [3, 1]]) { await p.evaluate((k) => document.querySelector(`.panneau [data-aller="${k}"]`).click(), k); await p.waitForTimeout(120);
+    for (let i = 0; i < n; i++) { await p.keyboard.press('Tab'); await p.waitForTimeout(60); } await p.waitForTimeout(2600);
+    const e = await p.evaluate(() => { const c = document.querySelector('.cage'), n = document.querySelector('.niveau.ici'); return { ecart: Math.round(n.getBoundingClientRect().top - c.getBoundingClientRect().top), defile: c.scrollTop, nom: n.querySelector('.nom').textContent }; });
+    if (Math.abs(e.ecart) > 2) { pb.push('après Tab en plein trajet, l\'étage de ' + e.nom + ' reste décalé de ' + e.ecart + ' px (cage défilée de ' + e.defile + ' px)'); break; } }
+});
+scenario('Mathilde, ouvre le formulaire puis change d\'étage aussitôt', ordi, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => { document.querySelector('.panneau [data-aller="1"]').click(); }); await p.waitForTimeout(80);
+  await p.evaluate(() => { const b = document.querySelector('.niveau.ici button[data-id]'); if (b) b.click(); }); await p.waitForTimeout(3000);
+  const e = await p.evaluate(() => { const c = document.querySelector('.cage'), n = document.querySelector('.niveau.ici'); return { ecart: Math.round(n.getBoundingClientRect().top - c.getBoundingClientRect().top), defile: c.scrollTop }; });
+  if (Math.abs(e.ecart) > 2) pb.push('formulaire ouvert en plein trajet : étage décalé de ' + e.ecart + ' px');
+});
+
 (async () => {
   const b = await chromium.launch(); let total = 0; const seul = process.argv[3]; const tour = (process.argv.find((v) => v.startsWith('--tour=')) || '').slice(7);
   for (const [nom, opts, f, tr] of S) {

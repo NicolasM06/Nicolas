@@ -368,7 +368,7 @@ piste.addEventListener('scroll',majSuite,true);
 function fermerFormulaire(n,focus){
   const f=n.querySelector('.inscription');if(!f||f.hidden)return;
   f.hidden=true;f.querySelector('input').value='';f.querySelector('input').removeAttribute('aria-invalid');f.querySelector('.erreur').textContent='';
-  const b=n.querySelector('button[data-id]');b.hidden=false;if(focus)b.focus();
+  const b=n.querySelector('button[data-id]');b.hidden=false;if(focus)b.focus({preventScroll:true});
 }
 function placer(){
   piste.style.transform=`translateY(${-ici*100}%)`;
@@ -381,8 +381,11 @@ function placer(){
     n.querySelectorAll('a,button').forEach(b=>b.tabIndex=i===ici?0:-1)});
   rendrePanneau();
   if(perdu)piste.children[ici].querySelector('.nom').focus({preventScroll:true});
-  requestAnimationFrame(majSuite);
+  requestAnimationFrame(()=>{majSuite();recaler()});
 }
+const cage=document.getElementById('cage');
+const recaler=()=>{if(cage.scrollTop)cage.scrollTop=0;if(cage.scrollLeft)cage.scrollLeft=0;if(piste.scrollTop)piste.scrollTop=0};
+cage.addEventListener('scroll',recaler);
 const indice=document.getElementById('indice');let minuterie;
 function buter(sens){            // on est au bout : petit rebond et rappel de la direction
   piste.classList.remove('bute-bas','bute-haut');void piste.offsetWidth;piste.classList.add(sens>0?'bute-bas':'bute-haut');
@@ -459,7 +462,7 @@ piste.addEventListener('click',ev=>{
   const id=b.dataset.id;
   if(notes.includes(id)){if(performance.now()-inscritA<500)return;return noter(id,false)}
   const f=b.closest('.niveau').querySelector('.inscription');b.hidden=true;f.hidden=false;
-  const champ=f.querySelector('input');if(!champ.value&&dernierMail)champ.value=dernierMail;champ.focus();champ.select();
+  const champ=f.querySelector('input');if(!champ.value&&dernierMail)champ.value=dernierMail;champ.focus({preventScroll:true});champ.select();recaler();
 });
 addEventListener('storage',ev=>{
   if(ev.key!=='immeuble-notes')return;
