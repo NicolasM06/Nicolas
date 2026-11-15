@@ -1,11 +1,12 @@
 // Faux clients, parcours d'usage : chaque scénario rejoue ce qu'une personne précise ferait.
-//   node parcours.js
+//   node parcours.js            tous les scénarios (une dizaine de minutes)
+//   node parcours.js --tour=H   un seul tour
 // Complète faux-clients.js (qui vérifie l'affichage sur dix écrans).
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path'); const os = require('os');
-const dir = process.argv[2] || fs.mkdtempSync(path.join(os.tmpdir(), 'parcours-'));
+const dir = (process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[2] : '') || fs.mkdtempSync(path.join(os.tmpdir(), 'parcours-'));
 const html = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}[hidden]{display:none!important}</style></head><body>' + fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8') + '</body></html>';
 fs.writeFileSync(dir + '/imm.html', html); const url = 'file://' + dir + '/imm.html';
-const S = []; const scenario = (nom, opts, f) => S.push([nom, opts, f]);
+let TOUR = 'A'; const S = []; const scenario = (nom, opts, f) => S.push([nom, opts, f, TOUR]);
 const ici = (p) => p.evaluate(() => document.querySelector('.niveau.ici .nom').textContent);
 const va = async (p, k) => { await p.evaluate((k) => document.querySelector(`.panneau [data-aller="${k}"]`).click(), k); await p.waitForTimeout(2700); };
 const tel = { viewport: { width: 390, height: 780 }, hasTouch: true, isMobile: true }; const ordi = { viewport: { width: 1366, height: 700 } };
@@ -99,6 +100,7 @@ scenario('Simone, texte à 200 % sur petit téléphone', { viewport: { width: 36
 });
 
 // ───────── Tour B ─────────
+TOUR = 'B';
 scenario('Gilles, navigation privée : le stockage du navigateur est bloqué', tel, async (p, pb) => {
   await p.addInitScript(() => { const boom = () => { throw new Error('bloqué'); }; Storage.prototype.getItem = boom; Storage.prototype.setItem = boom; });
   await p.reload(); await p.waitForTimeout(1200); await va(p, 3);
@@ -150,6 +152,7 @@ scenario('Hélène bis, touches Début et Fin', ordi, async (p, pb) => {
 });
 
 // ───────── Tour C ─────────
+TOUR = 'C';
 scenario('Lucas, petit téléphone : comprend-il ce que fait Berthier sans faire défiler ?', { viewport: { width: 320, height: 568 }, hasTouch: true, isMobile: true }, async (p, pb) => {
   for (const k of [4, 2]) { if (k !== 4) await va(p, k);
     const e = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), t = n.querySelector('.texte').getBoundingClientRect(), pi = n.querySelector('.pied').getBoundingClientRect(), f = n.querySelector('.fiche');
@@ -192,6 +195,7 @@ scenario('Sylvie bis, gros doigts : les boutons sont-ils assez espacés ?', tel,
 });
 
 // ───────── Tour D ─────────
+TOUR = 'D';
 const coherent = () => { const pb = [], cage = document.querySelector('.cage').getBoundingClientRect(), n = document.querySelectorAll('.niveau.ici');
   if (n.length !== 1) return ['plusieurs étages « actifs » à la fois (' + n.length + ')']; const i = +n[0].dataset.i, e = ETAGES[i];
   if (Math.abs(n[0].getBoundingClientRect().top - cage.top) > 2) pb.push('étage affiché à cheval');
@@ -271,6 +275,7 @@ scenario('Maëlle, daltonienne : l\'état se lit-il sans la couleur ?', tel, asy
 });
 
 // ───────── Tour E ─────────
+TOUR = 'E';
 scenario('Jeanne ter, lit lentement : les messages restent-ils assez longtemps ?', tel, async (p, pb) => {
   await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: 200 }))); await p.waitForTimeout(4200);
   if (await p.evaluate(() => document.getElementById('indice').hidden)) pb.push('le message d\'aide disparaît en moins de 4 secondes');
@@ -304,6 +309,7 @@ scenario('Nadia bis, à la souris : les éléments cliquables réagissent-ils au
 });
 
 // ───────── Tour F ─────────
+TOUR = 'F';
 scenario('Paul bis, JavaScript bloqué par son navigateur', { viewport: { width: 390, height: 780 }, javaScriptEnabled: false }, async (p, pb) => {
   const t = await p.evaluate(() => document.body.innerText).catch(() => ''); const txt = t || await p.locator('body').innerText();
   if (!/Berthier/.test(txt) || !/JavaScript|navigateur/i.test(txt)) pb.push('sans JavaScript, la page est vide et ne dit pas pourquoi');
@@ -341,6 +347,7 @@ for (const graine of [2024, 31337]) scenario('Un autre singe (tirage ' + graine 
 });
 
 // ───────── Tour G ─────────
+TOUR = 'G';
 scenario('Regard direct : le rappel d\'inscription est-il près du bouton, les flèches dans le bon ordre ?', tel, async (p, pb) => {
   await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.fill('.niveau.ici .inscription input', 'a@b.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
   const e = await p.evaluate(() => { const n = document.querySelector('.niveau.ici'), b = n.querySelector('.pied').getBoundingClientRect(), l = n.querySelector('.vote-ligne').getBoundingClientRect(); const h = document.querySelector('.fleche.haut').getBoundingClientRect(), d = document.querySelector('.fleche.bas').getBoundingClientRect();
@@ -386,10 +393,98 @@ scenario('Monique bis, tablette tactile : un tap = une seule action', { viewport
   await p.tap('.niveau.ici button[data-id]'); await p.waitForTimeout(400); if (await p.evaluate(() => document.querySelector('.niveau.ici .inscription').hidden)) pb.push('un tap sur « Préviens-moi » ouvre puis referme le formulaire');
 });
 
+// ───────── Tour H ─────────
+TOUR = 'H';
+scenario('Paul ter, à la souris : le message d\'aide lui parle-t-il de « glisser » ?', ordi, async (p, pb) => {
+  await p.mouse.move(500, 400); await p.mouse.wheel(0, 200); await p.waitForTimeout(500);
+  const t = await p.evaluate(() => document.getElementById('indice').hidden ? '' : document.getElementById('indice').textContent);
+  if (!t) pb.push('aucune aide à la souris quand on bute en bas'); else if (/glisse/i.test(t)) pb.push('à la souris, l\'aide dit de « glisser » (« ' + t + ' »)');
+});
+scenario('Sylvie ter : le bouton prévient-il qu\'il ouvre un autre onglet ?', tel, async (p, pb) => {
+  const e = await p.evaluate(() => { const a = document.querySelector('.niveau.ici a.btn'); return { cible: a.target, txt: a.textContent + ' ' + (a.getAttribute('aria-label') || '') + ' ' + (a.title || ''), rel: a.rel }; });
+  if (e.cible === '_blank' && !/onglet|↗/i.test(e.txt)) pb.push('« Ouvrir Berthier » ouvre un nouvel onglet sans prévenir'); if (e.cible === '_blank' && !/noopener/.test(e.rel)) pb.push('lien externe sans protection');
+});
+scenario('Camille bis, pavé tactile : balayage horizontal et zoom par pincement', ordi, async (p, pb) => {
+  await va(p, 3); await p.mouse.move(500, 400);
+  await p.evaluate(async () => { for (let i = 0; i < 25; i++) { dispatchEvent(new WheelEvent('wheel', { deltaX: 40, deltaY: 7, bubbles: true })); await new Promise((r) => setTimeout(r, 16)); } }); await p.waitForTimeout(1800);
+  let ou = await ici(p); if (ou !== 'Kovac') { pb.push('un balayage horizontal au pavé tactile change d\'étage (arrive chez ' + ou + ')'); await va(p, 3); }
+  await p.waitForTimeout(400); await p.evaluate(async () => { for (let i = 0; i < 12; i++) { dispatchEvent(new WheelEvent('wheel', { deltaY: -30, ctrlKey: true, bubbles: true })); await new Promise((r) => setTimeout(r, 16)); } }); await p.waitForTimeout(1800);
+  ou = await ici(p); if (ou !== 'Kovac') pb.push('zoomer (Ctrl + molette ou pincement) change d\'étage (arrive chez ' + ou + ')');
+});
+scenario('Hélène quinquies : les raccourcis du navigateur ne déplacent pas l\'immeuble', ordi, async (p, pb) => {
+  await va(p, 3); for (const k of ['Control+ArrowUp', 'Alt+ArrowDown', 'Meta+ArrowUp']) { await p.keyboard.press(k); await p.waitForTimeout(1500); const ou = await ici(p); if (ou !== 'Kovac') { pb.push('le raccourci ' + k + ' change d\'étage'); await va(p, 3); } }
+});
+scenario('Karim quater : le clavier du téléphone est-il adapté à un e-mail ?', tel, async (p, pb) => {
+  const e = await p.evaluate(() => { const i = document.querySelector('.inscription input'); return { type: i.type, mode: i.inputMode, auto: i.autocomplete, hint: i.enterKeyHint, cap: i.getAttribute('autocapitalize'), corr: i.getAttribute('autocorrect') || i.getAttribute('spellcheck') }; });
+  if (e.type !== 'email' || e.mode !== 'email') pb.push('le clavier affiché n\'est pas celui des e-mails'); if (e.auto !== 'email') pb.push('le téléphone ne propose pas l\'adresse enregistrée');
+  if (!e.hint) pb.push('la touche Entrée du clavier n\'a pas de libellé adapté'); if (e.cap !== 'off' && e.cap !== 'none') pb.push('le téléphone met une majuscule au début de l\'adresse'); if (e.corr !== 'off' && e.corr !== 'false') pb.push('le correcteur peut modifier l\'adresse tapée');
+});
+
+// ───────── Tour I ─────────
+TOUR = 'I';
+scenario('Paul quater : le message d\'aide cache-t-il le bouton dont il parle ?', ordi, async (p, pb) => {
+  await p.mouse.move(500, 400); await p.mouse.wheel(0, 200); await p.waitForTimeout(500);
+  const e = await p.evaluate(() => { const i = document.getElementById('indice').getBoundingClientRect(), R = (s) => document.querySelector(s).getBoundingClientRect(); const croise = (a, b) => Math.min(a.right, b.right) > Math.max(a.left, b.left) && Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top);
+    return { monter: croise(i, R('#monter')), tete: croise(i, { ...R('.niveau.ici .perso').toJSON(), bottom: R('.niveau.ici .perso').top + R('.niveau.ici .perso').height * .45 }), nom: croise(i, R('.niveau.ici .nom')) }; });
+  if (e.monter) pb.push('le message d\'aide recouvre le bouton « Monter »'); if (e.tete) pb.push('le message d\'aide passe sur le visage du personnage'); if (e.nom) pb.push('le message d\'aide recouvre le nom');
+  await p.keyboard.press('Escape'); await p.waitForTimeout(150); if (!(await p.evaluate(() => document.getElementById('indice').hidden))) pb.push('Échap ne fait pas disparaître le message d\'aide');
+});
+for (const [nom, opts] of [['Sylvie quater, téléphone', tel], ['Lucas ter, petit téléphone', { viewport: { width: 320, height: 568 }, hasTouch: true, isMobile: true }]])
+  scenario(nom + ' : le message d\'aide gêne-t-il ?', opts, async (p, pb) => {
+    await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: 200 }))); await p.waitForTimeout(500);
+    const e = await p.evaluate(() => { const i = document.getElementById('indice').getBoundingClientRect(), R = (s) => document.querySelector(s).getBoundingClientRect(); const croise = (a, b) => Math.min(a.right, b.right) > Math.max(a.left, b.left) && Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top);
+      return { monter: croise(i, R('#monter')), pied: croise(i, R('.niveau.ici .pied')), hors: i.left < 0 || i.right > innerWidth, nom: croise(i, R('.niveau.ici .nom')) }; });
+    if (e.monter) pb.push('le message d\'aide recouvre le bouton « Monter »'); if (e.pied) pb.push('le message d\'aide recouvre le bouton principal'); if (e.hors) pb.push('le message d\'aide sort de l\'écran'); if (e.nom) pb.push('le message d\'aide recouvre le nom');
+  });
+scenario('Karim quinquies, s\'inscrit à deux étages : doit-il retaper son e-mail ?', tel, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.fill('.niveau.ici .inscription input', 'karim@exemple.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  await va(p, 1); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(250);
+  const v = await p.evaluate(() => document.querySelector('.niveau.ici .inscription input').value); if (v !== 'karim@exemple.fr') pb.push('au deuxième étage, il doit retaper son e-mail');
+  const garde = await p.evaluate(() => { try { return JSON.stringify(localStorage).includes('karim@'); } catch (e) { return false; } }); if (garde) pb.push('l\'e-mail est enregistré dans le navigateur alors que la page dit ne rien conserver');
+});
+scenario('Agathe bis, tape sur Berthier lui-même', tel, async (p, pb) => {
+  await p.tap('.niveau.ici .perso'); await p.waitForTimeout(250);
+  const e = await p.evaluate(() => { const b = document.querySelector('.niveau.ici a.btn'); return b.classList.contains('regarde') || document.activeElement === b; }); if (!e) pb.push('taper sur Berthier le fait sautiller mais ne montre pas quoi faire ensuite');
+});
+scenario('Hélène sexies : flèches du clavier dans le menu', ordi, async (p, pb) => {
+  await p.evaluate(() => document.getElementById('menu-btn').focus()); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  const avant = await p.evaluate(() => document.activeElement.dataset.aller); await p.keyboard.press('ArrowUp'); await p.waitForTimeout(150); const apres = await p.evaluate(() => document.activeElement.dataset.aller);
+  if (avant === apres) pb.push('dans le menu, la flèche Haut ne passe pas à la ligne du dessus'); if ((await ici(p)) !== 'Berthier') pb.push('dans le menu, les flèches déplacent l\'immeuble derrière');
+  await p.keyboard.press('Enter'); await p.waitForTimeout(2600); if ((await ici(p)) !== 'Kovac') pb.push('Entrée sur une ligne du menu n\'y emmène pas');
+});
+
+// ───────── Tour J ─────────
+TOUR = 'J';
+const gene = () => { const i = document.getElementById('indice'); if (i.hidden) return ['message d\'aide absent']; const r = i.getBoundingClientRect(), cage = document.querySelector('.cage').getBoundingClientRect(), n = document.querySelector('.niveau.ici'), out = [];
+  const croise = (s) => { const e = n.querySelector(s); if (!e || getComputedStyle(e).display === 'none' || !e.getClientRects().length) return false; const b = e.getBoundingClientRect(); return Math.min(r.right, b.right) > Math.max(r.left, b.left) + 1 && Math.min(r.bottom, b.bottom) > Math.max(r.top, b.top) + 1; };
+  if (r.left < 0 || r.right > innerWidth || r.top < cage.top - 1 || r.bottom > cage.bottom + 1) out.push('message d\'aide en partie hors de l\'écran');
+  if (croise('.monter')) out.push('message sur le bouton « Monter »'); if (croise('.nom')) out.push('message sur le nom'); if (croise('.pied')) out.push('message sur le bouton principal'); if (croise('.etat')) out.push('message sur l\'état de l\'étage');
+  if (i.scrollWidth > i.clientWidth + 1) out.push('message coupé'); return out; };
+for (const [nom, w, h, m] of [['téléphone', 390, 780, 1], ['petit téléphone', 320, 568, 1], ['téléphone en paysage', 780, 360, 1], ['tablette', 768, 1024, 1], ['portable', 1366, 700, 0], ['fenêtre plate', 1100, 430, 0], ['texte à 150 %', 390, 780, 1]])
+  scenario('Le message d\'aide sur ' + nom + ' : gêne-t-il quelque chose ?', { viewport: { width: w, height: h }, hasTouch: !!m, isMobile: !!m }, async (p, pb) => {
+    if (nom.includes('150')) await p.addStyleTag({ content: 'html{font-size:150%}' });
+    await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: 200 }))); await p.waitForTimeout(500); (await p.evaluate(gene)).forEach((x) => pb.push('en butant en bas : ' + x));
+    await p.goto(url + '#commerce'); await p.reload(); if (nom.includes('150')) await p.addStyleTag({ content: 'html{font-size:150%}' }); await p.waitForTimeout(1300); (await p.evaluate(gene)).forEach((x) => pb.push('à l\'arrivée par lien direct : ' + x));
+  });
+scenario('Théo ter : le message se ferme d\'un tap, et « Monter » reste utilisable dessous', tel, async (p, pb) => {
+  await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: 200 }))); await p.waitForTimeout(400);
+  await p.tap('#monter'); await p.waitForTimeout(2300); if ((await ici(p)) !== 'Kovac') pb.push('avec le message affiché, « Monter » ne répond plus');
+  await va(p, 4); await p.evaluate(() => dispatchEvent(new WheelEvent('wheel', { deltaY: 200 }))); await p.waitForTimeout(400); await p.tap('#indice'); await p.waitForTimeout(200);
+  if (!(await p.evaluate(() => document.getElementById('indice').hidden))) pb.push('un tap sur le message ne le ferme pas');
+});
+scenario('Karim sexies : au deuxième étage, il veut donner une autre adresse', tel, async (p, pb) => {
+  await va(p, 3); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.keyboard.type('karim@exemple.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  await va(p, 2); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.waitForTimeout(250); await p.keyboard.type('pro@savons.fr'); await p.keyboard.press('Enter'); await p.waitForTimeout(300);
+  const l = await p.evaluate(() => document.querySelector('.niveau.ici .vote-ligne').textContent); if (!/à pro@savons\.fr /.test(l)) pb.push('la nouvelle adresse s\'ajoute à l\'ancienne au lieu de la remplacer (« ' + l.slice(0, 60) + ' »)');
+  await p.waitForTimeout(600); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); await p.keyboard.press('Escape'); await p.waitForTimeout(150);
+  await p.evaluate(() => document.querySelector('.niveau.ici button[data-id]').click()); const v = await p.evaluate(() => document.querySelector('.niveau.ici .inscription input').value); if (v !== 'pro@savons.fr') pb.push('après avoir refermé le formulaire, la dernière adresse n\'est plus proposée');
+});
+
 (async () => {
-  const b = await chromium.launch(); let total = 0; const seul = process.argv[3];
-  for (const [nom, opts, f] of S.map(([n, o, f]) => [n, o, f])) {
-    if (seul && !nom.includes(seul)) continue;
+  const b = await chromium.launch(); let total = 0; const seul = process.argv[3]; const tour = (process.argv.find((v) => v.startsWith('--tour=')) || '').slice(7);
+  for (const [nom, opts, f, tr] of S) {
+    if (tour && tr !== tour) continue;
+    if (seul && !seul.startsWith('--') && !nom.includes(seul)) continue;
     const ctx = await b.newContext(opts); const p = await ctx.newPage(); const pb = []; p.on('pageerror', (e) => pb.push('erreur script : ' + e.message.slice(0, 80))); p.on('console', (m) => { if (m.type() === 'error' && !/fonts\.g|ERR_|net::/i.test(m.text())) pb.push('erreur console : ' + m.text().slice(0, 80)); });
     await p.goto(url); await p.waitForTimeout(1100);
     try { await f(p, pb); } catch (e) { pb.push('scénario interrompu : ' + e.message.split('\n')[0].slice(0, 110)); }
