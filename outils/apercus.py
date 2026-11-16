@@ -1,12 +1,14 @@
 """Images d'aperçu des tableurs payants pour les annonces (une par onglet).
 
 Usage : python produits/generer.py puis python outils/apercus.py
+        python outils/apercus.py <dossier des .xlsx> <dossier de sortie>
 Demande LibreOffice (soffice), pdftoppm et Pillow.
 """
-import openpyxl, subprocess, glob, os, tempfile
+import openpyxl, subprocess, glob, os, sys, tempfile
 from openpyxl.worksheet.properties import PageSetupProperties
 from PIL import Image, ImageChops
-src, out = "produits/dist/payant", "vente/visuels/etsy"
+src, out = (sys.argv[1:3] if len(sys.argv) > 2 else
+            ("produits/dist/payant", "vente/visuels/etsy"))
 
 # Profil LibreOffice temporaire réglé en français, pour afficher « 1 800,00 € ».
 PROFIL = tempfile.mkdtemp()

@@ -67,6 +67,19 @@ J'ai conçu une application de caisse pour les commerçants de marchés : je con
 Je travaille avec des outils d'intelligence artificielle pour aller plus vite, et je vérifie moi-même chaque livraison.
 ```
 
+## Exemple à montrer
+
+Sans avis sur ton profil, un exemple concret est ce qui convainc. Un premier est prêt :
+
+- `services/demos/devis-automatique.xlsx` : un devis où l'on choisit le client et les
+  prestations dans des listes ; l'adresse, les prix, la TVA et les totaux se remplissent seuls.
+- `services/demos/apercus/` : les images à mettre dans ton profil ou à joindre à une réponse.
+
+Phrase à ajouter à tes réponses : « Voici un exemple de ce que je livre : un devis qui se
+remplit en 2 minutes à partir de votre liste de clients et de tarifs. »
+
+Les noms et adresses de l'exemple sont inventés. Pour le refaire : `python services/demo_devis.py`.
+
 ## Réponse type à une annonce
 
 ```

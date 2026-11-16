@@ -44,9 +44,13 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
 - Nicolas a demandé comment atteindre 10 000 €. Réponse : impossible en libre-service dans
   un délai raisonnable ; offre de services à prix fixe préparée dans `plan/offre-services.md`,
   à activer s'il accepte des clients.
+- Nicolas accepte de travailler avec des clients. Le chemin principal devient l'offre de
+  services à prix fixe ; les tableurs et designs restent en complément.
+- Premier exemple à montrer aux clients créé : `services/demos/devis-automatique.xlsx`.
 
 **Prochaine étape**
 
-- Nicolas : micro-entreprise, boutique Etsy, compte Apify.
+- Nicolas : micro-entreprise, profil sur Malt ou Upwork, première annonce à coller à Claude ;
+  boutique Etsy en parallèle.
 - Claude : choisir le premier programme Apify dès que
   l'accès est ouvert.
