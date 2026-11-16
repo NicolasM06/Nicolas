@@ -112,6 +112,63 @@ Une question pour m'aider à me lancer : je vais bientôt proposer ce service de
 Je ne vous demande rien maintenant, c'est seulement pour savoir si mon projet tient la route.
 ```
 
+## La voie rapide : une première mission payée comme preuve
+
+Décision du 16 novembre 2026 : tu veux gagner de l'argent quoi qu'il arrive, même s'il reste
+sur un compte de plateforme sans pouvoir le retirer tout de suite. C'est possible légalement,
+à une condition de délai.
+
+### La règle qui le permet
+
+La création d'une micro-entreprise se déclare au plus tôt un mois avant le début de
+l'activité et **au plus tard dans les 15 jours qui suivent**. Tu peux donc accepter une
+première mission payée, puis déposer la déclaration dans les 15 jours, en indiquant comme date
+de début le jour où la mission a commencé. Vérifie ce délai sur
+entreprendre.service-public.gouv.fr avant de t'en servir : je n'ai pas pu confirmer s'il se
+compte en jours calendaires ou ouvrables, donc compte en jours calendaires.
+
+### Le déroulé
+
+| Étape | Ce qui se passe |
+|---|---|
+| 1 | Tu finis ton profil Upwork et tu passes la vérification d'identité avec ta propre pièce |
+| 2 | Tu réponds à de petites annonces à prix fixe, 30 à 100 $ ; je rédige les réponses |
+| 3 | Un client t'engage : **ce jour-là est le jour 1** |
+| 4 | Je fabrique l'outil, tu l'essaies et tu le livres ; le client valide |
+| 5 | L'argent apparaît sur ton solde Upwork. Tu ne peux pas le retirer sans compte bancaire, mais il est à toi et il est visible |
+| 6 | **Avant le jour 15**, tu montres à tes parents le solde, l'avis du client et l'outil, et tu demandes l'attestation d'hébergement |
+| 7 | Tu valides ton brouillon d'entreprise avec comme date de début le jour 1 |
+| 8 | Tu déclares cette somme à l'Urssaf à la première échéance, comme tout le reste ensuite |
+
+### Les règles à tenir
+
+- **Une seule mission payée avant la déclaration.** Pas deux, pas trois. La deuxième attend
+  que l'entreprise soit déposée.
+- **Le jour 1 déclenche le compte à rebours.** Note la date dans le tableur de suivi.
+- **L'argent sur le solde compte comme gagné**, même non retiré : il se déclare.
+- **Tout est à ton nom** : profil, pièce d'identité, plus tard le compte bancaire.
+
+### Le risque, clairement
+
+Si au jour 15 tu n'as ni l'attestation de tes parents ni un autre justificatif accepté, tu
+auras une activité payée non déclarée. Pour limiter ce risque :
+
+- Tente dès maintenant de valider ton brouillon avec l'attestation d'inscription au permis
+  comme justificatif. Si elle passe, tu n'as plus besoin de personne.
+- N'accepte la mission payée que si tu es prêt à avoir la discussion avec tes parents dans les
+  deux semaines qui suivent.
+- Si rien ne passe, tu arrêtes là : une seule mission, déclarée aux impôts, et pas de suivante.
+
+### Ce que la plateforme peut bloquer
+
+D'après ce que je connais d'Upwork, à vérifier dans ton compte : la vérification d'identité
+peut être exigée avant tes premières candidatures, chaque candidature coûte des jetons dont
+tu reçois une petite quantité gratuite, et le retrait demande un compte bancaire à ton nom et
+un formulaire fiscal. Rien de tout cela n'empêche l'argent de s'afficher sur ton solde.
+
+Les missions gratuites décrites plus haut restent utiles en parallèle : elles te donnent des
+exemples à montrer, ce qui aide à décrocher cette première mission payée.
+
 ## Le dossier pour tes parents
 
 Une page, que je rédige avec toi quand les quatre preuves sont là. Elle contient :

@@ -65,8 +65,13 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
   3 témoignages, 1 intention de paiement écrite, puis dossier d'une page pour les parents,
   puis création de l'entreprise. Voir `plan/preuve-avant-entreprise.md`.
 
+- Nouvelle contrainte de Nicolas : gagner de l'argent quoi qu'il arrive, même bloqué sur un
+  solde de plateforme. Voie retenue : une seule première mission payée sur Upwork, puis
+  déclaration de la micro-entreprise dans les 15 jours qui suivent le début de la mission,
+  la somme servant de preuve pour les parents.
+
 **Prochaine étape**
 
-- Nicolas : trouver une première question de tableur dans un lieu d'entraide et la coller à
-  Claude.
-- Claude : rédiger la réponse, puis fabriquer l'outil si la personne accepte.
+- Nicolas : finir le profil Upwork ; tenter de valider le brouillon d'entreprise avec
+  l'attestation d'inscription au permis ; coller à Claude les annonces qui l'intéressent.
+- Claude : trier les annonces, rédiger les réponses, fabriquer l'outil.
