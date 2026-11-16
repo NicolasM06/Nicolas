@@ -175,7 +175,7 @@ mois, ce qui n'est pas tenable seul. Les forfaits sont donc la pièce centrale.
 
 ### Le statut
 
-La micro-entreprise a un plafond annuel de chiffre d'affaires pour les services (de l'ordre de
-77 700 €, à vérifier sur le site officiel). 10 000 € par mois font 120 000 € par an : avant
-d'y arriver, il faudra passer en société, avec un comptable. La TVA s'applique aussi à partir
-d'un seuil bien plus bas.
+La micro-entreprise a un plafond annuel de chiffre d'affaires pour les services (83 600 € en
+2026 d'après les sites consultés, à vérifier sur le site de l'Urssaf). 10 000 € par mois font 120 000 € par an : avant
+d'y arriver, il faudra passer en société, avec un comptable. La TVA s'applique à partir de
+37 500 € de services par an.

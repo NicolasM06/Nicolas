@@ -47,6 +47,9 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
 - Nicolas accepte de travailler avec des clients. Le chemin principal devient l'offre de
   services à prix fixe ; les tableurs et designs restent en complément.
 - Premier exemple à montrer aux clients créé : `services/demos/devis-automatique.xlsx`.
+- Business plan réécrit (version 2) autour d'un seul business : l'automatisation à prix fixe
+  pour petites entreprises. Appui principal : 40 % des TPE-PME utilisent l'IA mais 11 %
+  seulement automatisent des tâches (baromètre France Num 2026).
 
 **Prochaine étape**
 
