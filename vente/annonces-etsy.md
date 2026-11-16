@@ -1,12 +1,12 @@
 # Annonces Etsy — à copier-coller
 
-Les descriptions restent celles de `fiches-produits.md`. Ce fichier ajoute ce qu'Etsy demande
+Les descriptions des trois premiers produits restent celles de `fiches-produits.md`. Ce fichier ajoute ce qu'Etsy demande
 en plus : un titre écrit pour la recherche et 13 mots-clés par annonce.
 
 Limites prises en compte, à vérifier dans le formulaire d'Etsy : titre de 140 caractères au
 maximum, 13 mots-clés de 20 caractères au maximum chacun.
 
-## Réglages communs aux trois annonces
+## Réglages communs à toutes les annonces
 
 - **Type** : article numérique, téléchargement immédiat.
 - **Catégorie** : Papeterie et fournitures → Modèles → Modèles de planification (ou la plus
@@ -112,6 +112,60 @@ planificateur budget
 
 **Fichier** : `produits/dist/payant/pack-complet.zip`
 **Image** : `vente/visuels/pack-complet.png`
+
+## 4. Remboursement de dettes — 7 €
+
+Nouveau produit, vendu seulement sur Etsy pour l'instant (pas encore sur le site ni dans le pack).
+
+**Titre**
+
+```
+Tableur remboursement de dettes Excel et Google Sheets en français, suivi des crédits, progression et durée restante
+```
+
+**Mots-clés**
+
+```
+remboursement dettes
+suivi dettes
+suivi crédit
+tableur dettes
+dettes excel
+dettes google sheets
+plan remboursement
+sortir des dettes
+crédit conso
+prêt étudiant
+finances perso
+gestion budget
+tracker dettes
+```
+
+**Description**
+
+```
+Crédit auto, prêt étudiant, découvert : vois enfin ce qu'il te reste à rembourser, et dans combien de temps ce sera fini.
+
+Remboursement de dettes est un tableur en français pour suivre tous tes crédits au même endroit, sans application ni abonnement.
+
+Ce que tu obtiens :
+
+- Jusqu'à 8 dettes ou crédits suivis en même temps.
+- Le total qu'il te reste à rembourser, mis à jour à chaque paiement.
+- Une barre de progression pour chaque dette.
+- Le nombre de mois restants, estimé à partir de ta mensualité et du taux.
+- Un journal des remboursements avec liste déroulante.
+- Un mode d'emploi pas à pas, dans le fichier.
+
+Compatible Excel, Google Sheets et LibreOffice. Aucune macro. Le fichier reste chez toi : rien n'est connecté à ta banque.
+
+La durée affichée est une estimation : seul l'échéancier de ta banque fait foi. Ce tableur est un outil de suivi, pas un conseil financier.
+
+Paiement unique, téléchargement immédiat.
+```
+
+**Fichier** : `produits/dist/payant/remboursement-dettes.xlsx`
+**Images** : `vente/visuels/etsy/remboursement-dettes-2.png` en premier (l'onglet Dettes), puis les deux autres.
 
 ## Profil de la boutique
 

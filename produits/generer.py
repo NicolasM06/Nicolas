@@ -444,11 +444,93 @@ def objectifs_epargne():
     return wb
 
 
+# --------------------------------------------------------------------------
+# 4. Remboursement de dettes (payant)
+# --------------------------------------------------------------------------
+def remboursement_dettes():
+    annee = annee_du_modele()
+    wb = Workbook()
+    wd = wb.active
+    wd.title = "Dettes"
+    wd.sheet_view.showGridLines = False
+    largeurs(wd, [28, 16, 12, 14, 16, 16, 14, 16])
+    wd["A1"] = "Mes dettes et crédits"
+    wd["A1"].font = TITRE
+    wd["A2"] = "Reste à rembourser :"
+    wd["A2"].font = GRAS
+    wd["B2"] = "=SUM(F5:F12)"
+    wd["B2"].number_format = EURO
+    wd["B2"].font = GRAS
+    entete(wd, 4, ["Dette ou crédit", "Montant dû", "Taux annuel", "Mensualité",
+                   "Déjà remboursé", "Reste", "Progression", "Mois restants"])
+    exemples = [("Crédit auto", 6000, 0.049, 180),
+                ("Prêt étudiant", 3500, 0.012, 90),
+                ("Découvert", 400, 0, 100)]
+    for i in range(8):
+        r = 5 + i
+        if i < len(exemples):
+            wd[f"A{r}"], wd[f"B{r}"], wd[f"C{r}"], wd[f"D{r}"] = exemples[i]
+        wd[f"E{r}"] = f'=IF(A{r}="","",SUMIF(Remboursements!$B:$B,A{r},Remboursements!$C:$C))'
+        wd[f"F{r}"] = f'=IF(A{r}="","",MAX(0,B{r}-E{r}))'
+        wd[f"G{r}"] = f'=IF(OR(A{r}="",B{r}=0),"",MIN(1,E{r}/B{r}))'
+        # Durée estimée : avec intérêts si un taux est saisi et que la mensualité les couvre.
+        wd[f"H{r}"] = (f'=IF(OR(A{r}="",D{r}="",D{r}<=0),"",IF(F{r}=0,0,'
+                       f'IF(C{r}>0,IF(D{r}>F{r}*C{r}/12,'
+                       f'ROUNDUP(NPER(C{r}/12,-D{r},F{r}),0),"mensualité trop faible"),'
+                       f'ROUNDUP(F{r}/D{r},0))))')
+    cadre(wd, "A5:A12", fond=FOND_SAISIE)
+    cadre(wd, "B5:B12", EURO, FOND_SAISIE)
+    cadre(wd, "C5:C12", "0.0%", FOND_SAISIE)
+    cadre(wd, "D5:D12", EURO, FOND_SAISIE)
+    cadre(wd, "E5:F12", EURO)
+    cadre(wd, "G5:G12", PCT)
+    cadre(wd, "H5:H12", "0")
+    wd.conditional_formatting.add("G5:G12", DataBarRule(
+        start_type="num", start_value=0, end_type="num", end_value=1, color=VERT))
+    wd["A14"] = ("« Montant dû » est ce qu'il restait à payer le jour où tu commences le suivi. "
+                 "« Mois restants » est une estimation.")
+    wd["A14"].font = Font(name="Calibri", italic=True, color="666666")
+
+    wr = wb.create_sheet("Remboursements")
+    largeurs(wr, [14, 28, 16, 40])
+    entete(wr, 1, ["Date", "Dette ou crédit", "Montant", "Note"])
+    wr.freeze_panes = "A2"
+    for i, ligne in enumerate([(dt.date(annee, 1, 5), "Crédit auto", 180),
+                               (dt.date(annee, 1, 5), "Prêt étudiant", 90),
+                               (dt.date(annee, 1, 10), "Découvert", 100),
+                               (dt.date(annee, 2, 5), "Crédit auto", 180),
+                               (dt.date(annee, 2, 5), "Prêt étudiant", 90)], start=2):
+        for j, val in enumerate(ligne, start=1):
+            wr.cell(row=i, column=j, value=val)
+    for r in range(2, 502):
+        wr.cell(row=r, column=1).number_format = "DD/MM/YYYY"
+        wr.cell(row=r, column=3).number_format = EURO
+    dv = DataValidation(type="list", formula1="=Dettes!$A$5:$A$12", allow_blank=True)
+    wr.add_data_validation(dv)
+    dv.add("B2:B501")
+
+    mode_emploi(wb, "Remboursement de dettes", [
+        "1. Onglet « Dettes » : remplace les exemples par tes dettes et crédits",
+        "   (nom, montant dû aujourd'hui, taux annuel, mensualité).",
+        "2. Onglet « Remboursements » : supprime les exemples, puis note chaque paiement",
+        "   en choisissant la dette dans la liste déroulante.",
+        "3. Reviens sur « Dettes » : déjà remboursé, reste, progression et durée sont calculés.",
+        "",
+        "Conseils :",
+        "• Sans intérêts (prêt entre proches, découvert autorisé gratuit), laisse le taux à 0.",
+        "• Pour aller plus vite : une fois une dette soldée, reporte sa mensualité sur la suivante.",
+        "• La durée est une estimation : seul l'échéancier de ta banque fait foi.",
+    ])
+    wb.active = 1
+    return wb
+
+
 def main():
     sorties = {
         "gratuit/budget-mensuel-simple.xlsx": budget_mensuel(),
         "payant/budget-annuel-complet.xlsx": budget_annuel(),
         "payant/objectifs-epargne.xlsx": objectifs_epargne(),
+        "payant/remboursement-dettes.xlsx": remboursement_dettes(),
     }
     for chemin, wb in sorties.items():
         cible = DIST / chemin

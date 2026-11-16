@@ -38,6 +38,9 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
   (2027), au lieu de l'année en cours.
 - Deux dossiers prêts à déposer remis à Nicolas : les fichiers et images pour Etsy, et les
   23 designs de Noël et de Bonne année avec leurs fiches.
+- Quatrième tableur créé pour élargir la boutique : remboursement de dettes (7 €), avec son
+  annonce et ses aperçus. Raison : chaque annonce de plus est une chance de plus d'apparaître
+  dans la recherche d'Etsy.
 
 **Prochaine étape**
 
