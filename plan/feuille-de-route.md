@@ -3,10 +3,21 @@
 Les étapes dans l'ordre. Coche chaque case quand c'est fait. « Toi » : ce que toi seul peux
 faire. « Claude » : ce que tu me demandes en ouvrant une session.
 
+## L'ordre retenu
+
+Décision du 16 novembre 2026 : **la preuve d'abord, l'entreprise ensuite.** Tant que tu n'as
+pas 3 outils livrés, 3 témoignages et une personne prête à payer, tu ne crées pas
+l'entreprise, tu ne demandes rien à tes parents et tu n'acceptes aucun paiement. Le détail est
+dans `plan/preuve-avant-entreprise.md`.
+
+Concrètement : tu fais l'étape 2 ci-dessous avec **trois** missions gratuites au lieu de deux,
+puis la discussion avec tes parents, puis seulement les étapes 1 (fin), 3, 4 et 5.
+
 ## Où trouver quoi
 
 | Besoin | Fichier |
 |---|---|
+| **La marche à suivre actuelle : prouver avant de créer l'entreprise** | `plan/preuve-avant-entreprise.md` |
 | Le plan complet, les chiffres, les sources | `plan/business-plan.md` |
 | L'offre, les prix, les textes de profil et les messages | `plan/offre-services.md` |
 | Le profil Upwork prêt à copier | `plan/profil-upwork.md` |

@@ -60,10 +60,13 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
 - Micro-entreprise : compte créé et formulaire en brouillon. Nicolas la validera au moment
   du premier client payant, avant de commencer la mission. D'ici là, seulement des missions
   gratuites.
+- Blocage identifié : pas de justificatif de domicile sans les parents, et Nicolas ne veut
+  leur en parler qu'avec une preuve de réussite. Nouvel ordre : 3 outils gratuits livrés,
+  3 témoignages, 1 intention de paiement écrite, puis dossier d'une page pour les parents,
+  puis création de l'entreprise. Voir `plan/preuve-avant-entreprise.md`.
 
 **Prochaine étape**
 
-- Nicolas : micro-entreprise, profil sur Malt ou Upwork, première annonce à coller à Claude ;
-  boutique Etsy en parallèle.
-- Claude : choisir le premier programme Apify dès que
-  l'accès est ouvert.
+- Nicolas : trouver une première question de tableur dans un lieu d'entraide et la coller à
+  Claude.
+- Claude : rédiger la réponse, puis fabriquer l'outil si la personne accepte.
