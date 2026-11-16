@@ -101,6 +101,26 @@ remplit en 2 minutes à partir de votre liste de clients et de tarifs. »
 
 Les noms et adresses de l'exemple sont inventés. Pour le refaire : `python services/demo_devis.py`.
 
+## Premier contact dans ton entourage
+
+```
+Salut [prénom],
+
+Je me lance : je fabrique des petits outils qui font à la place des gens les tâches qu'ils répètent à la main (devis, factures, suivi de stock, tableaux, tri de fichiers).
+
+Pour démarrer, j'en fais deux gratuitement. En échange, je demande juste ton avis sincère à la fin, et le droit de montrer le résultat sans tes données.
+
+Est-ce qu'il y a dans ton activité une tâche que tu refais chaque semaine et qui t'agace ? Si oui, raconte-moi en deux lignes et je te dis si je peux la régler.
+```
+
+## Demande de témoignage après une mission gratuite
+
+```
+Merci d'avoir testé ! Est-ce que tu peux m'écrire deux ou trois phrases sur ce que l'outil a changé pour toi, même s'il y a des choses à améliorer ? Je les mettrai sur mon profil avec ton prénom et ton activité, si tu es d'accord.
+
+Et si tu connais quelqu'un qui a le même genre de tâche pénible, je veux bien que tu lui parles de moi.
+```
+
 ## Réponse type à une annonce
 
 ```

@@ -52,6 +52,8 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
   seulement automatisent des tâches (baromètre France Num 2026).
 - Idée de Nicolas retenue : 5 premières missions gratuites (entourage) ou à 50-100 €
   (plateforme) en échange d'avis honnêtes, avant de passer à 250 €.
+- Organisation mise en place : feuille de route à cocher (`plan/feuille-de-route.md`),
+  tableur de suivi (`services/suivi-activite.xlsx`), messages pour l'entourage.
 
 **Prochaine étape**
 
