@@ -146,6 +146,14 @@ Dépenses prévues : quelques euros de frais d'annonce Etsy. Tout le reste est g
 | **Accepter de démarcher** | Proposer Berthier ou les tableurs directement à des gens concernés. | Premières ventes bien plus tôt. |
 | **Accepter un produit hébergé** | Applications pour boutiques Shopify, payées par abonnement. | Plafond de revenu plus haut, mais il faut un serveur et répondre aux marchands. |
 
+### Le chemin vers 10 000 €
+
+Les trois paris ci-dessus ne mènent pas à 10 000 € dans un délai raisonnable : un tableur à
+9 € demanderait plus de 1 100 ventes. Le seul chemin réaliste passe par des clients, avec des
+missions à prix fixe entre 250 et 1 000 €. Environ 15 missions suffisent, en 4 à 8 mois selon
+mes estimations. L'offre, les prix, le texte de profil et les messages types sont prêts dans
+`plan/offre-services.md`.
+
 ## Plan d'action
 
 ### Semaine 1

@@ -41,6 +41,9 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
 - Quatrième tableur créé pour élargir la boutique : remboursement de dettes (7 €), avec son
   annonce et ses aperçus. Raison : chaque annonce de plus est une chance de plus d'apparaître
   dans la recherche d'Etsy.
+- Nicolas a demandé comment atteindre 10 000 €. Réponse : impossible en libre-service dans
+  un délai raisonnable ; offre de services à prix fixe préparée dans `plan/offre-services.md`,
+  à activer s'il accepte des clients.
 
 **Prochaine étape**
 
