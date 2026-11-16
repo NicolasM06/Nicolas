@@ -38,6 +38,27 @@ juridiques ou fiscaux.
 
 Acompte de 30 % à la commande, le reste à la livraison.
 
+### Le démarrage : gratuit ou presque, contre des avis
+
+Décision du 16 novembre 2026 : les toutes premières missions servent à obtenir des preuves,
+pas de l'argent. Elles remplacent l'étape « Lancement » à 250 € tant que tu n'as pas 3 avis.
+
+| Où | Prix | Ce que tu obtiens |
+|---|---|---|
+| Entourage et commerçants que tu connais (2 missions) | Gratuit | Un témoignage écrit, le droit de montrer le résultat sans leurs données, une recommandation |
+| Plateforme (3 missions) | 50 à 100 € | Un avis sur ton profil, qui ne peut venir que d'une vraie mission payée sur la plateforme |
+
+Règles :
+
+- **Une seule petite tâche par mission**, 2 jours au maximum. Le prix est bas, donc le
+  périmètre aussi : tout ajout se fait au prix normal.
+- **Demande un avis honnête, jamais un avis positif.** Échanger un cadeau contre une bonne
+  note, ou faire écrire un avis par un proche qui n'a rien commandé, est interdit par les
+  plateformes et par la loi.
+- **Dis-le clairement** : « Je démarre, c'est pourquoi le prix est bas. En échange, j'aimerais
+  votre avis sincère une fois l'outil livré. »
+- **Limite le nombre** : 5 missions à ce tarif, pas une de plus. Ensuite 250 €, puis 600 €.
+
 **Vers 10 000 € au total** : 3 missions à 250 €, puis 6 à 600 €, puis 6 à 1 000 € donnent
 10 350 €, soit 15 missions. Délai réaliste en partant de zéro : 4 à 8 mois.
 

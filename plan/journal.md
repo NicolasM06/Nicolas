@@ -50,6 +50,8 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
 - Business plan réécrit (version 2) autour d'un seul business : l'automatisation à prix fixe
   pour petites entreprises. Appui principal : 40 % des TPE-PME utilisent l'IA mais 11 %
   seulement automatisent des tâches (baromètre France Num 2026).
+- Idée de Nicolas retenue : 5 premières missions gratuites (entourage) ou à 50-100 €
+  (plateforme) en échange d'avis honnêtes, avant de passer à 250 €.
 
 **Prochaine étape**
 
