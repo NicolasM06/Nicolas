@@ -2,6 +2,11 @@
  "titre": "C'était comment avant ?",
  "rubrique": "Mythe ou vérité ?",
  "publication": "Napoléon était-il vraiment petit ?",
+ "accroche": "Napoléon n'était pas petit. Voici d'où vient le mythe.",
+ "mots": [
+  "napoleon",
+  "mythe"
+ ],
  "sources": [
   "https://www.napoleon.org/histoire-des-2-empires/articles/la-taille-de-napoleon",
   "https://www.slate.fr/story/256422/petit-napoleon-taille-invention-propagande-caricatures-grande-bretagne-james-gillray",

@@ -1,0 +1,101 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Mythe ou vérité ?",
+ "publication": "Les carottes font-elles vraiment voir dans le noir ?",
+ "accroche": "Les carottes qui font voir dans le noir : une invention de la propagande britannique de 1940.",
+ "mots": [
+  "mythe",
+  "secondeguerremondiale"
+ ],
+ "sources": [
+  "https://www.smithsonianmag.com/history/a-wwii-propaganda-campaign-popularized-the-myth-that-carrots-help-you-see-in-the-dark-28812484/",
+  "https://www.forcesnews.com/services/tri-service/luftwaffe-and-great-carrot-swindle",
+  "https://www.todayifoundout.com/index.php/2021/06/how-wwii-made-everybody-think-carrots-were-good-for-eyes-and-why-it-didnt-really-have-to-do-with-tricking-the-germans/"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Les carottes, ça fait voir dans le noir, non ?",
+   "ecran": "Voir dans le noir ?",
+   "image": "carotte"
+  },
+  {
+   "qui": "B",
+   "texte": "Non. Cette idée vient d'une campagne de propagande britannique, pendant la Seconde Guerre mondiale.",
+   "ecran": "Propagande",
+   "image": "avion"
+  },
+  {
+   "qui": "A",
+   "texte": "De la propagande… sur les carottes ?"
+  },
+  {
+   "qui": "B",
+   "texte": "En 1940, les pilotes britanniques abattent des bombardiers allemands en pleine nuit.",
+   "ecran": "En pleine nuit",
+   "image": "avion"
+  },
+  {
+   "qui": "A",
+   "texte": "Et comment ils font ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Grâce à une arme toute nouvelle : un radar embarqué dans l'avion.",
+   "ecran": "Le radar",
+   "image": "radar"
+  },
+  {
+   "qui": "B",
+   "texte": "Mais ce radar est secret. Il faut une autre explication.",
+   "ecran": "Top secret",
+   "image": "radar"
+  },
+  {
+   "qui": "A",
+   "texte": "Laisse-moi deviner. Les carottes."
+  },
+  {
+   "qui": "B",
+   "texte": "Exactement. Les journaux racontent que les pilotes en mangent énormément, et qu'ils voient dans le noir.",
+   "ecran": "Les carottes",
+   "image": "carotte"
+  },
+  {
+   "qui": "B",
+   "texte": "Le pilote John Cunningham est même surnommé Œil-de-chat.",
+   "ecran": "Œil-de-chat",
+   "image": "oeil"
+  },
+  {
+   "qui": "A",
+   "texte": "Et les Allemands y ont cru ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Sans doute pas. La plupart des historiens pensent qu'ils n'ont pas été dupes.",
+   "ecran": "Pas dupes",
+   "image": "avion"
+  },
+  {
+   "qui": "A",
+   "texte": "Alors qui y a cru ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Les Britanniques eux-mêmes. On les encourageait justement à cultiver leurs légumes.",
+   "ecran": "Les potagers",
+   "image": "carotte"
+  },
+  {
+   "qui": "A",
+   "texte": "Donc on mange des carottes à cause d'un radar."
+  },
+  {
+   "qui": "B",
+   "texte": "Depuis plus de quatre-vingts ans.",
+   "ecran": "Plus de 80 ans",
+   "image": "carotte"
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Mythe ou vérité ?",
+ "publication": "N'utilise-t-on vraiment que 10 % de notre cerveau ?",
+ "accroche": "Non, on n'utilise pas que 10 % de son cerveau. Et personne ne sait vraiment d'où vient ce chiffre.",
+ "mots": [
+  "mythe",
+  "cerveau",
+  "science"
+ ],
+ "sources": [
+  "https://www.futura-sciences.com/sante/questions-reponses/medecine-on-nutilise-10-notre-cerveau-vrai-faux-19201/",
+  "https://www.sante.fr/node/6927139",
+  "https://www.erudit.org/en/revue/psyedu/2008/v37/n1/1099297ar.pdf"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Il paraît qu'on n'utilise que dix pour cent de notre cerveau.",
+   "ecran": "10 % du cerveau ?",
+   "image": "cerveau"
+  },
+  {
+   "qui": "B",
+   "texte": "C'est faux. On utilise tout notre cerveau.",
+   "ecran": "Faux",
+   "image": "cerveau"
+  },
+  {
+   "qui": "A",
+   "texte": "Tout ? En même temps ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Pas tout en même temps. Mais sur une journée, toutes les zones travaillent.",
+   "ecran": "Toutes les zones",
+   "image": "cerveau"
+  },
+  {
+   "qui": "A",
+   "texte": "Comment on le sait ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Grâce à l'imagerie cérébrale. On y voit une activité de fond dans tout le cerveau.",
+   "ecran": "L'imagerie",
+   "image": "oeil"
+  },
+  {
+   "qui": "A",
+   "texte": "Mais sur les images, seules quelques zones sont en couleur !"
+  },
+  {
+   "qui": "B",
+   "texte": "Les couleurs montrent les zones plus actives que les autres. Pas les seules à fonctionner.",
+   "ecran": "Plus actives",
+   "image": "cerveau"
+  },
+  {
+   "qui": "A",
+   "texte": "Alors d'où sort ce chiffre de dix pour cent ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Personne ne le sait vraiment. On cite souvent le psychologue William James.",
+   "ecran": "William James",
+   "image": "livre"
+  },
+  {
+   "qui": "B",
+   "texte": "Mais il parlait de notre potentiel en général. Il n'a jamais donné de pourcentage.",
+   "ecran": "Aucun pourcentage",
+   "image": "livre"
+  },
+  {
+   "qui": "B",
+   "texte": "Une étude a relevé que presque toutes les citations de ce mythe viennent de livres de psychologie grand public.",
+   "ecran": "Des livres grand public",
+   "image": "livre"
+  },
+  {
+   "qui": "A",
+   "texte": "Et un organe qu'on n'utiliserait presque pas, ce serait bizarre."
+  },
+  {
+   "qui": "B",
+   "texte": "Surtout celui-là. Le cerveau consomme environ vingt pour cent de notre énergie.",
+   "ecran": "20 % de l'énergie",
+   "image": "eclair"
+  },
+  {
+   "qui": "A",
+   "texte": "Vingt pour cent d'énergie pour dix pour cent d'utilisation ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Tu vois : ça ne tient pas.",
+   "ecran": "Ça ne tient pas",
+   "image": "cerveau"
+  }
+ ]
+}

@@ -92,10 +92,13 @@ faudra aussi des vidéos longues : par exemple une compilation de dix histoires 
 | `telegraphe-chappe.json` | Le télégraphe de Chappe, avant le téléphone |
 | `terre-plate.json` | La Terre plate au Moyen Âge, un mythe de 1828 |
 | `glace-avant-les-frigos.json` | Le commerce de la glace avant les congélateurs |
+| `carottes-et-vue.json` | Les carottes et la vue, une propagande de 1940 |
+| `dix-pour-cent-du-cerveau.json` | Le mythe des 10 % du cerveau |
+| `allumeurs-de-reverberes.json` | Les allumeurs de réverbères, avant l'électricité |
 
 ## Le reste du dossier
 
 - `outils/decouper.py` : découpe une vidéo longue en extraits verticaux sous-titrés. Testé sur une vidéo d'essai.
 - `outils/marque.py` : refait la photo de profil et la bannière (`marque/`).
-- `publication/textes.md` : titres, descriptions et mots-clés de chaque vidéo, plateforme par plateforme.
+- `publication/textes.md` : titres, descriptions et mots-clés de chaque vidéo, plateforme par plateforme (refait par `outils/textes.py`).
 - `ebauche-berthier/` : un premier plan de chaîne centré sur l'appli Berthier, mis de côté.

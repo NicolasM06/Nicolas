@@ -1,0 +1,109 @@
+{
+ "titre": "C'était comment avant ?",
+ "rubrique": "Avant l'électricité",
+ "publication": "Comment on éclairait les rues avant l'électricité ?",
+ "accroche": "Avant l'électricité, des hommes allumaient les rues de Paris une lampe après l'autre.",
+ "mots": [
+  "paris",
+  "metiersoublies"
+ ],
+ "sources": [
+  "https://www.paris.fr/pages/ces-metiers-oublies-des-rues-de-paris-7409",
+  "https://www.pariszigzag.fr/insolite/histoire-insolite-paris/les-reverberes-une-invention-parisienne/",
+  "https://www.lightzoomlumiere.fr/article/histoire-electrique-et-lumineuse-de-la-ville-de-paris/"
+ ],
+ "scenes": [
+  {
+   "qui": "A",
+   "texte": "Comment on éclairait les rues, avant l'électricité ?",
+   "ecran": "Avant l'électricité ?",
+   "image": "lanterne"
+  },
+  {
+   "qui": "B",
+   "texte": "À la main. Une lampe après l'autre.",
+   "ecran": "À la main",
+   "image": "lanterne"
+  },
+  {
+   "qui": "A",
+   "texte": "Quelqu'un passait les allumer ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Chaque soir. À Paris, c'était un métier : allumeur de réverbères.",
+   "ecran": "Un métier",
+   "image": "echelle"
+  },
+  {
+   "qui": "B",
+   "texte": "On disait aussi falotier.",
+   "ecran": "Le falotier",
+   "image": "echelle"
+  },
+  {
+   "qui": "A",
+   "texte": "Et le matin ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Il repassait les éteindre. Et il devait aussi les nettoyer et les entretenir.",
+   "ecran": "Allumer, éteindre",
+   "image": "lanterne"
+  },
+  {
+   "qui": "A",
+   "texte": "Ça a commencé quand ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Les premières lanternes publiques de Paris sont installées sous La Reynie, le lieutenant de police de Louis quatorze.",
+   "ecran": "Sous Louis XIV",
+   "image": "lanterne"
+  },
+  {
+   "qui": "B",
+   "texte": "Viennent ensuite les réverbères à huile, puis, au dix-neuvième siècle, l'éclairage au gaz.",
+   "ecran": "Huile, puis gaz",
+   "image": "lanterne"
+  },
+  {
+   "qui": "A",
+   "texte": "Ils étaient nombreux ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Jusqu'à mille cinq cents allumeurs dans Paris, à l'époque du gaz.",
+   "ecran": "1 500 allumeurs",
+   "image": "echelle"
+  },
+  {
+   "qui": "A",
+   "texte": "Mille cinq cents personnes pour allumer une ville ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Rue par rue, tous les soirs de l'année."
+  },
+  {
+   "qui": "A",
+   "texte": "Et l'électricité arrive quand ?"
+  },
+  {
+   "qui": "B",
+   "texte": "Les premiers lampadaires électriques apparaissent à l'Exposition universelle de 1878.",
+   "ecran": "1878",
+   "image": "eclair"
+  },
+  {
+   "qui": "A",
+   "texte": "Et le métier disparaît."
+  },
+  {
+   "qui": "B",
+   "texte": "Peu à peu. Plus besoin de personne pour allumer la ville.",
+   "ecran": "Peu à peu",
+   "image": "lanterne"
+  }
+ ]
+}

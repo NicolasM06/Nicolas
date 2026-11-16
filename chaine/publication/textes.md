@@ -6,6 +6,60 @@ Coche la case « contenu généré ou modifié par IA » là où la plateforme l
 **Crédit à ajouter à la fin de chaque description** (demandé par les licences des voix) :
 Voix de synthèse Piper : SIWIS (CC BY 4.0) et UPMC Pierre (CC BY-SA 4.0).
 
+## Comment on éclairait les rues avant l'électricité ?
+
+**Fichier** : `sorties/allumeurs-de-reverberes.mp4`
+
+**YouTube Shorts** — titre : Comment on éclairait les rues avant l'électricité ? #shorts
+Description : Avant l'électricité, des hommes allumaient les rues de Paris une lampe après l'autre. #histoire #lesaviezvous #paris #metiersoublies #cetaitcommentavant
+
+**TikTok** — Avant l'électricité, des hommes allumaient les rues de Paris une lampe après l'autre. #histoire #lesaviezvous #paris #metiersoublies #cetaitcommentavant
+
+**Instagram Reels** — Avant l'électricité, des hommes allumaient les rues de Paris une lampe après l'autre. Abonne-toi pour une histoire vraie chaque jour. #histoire #lesaviezvous #paris #metiersoublies #cetaitcommentavant
+
+**X** — Avant l'électricité, des hommes allumaient les rues de Paris une lampe après l'autre.
+
+**Sources à garder sous la main si quelqu'un conteste** :
+- https://www.paris.fr/pages/ces-metiers-oublies-des-rues-de-paris-7409
+- https://www.pariszigzag.fr/insolite/histoire-insolite-paris/les-reverberes-une-invention-parisienne/
+- https://www.lightzoomlumiere.fr/article/histoire-electrique-et-lumineuse-de-la-ville-de-paris/
+
+## Les carottes font-elles vraiment voir dans le noir ?
+
+**Fichier** : `sorties/carottes-et-vue.mp4`
+
+**YouTube Shorts** — titre : Les carottes font-elles vraiment voir dans le noir ? #shorts
+Description : Les carottes qui font voir dans le noir : une invention de la propagande britannique de 1940. #histoire #lesaviezvous #mythe #secondeguerremondiale #cetaitcommentavant
+
+**TikTok** — Les carottes qui font voir dans le noir : une invention de la propagande britannique de 1940. #histoire #lesaviezvous #mythe #secondeguerremondiale #cetaitcommentavant
+
+**Instagram Reels** — Les carottes qui font voir dans le noir : une invention de la propagande britannique de 1940. Abonne-toi pour une histoire vraie chaque jour. #histoire #lesaviezvous #mythe #secondeguerremondiale #cetaitcommentavant
+
+**X** — Les carottes qui font voir dans le noir : une invention de la propagande britannique de 1940.
+
+**Sources à garder sous la main si quelqu'un conteste** :
+- https://www.smithsonianmag.com/history/a-wwii-propaganda-campaign-popularized-the-myth-that-carrots-help-you-see-in-the-dark-28812484/
+- https://www.forcesnews.com/services/tri-service/luftwaffe-and-great-carrot-swindle
+- https://www.todayifoundout.com/index.php/2021/06/how-wwii-made-everybody-think-carrots-were-good-for-eyes-and-why-it-didnt-really-have-to-do-with-tricking-the-germans/
+
+## N'utilise-t-on vraiment que 10 % de notre cerveau ?
+
+**Fichier** : `sorties/dix-pour-cent-du-cerveau.mp4`
+
+**YouTube Shorts** — titre : N'utilise-t-on vraiment que 10 % de notre cerveau ? #shorts
+Description : Non, on n'utilise pas que 10 % de son cerveau. Et personne ne sait vraiment d'où vient ce chiffre. #histoire #lesaviezvous #mythe #cerveau #science #cetaitcommentavant
+
+**TikTok** — Non, on n'utilise pas que 10 % de son cerveau. Et personne ne sait vraiment d'où vient ce chiffre. #histoire #lesaviezvous #mythe #cerveau #science #cetaitcommentavant
+
+**Instagram Reels** — Non, on n'utilise pas que 10 % de son cerveau. Et personne ne sait vraiment d'où vient ce chiffre. Abonne-toi pour une histoire vraie chaque jour. #histoire #lesaviezvous #mythe #cerveau #science #cetaitcommentavant
+
+**X** — Non, on n'utilise pas que 10 % de son cerveau. Et personne ne sait vraiment d'où vient ce chiffre.
+
+**Sources à garder sous la main si quelqu'un conteste** :
+- https://www.futura-sciences.com/sante/questions-reponses/medecine-on-nutilise-10-notre-cerveau-vrai-faux-19201/
+- https://www.sante.fr/node/6927139
+- https://www.erudit.org/en/revue/psyedu/2008/v37/n1/1099297ar.pdf
+
 ## Comment on avait des glaçons avant les congélateurs ?
 
 **Fichier** : `sorties/glace-avant-les-frigos.mp4`
@@ -65,11 +119,11 @@ Description : Napoléon n'était pas petit. Voici d'où vient le mythe. #histoir
 **Fichier** : `sorties/reveils.mp4`
 
 **YouTube Shorts** — titre : Comment on se réveillait à l'heure avant les réveils ? #shorts
-Description : Avant les réveils, on payait quelqu'un pour taper à sa fenêtre. #histoire #lesaviezvous #revolutionindustrielle #cetaitcommentavant
+Description : Avant les réveils, on payait quelqu'un pour taper à sa fenêtre. #histoire #lesaviezvous #revolutionindustrielle #metiersoublies #cetaitcommentavant
 
-**TikTok** — Avant les réveils, on payait quelqu'un pour taper à sa fenêtre. #histoire #lesaviezvous #revolutionindustrielle #cetaitcommentavant
+**TikTok** — Avant les réveils, on payait quelqu'un pour taper à sa fenêtre. #histoire #lesaviezvous #revolutionindustrielle #metiersoublies #cetaitcommentavant
 
-**Instagram Reels** — Avant les réveils, on payait quelqu'un pour taper à sa fenêtre. Abonne-toi pour une histoire vraie chaque jour. #histoire #lesaviezvous #revolutionindustrielle #cetaitcommentavant
+**Instagram Reels** — Avant les réveils, on payait quelqu'un pour taper à sa fenêtre. Abonne-toi pour une histoire vraie chaque jour. #histoire #lesaviezvous #revolutionindustrielle #metiersoublies #cetaitcommentavant
 
 **X** — Avant les réveils, on payait quelqu'un pour taper à sa fenêtre.
 
@@ -134,7 +188,7 @@ Description : Les Vikings n'ont jamais porté de casque à cornes. L'idée vient
 
 ## Rythme conseillé
 
-- Une vidéo par jour pendant la première semaine avec les sept histoires prêtes, puis trois à cinq par semaine.
+- Une vidéo par jour avec les 10 histoires prêtes, puis trois à cinq par semaine.
 - Publier vers 18 h en semaine et vers 11 h le week-end, puis ajuster selon les statistiques.
 - Répondre aux commentaires de la première heure : c'est ce qui aide le plus une petite chaîne.
 

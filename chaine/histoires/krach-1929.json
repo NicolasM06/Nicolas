@@ -2,6 +2,11 @@
  "titre": "C'était comment avant ?",
  "rubrique": "Ça s'est passé",
  "publication": "Le krach de 1929 raconté en une minute",
+ "accroche": "Octobre 1929 : comment la Bourse de New York s'est effondrée en quelques jours.",
+ "mots": [
+  "bourse",
+  "krach1929"
+ ],
  "sources": [
   "https://www.banque-france.fr/fr/publications-et-statistiques/publications/la-crise-de-1929",
   "https://www.herodote.net/histoire/evenement.php?jour=19291024",
