@@ -122,3 +122,47 @@ Je propose aussi un suivi mensuel à [prix] € : je garde l'outil à jour et je
 - Les fichiers des clients restent confidentiels. Ne les mets pas dans un dépôt public.
 - Regarde les règles de chaque plateforme sur l'usage de l'IA et respecte-les.
 - Il te faut une micro-entreprise pour facturer.
+
+## Viser 10 000 € par mois
+
+C'est possible, mais ce n'est pas le même objectif que 10 000 € au total. Compte 1 à 2 ans, et
+beaucoup de gens qui essaient n'y arrivent pas. Les chiffres ci-dessous sont des estimations
+de ma part.
+
+### De quoi sont faits 10 000 € par mois
+
+| Source | Calcul | Par mois |
+|---|---|---|
+| Forfaits de suivi | 10 clients à 500 € | 5 000 € |
+| Missions | 2 à 3 missions à environ 2 000 € | 5 000 € |
+
+Sans revenus qui reviennent chaque mois, il faudrait trouver 10 à 15 nouveaux clients tous les
+mois, ce qui n'est pas tenable seul. Les forfaits sont donc la pièce centrale.
+
+### Les étapes
+
+| Étape | Revenu mensuel | Ce qu'il faut réussir | Durée estimée |
+|---|---|---|---|
+| 1 | 0 à 1 000 € | 3 premières missions à bas prix, 3 avis | Mois 1 à 3 |
+| 2 | 1 000 à 3 000 € | Prix à 600 puis 1 000 €, premiers forfaits de suivi | Mois 4 à 8 |
+| 3 | 3 000 à 6 000 € | Un seul métier visé, la même solution revendue à plusieurs clients | Mois 9 à 15 |
+| 4 | 6 000 à 10 000 € | 10 forfaits à 500 €, missions à 2 000 € et plus | Mois 15 à 24 |
+
+### Ce qui fait la différence
+
+- **Se spécialiser dans un métier.** Revendre dix fois la même automatisation à dix artisans du
+  même métier coûte dix fois moins de travail que dix missions différentes, et permet de
+  monter les prix. Les commerçants de marchés, que tu connais par Berthier, sont un point de
+  départ naturel.
+- **Vendre un résultat, pas des heures.** « Vos devis partent en 2 minutes au lieu de 20 » se
+  vend plus cher que « 5 heures de développement ».
+- **Garder chaque client.** Un forfait mensuel proposé à chaque livraison.
+- **Ta limite sera ton temps avec les clients**, pas ma capacité à produire. Au-delà d'une
+  dizaine de clients actifs, il faudra refuser des demandes ou monter les prix.
+
+### Le statut
+
+La micro-entreprise a un plafond annuel de chiffre d'affaires pour les services (de l'ordre de
+77 700 €, à vérifier sur le site officiel). 10 000 € par mois font 120 000 € par an : avant
+d'y arriver, il faudra passer en société, avec un comptable. La TVA s'applique aussi à partir
+d'un seuil bien plus bas.
