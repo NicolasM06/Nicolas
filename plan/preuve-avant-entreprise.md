@@ -43,6 +43,20 @@ payée. Tu vas là où des gens demandent de l'aide gratuitement.
 - Groupes Facebook d'auto-entrepreneurs, d'artisans, de commerçants, d'associations.
 - Sections d'entraide de communautés que tu fréquentes déjà (Discord, forums).
 
+Deux forums pour commencer, tous deux gratuits à l'inscription :
+
+- **forum.excel-pratique.com** : il a une section Excel et une section Google Sheets. On y
+  trouve des demandes de devis et de factures automatiques, exactement ton offre.
+- **excel-downloads.com** : une communauté d'entraide Excel en français.
+
+Je n'ai pas pu vérifier leur activité de ces derniers jours ni leurs règles sur les offres de
+service : regarde la date des derniers messages et lis le règlement avant de poster. Sur un
+forum d'entraide, ne publie pas d'annonce : réponds aux questions, et ne propose l'outil
+complet qu'à la personne concernée, dans le fil de sa question ou en message privé.
+
+Trie les sujets par date et cherche ceux qui n'ont pas encore de réponse : des habitués
+répondent vite, donc les questions anciennes sont déjà traitées.
+
 Méthode :
 
 1. Repère une question du type « comment faire pour que mon tableau fasse ça tout seul ? ».
