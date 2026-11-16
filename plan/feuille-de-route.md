@@ -9,6 +9,7 @@ faire. « Claude » : ce que tu me demandes en ouvrant une session.
 |---|---|
 | Le plan complet, les chiffres, les sources | `plan/business-plan.md` |
 | L'offre, les prix, les textes de profil et les messages | `plan/offre-services.md` |
+| Le profil Upwork prêt à copier | `plan/profil-upwork.md` |
 | Le suivi des candidatures, missions et revenus | `services/suivi-activite.xlsx` |
 | L'exemple à montrer aux clients | `services/demos/devis-automatique.xlsx` et `services/demos/apercus/` |
 | Les annonces Etsy des tableurs | `vente/annonces-etsy.md` |
@@ -19,8 +20,8 @@ faire. « Claude » : ce que tu me demandes en ouvrant une session.
 - [ ] **Toi** : créer un compte sur formalites.entreprises.gouv.fr — fait le 16 novembre 2026,
       formulaire de création laissé en brouillon.
 - [ ] **Toi** : créer un profil sur Upwork. Malt demande un SIRET : ce sera pour plus tard.
-- [ ] **Toi** : y coller le titre et la présentation de `plan/offre-services.md`, et ajouter
-      l'image `services/demos/apercus/devis-automatique-1.png`.
+- [ ] **Toi** : y coller le titre, la présentation, les compétences et l'exemple de
+      `plan/profil-upwork.md`.
 - [ ] **Toi** : activer les alertes e-mail sur les mots « Excel », « Google Sheets »,
       « automatisation », « tableau de bord », « macro ».
 - [ ] **Toi** : ouvrir `services/suivi-activite.xlsx` et supprimer les lignes d'exemple.
