@@ -43,7 +43,7 @@ trois commandes.
 Fiverr commence le titre par « Je vais » ; tu écris la suite.
 
 ```
-créer votre modèle de devis ou facture automatique sur Excel ou Google Sheets
+créer votre devis ou facture automatique sur Excel ou Google Sheets
 ```
 
 ### Catégorie
