@@ -1,0 +1,54 @@
+Le krach de 1929 raconté en une minute
+
+Fichiers à poser dans : enregistrements/krach-1929/
+
+01  [la curieuse (voix jeune, vive)]
+    C'est quoi, exactement, le krach de 1929 ?
+
+02  [le conteur (voix posée)]
+    L'effondrement de la Bourse de New York, en quelques jours d'octobre.
+
+03  [la curieuse (voix jeune, vive)]
+    Pourquoi d'un coup ?
+
+04  [le conteur (voix posée)]
+    Pendant des années, les cours avaient grimpé. Beaucoup achetaient des actions à crédit.
+
+05  [la curieuse (voix jeune, vive)]
+    À crédit ?
+
+06  [le conteur (voix posée)]
+    Tu paies une petite partie, tu empruntes le reste. Tant que ça monte, tout va bien.
+
+07  [le conteur (voix posée)]
+    Le jeudi 24 octobre, la panique démarre. À midi, l'indice a perdu plus de vingt pour cent.
+
+08  [la curieuse (voix jeune, vive)]
+    Et là, tout s'écroule ?
+
+09  [le conteur (voix posée)]
+    Pas encore. Les grandes banques rachètent des actions, et la journée finit à moins deux pour cent.
+
+10  [la curieuse (voix jeune, vive)]
+    Donc c'est sauvé.
+
+11  [le conteur (voix posée)]
+    Non. Le lundi, moins treize pour cent. Le mardi 29, encore moins douze.
+
+12  [le conteur (voix posée)]
+    Ceux qui avaient emprunté doivent vendre pour rembourser. Et plus on vend, plus ça baisse.
+
+13  [la curieuse (voix jeune, vive)]
+    Ça s'arrête quand ?
+
+14  [le conteur (voix posée)]
+    L'indice ne touche le fond qu'en juillet 1932, presque trois ans plus tard.
+
+15  [la curieuse (voix jeune, vive)]
+    Trois ans de chute. Et après ?
+
+16  [le conteur (voix posée)]
+    C'est la Grande Dépression. Mais ça, c'est une autre histoire.
+
+17  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.

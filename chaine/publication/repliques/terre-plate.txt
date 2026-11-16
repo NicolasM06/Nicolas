@@ -1,0 +1,54 @@
+Au Moyen Âge, croyait-on vraiment que la Terre était plate ?
+
+Fichiers à poser dans : enregistrements/terre-plate/
+
+01  [la curieuse (voix jeune, vive)]
+    Au Moyen Âge, les gens croyaient que la Terre était plate, non ?
+
+02  [le conteur (voix posée)]
+    Non. Les savants du Moyen Âge savaient qu'elle était ronde.
+
+03  [la curieuse (voix jeune, vive)]
+    Mais on me l'a répété cent fois !
+
+04  [le conteur (voix posée)]
+    C'est une légende, fabriquée bien plus tard.
+
+05  [le conteur (voix posée)]
+    Depuis l'Antiquité, les gens instruits admettent que la Terre est une sphère.
+
+06  [la curieuse (voix jeune, vive)]
+    Personne ne disait le contraire ?
+
+07  [le conteur (voix posée)]
+    Quelques rares auteurs, comme Lactance, au quatrième siècle. Ils sont restés des exceptions.
+
+08  [la curieuse (voix jeune, vive)]
+    Et Christophe Colomb ? Il n'a pas dû convaincre tout le monde ?
+
+09  [le conteur (voix posée)]
+    Pas de la forme de la Terre. Il avait lui-même lu les calculs antiques de sa circonférence, notamment dans l'Imago mundi de Pierre d'Ailly.
+
+10  [la curieuse (voix jeune, vive)]
+    Alors d'où vient cette histoire ?
+
+11  [le conteur (voix posée)]
+    En 1828, l'écrivain Washington Irving publie une vie de Colomb.
+
+12  [le conteur (voix posée)]
+    L'image du navigateur seul contre des savants ignorants plaît. Elle se répand.
+
+13  [la curieuse (voix jeune, vive)]
+    Et les historiens, ils en disent quoi ?
+
+14  [le conteur (voix posée)]
+    L'historien Jeffrey Burton Russell l'a résumé : depuis le troisième siècle avant notre ère, presque aucune personne instruite n'a cru que la Terre était plate.
+
+15  [la curieuse (voix jeune, vive)]
+    Donc le mythe a moins de deux cents ans.
+
+16  [le conteur (voix posée)]
+    Et on le répète encore aujourd'hui.
+
+17  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.

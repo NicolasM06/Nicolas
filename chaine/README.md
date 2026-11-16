@@ -44,6 +44,20 @@ Ces licences autorisent l'usage commercial à condition de créditer les auteurs
 crédit à coller dans la description de chaque vidéo est dans `publication/textes.md`.
 Une troisième voix (« Tom ») a été écartée : sa licence est incertaine pour un usage commercial.
 
+#### Utiliser une autre voix
+
+Pour la voix d'un autre outil (CapCut, ElevenLabs…) ou la tienne :
+
+1. `python outils/repliques.py` écrit dans `publication/repliques/` la liste numérotée des
+   répliques de chaque histoire, avec le personnage qui parle.
+2. Fais dire chaque réplique dans l'outil choisi et exporte un fichier par réplique.
+3. Pose-les dans `enregistrements/<nom de l'histoire>/` sous les noms `01.mp3`, `02.mp3`, etc.
+4. Relance `python outils/video.py histoires/<nom>.json` : la bouche et les sous-titres se
+   calent sur tes fichiers. Une réplique sans fichier garde la voix libre.
+
+N'utilise que des voix auxquelles tu as droit : celles d'un catalogue, ou la tienne. Jamais une
+voix copiée sur la vidéo de quelqu'un d'autre.
+
 Sans ces fichiers, la vidéo sort avec la voix de secours du système, robotique : ne publie
 rien avec elle. L'outil signale aussi toute vidéo de moins de 61 secondes, que TikTok ne rémunère pas.
 

@@ -1,0 +1,54 @@
+N'utilise-t-on vraiment que 10 % de notre cerveau ?
+
+Fichiers à poser dans : enregistrements/dix-pour-cent-du-cerveau/
+
+01  [la curieuse (voix jeune, vive)]
+    Il paraît qu'on n'utilise que dix pour cent de notre cerveau.
+
+02  [le conteur (voix posée)]
+    C'est faux. On utilise tout notre cerveau.
+
+03  [la curieuse (voix jeune, vive)]
+    Tout ? En même temps ?
+
+04  [le conteur (voix posée)]
+    Pas tout en même temps. Mais sur une journée, toutes les zones travaillent.
+
+05  [la curieuse (voix jeune, vive)]
+    Comment on le sait ?
+
+06  [le conteur (voix posée)]
+    Grâce à l'imagerie cérébrale. On y voit une activité de fond dans tout le cerveau.
+
+07  [la curieuse (voix jeune, vive)]
+    Mais sur les images, seules quelques zones sont en couleur !
+
+08  [le conteur (voix posée)]
+    Les couleurs montrent les zones plus actives que les autres. Pas les seules à fonctionner.
+
+09  [la curieuse (voix jeune, vive)]
+    Alors d'où sort ce chiffre de dix pour cent ?
+
+10  [le conteur (voix posée)]
+    Personne ne le sait vraiment. On cite souvent le psychologue William James.
+
+11  [le conteur (voix posée)]
+    Mais il parlait de notre potentiel en général. Il n'a jamais donné de pourcentage.
+
+12  [le conteur (voix posée)]
+    Une étude a relevé que presque toutes les citations de ce mythe viennent de livres de psychologie grand public.
+
+13  [la curieuse (voix jeune, vive)]
+    Et un organe qu'on n'utiliserait presque pas, ce serait bizarre.
+
+14  [le conteur (voix posée)]
+    Surtout celui-là. Le cerveau consomme environ vingt pour cent de notre énergie.
+
+15  [la curieuse (voix jeune, vive)]
+    Vingt pour cent d'énergie pour dix pour cent d'utilisation ?
+
+16  [le conteur (voix posée)]
+    Tu vois : ça ne tient pas.
+
+17  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.

@@ -1,0 +1,60 @@
+Comment on éclairait les rues avant l'électricité ?
+
+Fichiers à poser dans : enregistrements/allumeurs-de-reverberes/
+
+01  [la curieuse (voix jeune, vive)]
+    Comment on éclairait les rues, avant l'électricité ?
+
+02  [le conteur (voix posée)]
+    À la main. Une lampe après l'autre.
+
+03  [la curieuse (voix jeune, vive)]
+    Quelqu'un passait les allumer ?
+
+04  [le conteur (voix posée)]
+    Chaque soir. À Paris, c'était un métier : allumeur de réverbères.
+
+05  [le conteur (voix posée)]
+    On disait aussi falotier.
+
+06  [la curieuse (voix jeune, vive)]
+    Et le matin ?
+
+07  [le conteur (voix posée)]
+    Il repassait les éteindre. Et il devait aussi les nettoyer et les entretenir.
+
+08  [la curieuse (voix jeune, vive)]
+    Ça a commencé quand ?
+
+09  [le conteur (voix posée)]
+    Les premières lanternes publiques de Paris sont installées sous La Reynie, le lieutenant de police de Louis quatorze.
+
+10  [le conteur (voix posée)]
+    Viennent ensuite les réverbères à huile, puis, au dix-neuvième siècle, l'éclairage au gaz.
+
+11  [la curieuse (voix jeune, vive)]
+    Ils étaient nombreux ?
+
+12  [le conteur (voix posée)]
+    Jusqu'à mille cinq cents allumeurs dans Paris, à l'époque du gaz.
+
+13  [la curieuse (voix jeune, vive)]
+    Mille cinq cents personnes pour allumer une ville ?
+
+14  [le conteur (voix posée)]
+    Rue par rue, tous les soirs de l'année.
+
+15  [la curieuse (voix jeune, vive)]
+    Et l'électricité arrive quand ?
+
+16  [le conteur (voix posée)]
+    Les premiers lampadaires électriques apparaissent à l'Exposition universelle de 1878.
+
+17  [la curieuse (voix jeune, vive)]
+    Et le métier disparaît.
+
+18  [le conteur (voix posée)]
+    Peu à peu. Plus besoin de personne pour allumer la ville.
+
+19  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.

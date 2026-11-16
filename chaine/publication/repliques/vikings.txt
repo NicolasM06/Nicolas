@@ -1,0 +1,57 @@
+Les Vikings portaient-ils des casques à cornes ?
+
+Fichiers à poser dans : enregistrements/vikings/
+
+01  [la curieuse (voix jeune, vive)]
+    Les Vikings avaient des cornes sur leur casque, non ?
+
+02  [le conteur (voix posée)]
+    Non. On n'a jamais retrouvé un seul casque viking à cornes.
+
+03  [la curieuse (voix jeune, vive)]
+    Jamais ?
+
+04  [le conteur (voix posée)]
+    Le seul casque viking presque complet a été trouvé en Norvège, à Gjermundbu, en 1943.
+
+05  [le conteur (voix posée)]
+    Il est rond, sobre, sans aucune corne.
+
+06  [la curieuse (voix jeune, vive)]
+    Alors qui a inventé les cornes ?
+
+07  [le conteur (voix posée)]
+    Un costumier d'opéra. En 1876, Carl Emil Doepler habille les chanteurs d'un opéra de Wagner.
+
+08  [le conteur (voix posée)]
+    Il leur met des casques à cornes. L'image fait le tour du monde.
+
+09  [la curieuse (voix jeune, vive)]
+    Il a tout inventé ?
+
+10  [le conteur (voix posée)]
+    Pas tout à fait. Des casques à cornes existent vraiment, trouvés au Danemark.
+
+11  [le conteur (voix posée)]
+    Mais ils datent de l'âge du bronze, vers neuf cents avant notre ère.
+
+12  [la curieuse (voix jeune, vive)]
+    Donc avant les Vikings ?
+
+13  [le conteur (voix posée)]
+    Près de deux mille ans avant eux.
+
+14  [la curieuse (voix jeune, vive)]
+    Et pourquoi personne n'a corrigé ?
+
+15  [le conteur (voix posée)]
+    Parce que l'image est trop belle. Peintures, publicités, dessins animés : tout le monde l'a reprise.
+
+16  [la curieuse (voix jeune, vive)]
+    Donc le Viking à cornes est né à l'opéra.
+
+17  [le conteur (voix posée)]
+    En 1876. Les vrais Vikings, eux, avaient disparu depuis huit siècles.
+
+18  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.

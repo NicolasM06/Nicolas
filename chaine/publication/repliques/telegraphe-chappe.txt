@@ -1,0 +1,60 @@
+Comment on envoyait un message urgent avant le téléphone ?
+
+Fichiers à poser dans : enregistrements/telegraphe-chappe/
+
+01  [la curieuse (voix jeune, vive)]
+    Comment on envoyait un message urgent, avant le téléphone ?
+
+02  [le conteur (voix posée)]
+    À cheval. De Paris à Lille, il fallait environ vingt-quatre heures.
+
+03  [la curieuse (voix jeune, vive)]
+    Et on ne pouvait pas faire plus vite ?
+
+04  [le conteur (voix posée)]
+    Si. En 1794, Claude Chappe met en service un télégraphe sans électricité.
+
+05  [la curieuse (voix jeune, vive)]
+    Sans électricité ?
+
+06  [le conteur (voix posée)]
+    Des tours, avec de grands bras articulés au sommet.
+
+07  [le conteur (voix posée)]
+    Chaque position des bras correspond à un signe.
+
+08  [la curieuse (voix jeune, vive)]
+    Et qui les lit ?
+
+09  [le conteur (voix posée)]
+    Un guetteur, dans la tour suivante, avec une longue-vue. Il recopie le signal pour la tour d'après.
+
+10  [la curieuse (voix jeune, vive)]
+    De tour en tour, jusqu'au bout ?
+
+11  [le conteur (voix posée)]
+    Une quinzaine de tours entre Paris et Lille.
+
+12  [la curieuse (voix jeune, vive)]
+    Et ça va vite ?
+
+13  [le conteur (voix posée)]
+    Un signe traverse toute la ligne en neuf minutes.
+
+14  [le conteur (voix posée)]
+    Le 30 août 1794, le premier message officiel annonce la reprise de Condé-sur-l'Escaut.
+
+15  [la curieuse (voix jeune, vive)]
+    Arrivé en combien de temps ?
+
+16  [le conteur (voix posée)]
+    Moins d'une heure. Au lieu d'une journée à cheval.
+
+17  [la curieuse (voix jeune, vive)]
+    Un message plus rapide qu'un cheval, avec des bras en bois.
+
+18  [le conteur (voix posée)]
+    Et une longue-vue.
+
+19  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.

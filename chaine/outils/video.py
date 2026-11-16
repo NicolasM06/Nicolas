@@ -13,6 +13,10 @@ Tout est dessiné sur une petite grille de 270 × 480, agrandie quatre fois : c'
 
 La voix : deux voix libres Piper, à télécharger une fois avec outils/voix.sh.
 Sans elles, la voix de secours du système (espeak-ng) sert seulement à régler le rythme.
+
+Pour utiliser une autre voix (CapCut, ElevenLabs, la tienne…) : enregistre chaque réplique et pose les fichiers
+dans enregistrements/<nom de l'histoire>/ sous les noms 01.mp3, 02.mp3, etc. Les numéros et les textes sont
+dans publication/repliques/. Une réplique sans fichier garde la voix libre.
 """
 import json
 import random
@@ -235,7 +239,23 @@ def panneau(base, titre, mots, image):
 VOIX = {"A": ("fr_FR-siwis-medium.onnx", None), "B": ("fr_FR-upmc-medium.onnx", "1")}
 
 
-def dire(qui, texte, sortie):
+def enregistrement(nom, numero):
+    """Cherche une réplique enregistrée par toi : enregistrements/<histoire>/01.mp3, 02.wav, etc."""
+    dossier = RACINE / "enregistrements" / nom
+    for ext in ("wav", "mp3", "m4a", "aac", "ogg", "flac"):
+        f = dossier / f"{numero:02d}.{ext}"
+        if f.exists():
+            return f
+    return None
+
+
+def dire(qui, texte, sortie, nom=None, numero=None):
+    perso = enregistrement(nom, numero) if nom else None
+    if perso:                                                    # ta propre voix, ou celle de l'outil de ton choix
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(perso), "-ac", "1", "-ar", "22050",
+                        "-af", "silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse",
+                        "-c:a", "pcm_s16le", str(sortie)], check=True)
+        return "enregistrements fournis"
     fichier, locuteur = VOIX[qui]
     modele = RACINE / "voix" / fichier
     if modele.exists() and shutil.which("piper"):
@@ -286,10 +306,11 @@ def main():
     CAD = 22050
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
-        pistes, moteur = [], ""
+        pistes, moteurs = [], set()
         for i, s in enumerate(repliques):                          # 1. la voix, réplique par réplique
             f = tmp / f"{i:03d}.wav"
-            moteur = dire(s["qui"], s["texte"], f)
+            m = dire(s["qui"], s["texte"], f, Path(sys.argv[1]).stem, i + 1)
+            moteurs.add(m)
             son, cad = lire_wav(f)
             son = reechantillonner(son, cad, CAD)
             pistes.append(np.concatenate([son, np.zeros(int(CAD * PAUSE), dtype=np.float32)]))
@@ -350,7 +371,7 @@ def main():
         ff.stdin.close()
         ff.wait()
     alerte = "" if nb / IPS >= 61 else "  ATTENTION : moins de 61 s, non rémunérée sur TikTok"
-    print(f"écrit {sortie.relative_to(RACINE)} : {nb / IPS:.0f} s, {len(repliques)} répliques, voix : {moteur}{alerte}")
+    print(f"écrit {sortie.relative_to(RACINE)} : {nb / IPS:.0f} s, {len(repliques)} répliques, voix : {' + '.join(sorted(moteurs))}{alerte}")
 
 
 if __name__ == "__main__":

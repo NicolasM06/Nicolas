@@ -1,0 +1,54 @@
+Les carottes font-elles vraiment voir dans le noir ?
+
+Fichiers à poser dans : enregistrements/carottes-et-vue/
+
+01  [la curieuse (voix jeune, vive)]
+    Les carottes, ça fait voir dans le noir, non ?
+
+02  [le conteur (voix posée)]
+    Non. Cette idée vient d'une campagne de propagande britannique, pendant la Seconde Guerre mondiale.
+
+03  [la curieuse (voix jeune, vive)]
+    De la propagande… sur les carottes ?
+
+04  [le conteur (voix posée)]
+    En 1940, les pilotes britanniques abattent des bombardiers allemands en pleine nuit.
+
+05  [la curieuse (voix jeune, vive)]
+    Et comment ils font ?
+
+06  [le conteur (voix posée)]
+    Grâce à une arme toute nouvelle : un radar embarqué dans l'avion.
+
+07  [le conteur (voix posée)]
+    Mais ce radar est secret. Il faut une autre explication.
+
+08  [la curieuse (voix jeune, vive)]
+    Laisse-moi deviner. Les carottes.
+
+09  [le conteur (voix posée)]
+    Exactement. Les journaux racontent que les pilotes en mangent énormément, et qu'ils voient dans le noir.
+
+10  [le conteur (voix posée)]
+    Le pilote John Cunningham est même surnommé Œil-de-chat.
+
+11  [la curieuse (voix jeune, vive)]
+    Et les Allemands y ont cru ?
+
+12  [le conteur (voix posée)]
+    Sans doute pas. La plupart des historiens pensent qu'ils n'ont pas été dupes.
+
+13  [la curieuse (voix jeune, vive)]
+    Alors qui y a cru ?
+
+14  [le conteur (voix posée)]
+    Les Britanniques eux-mêmes. On les encourageait justement à cultiver leurs légumes.
+
+15  [la curieuse (voix jeune, vive)]
+    Donc on mange des carottes à cause d'un radar.
+
+16  [le conteur (voix posée)]
+    Depuis plus de quatre-vingts ans.
+
+17  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.

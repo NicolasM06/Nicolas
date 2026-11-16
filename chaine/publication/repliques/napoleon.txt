@@ -1,0 +1,57 @@
+Napoléon était-il vraiment petit ?
+
+Fichiers à poser dans : enregistrements/napoleon/
+
+01  [la curieuse (voix jeune, vive)]
+    Napoléon, il était vraiment tout petit ?
+
+02  [le conteur (voix posée)]
+    Non. Il mesurait environ un mètre soixante-huit.
+
+03  [la curieuse (voix jeune, vive)]
+    C'est petit, non ?
+
+04  [le conteur (voix posée)]
+    Pas pour l'époque. C'était à peu près la taille moyenne des Français.
+
+05  [la curieuse (voix jeune, vive)]
+    Alors d'où vient cette idée ?
+
+06  [le conteur (voix posée)]
+    D'abord d'une histoire d'unités. À sa mort, en 1821, son médecin note cinq pieds deux pouces.
+
+07  [le conteur (voix posée)]
+    Mais ce sont des pieds français, plus longs que les pieds anglais.
+
+08  [la curieuse (voix jeune, vive)]
+    Donc les Anglais ont lu la même mesure, en plus petit.
+
+09  [le conteur (voix posée)]
+    Exactement. Et la propagande a fait le reste.
+
+10  [le conteur (voix posée)]
+    En 1803, le caricaturiste James Gillray le dessine minuscule, tenu dans la main du roi d'Angleterre.
+
+11  [la curieuse (voix jeune, vive)]
+    Un dessin, et ça dure deux siècles ?
+
+12  [le conteur (voix posée)]
+    Les Anglais le surnomment Little Boney. Le surnom se répand partout.
+
+13  [la curieuse (voix jeune, vive)]
+    Et le petit caporal ?
+
+14  [le conteur (voix posée)]
+    Un surnom venu de ses soldats, qui a entretenu la confusion.
+
+15  [le conteur (voix posée)]
+    Et il apparaissait souvent entouré de ses grenadiers, choisis pour leur grande taille.
+
+16  [la curieuse (voix jeune, vive)]
+    Donc à côté d'eux, forcément, il avait l'air petit.
+
+17  [le conteur (voix posée)]
+    Deux siècles plus tard, on y croit encore.
+
+18  [le conteur (voix posée)]
+    Abonne-toi : une histoire vraie chaque jour.
