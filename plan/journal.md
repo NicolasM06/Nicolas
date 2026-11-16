@@ -33,6 +33,11 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
 
 - Business plan : `plan/business-plan.md`.
 - Annonces Etsy prêtes à copier : `vente/annonces-etsy.md`.
+- Images d'aperçu des tableurs pour les annonces : `vente/visuels/etsy/`.
+- Correction : les tableurs générés à partir d'octobre démarrent sur l'année suivante
+  (2027), au lieu de l'année en cours.
+- Deux dossiers prêts à déposer remis à Nicolas : les fichiers et images pour Etsy, et les
+  23 designs de Noël et de Bonne année avec leurs fiches.
 
 **Prochaine étape**
 

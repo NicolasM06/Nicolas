@@ -13,9 +13,12 @@ maximum, 13 mots-clés de 20 caractères au maximum chacun.
   proche proposée).
 - **Qui l'a créé** : moi. **Quand** : fabriqué sur commande ou année en cours.
 - **Quantité** : 999. **Renouvellement** : automatique.
-- **Photos** : l'image de couverture en premier, puis 3 ou 4 captures d'écran du tableur
-  ouvert (tableau de bord, journal, mode d'emploi). Les annonces avec plusieurs images
-  rassurent davantage.
+- **Photos** : l'image de couverture en premier, puis les aperçus de chaque onglet, déjà
+  prêts dans `vente/visuels/etsy/` (4 pour le budget annuel, 3 pour l'épargne ; mets les
+  7 sur le pack). Pour les refaire : `python outils/apercus.py`.
+- **Année** : les fichiers générés à partir d'octobre sont réglés sur l'année suivante
+  (2027). L'acheteur peut la changer dans l'onglet Paramètres. Chaque automne, régénère les
+  fichiers et remplace « 2027 » dans le titre et les mots-clés.
 - **Fichier** : si Etsy refuse le `.xlsx`, dépose-le dans un `.zip`.
 - **À ajouter en fin de description** : « Fichier numérique : aucun objet ne sera envoyé.
   En raison de la nature du produit, pas de retour ni de remboursement une fois le fichier
@@ -28,7 +31,7 @@ maximum, 13 mots-clés de 20 caractères au maximum chacun.
 **Titre**
 
 ```
-Tableur budget annuel Excel et Google Sheets en français, suivi des dépenses, tableau de bord 12 mois, méthode 50/30/20
+Tableur budget 2027 Excel et Google Sheets en français, budget annuel, suivi des dépenses, tableau de bord, méthode 50/30/20
 ```
 
 **Mots-clés**
@@ -45,7 +48,7 @@ budget familial
 modèle budget
 finances perso
 méthode 50 30 20
-tableau de bord
+budget 2027
 planificateur budget
 ```
 

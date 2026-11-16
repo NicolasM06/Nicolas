@@ -188,8 +188,14 @@ L_CAT = 6            # première ligne des catégories dans Paramètres
 NB_OPS = 1500        # lignes de saisie prêtes dans Transactions
 
 
+def annee_du_modele():
+    """À partir d'octobre, les acheteurs préparent l'année suivante."""
+    auj = dt.date.today()
+    return auj.year + 1 if auj.month >= 10 else auj.year
+
+
 def budget_annuel():
-    annee = dt.date.today().year
+    annee = annee_du_modele()
     wb = Workbook()
 
     # --- Paramètres
@@ -370,7 +376,7 @@ def budget_annuel():
 # 3. Objectifs d'épargne (payant)
 # --------------------------------------------------------------------------
 def objectifs_epargne():
-    annee = dt.date.today().year
+    annee = annee_du_modele()
     wb = Workbook()
     wo = wb.active
     wo.title = "Objectifs"
