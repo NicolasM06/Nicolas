@@ -54,6 +54,9 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
   (plateforme) en échange d'avis honnêtes, avant de passer à 250 €.
 - Organisation mise en place : feuille de route à cocher (`plan/feuille-de-route.md`),
   tableur de suivi (`services/suivi-activite.xlsx`), messages pour l'entourage.
+- Nicolas ne veut pas solliciter son entourage. Les deux missions gratuites se cherchent
+  dans des groupes d'entraide en ligne ; à défaut, on passe directement aux missions à
+  50-100 € sur la plateforme.
 
 **Prochaine étape**
 

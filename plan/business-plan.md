@@ -113,7 +113,7 @@ Un client trouvé hors plateforme ne coûte pas de commission.
 | Canal | Comment | Rôle |
 |---|---|---|
 | **Malt, Upwork, Fiverr** | Tu réponds aux demandes postées. Je rédige chaque réponse. | Canal principal au début |
-| **Entourage et commerçants que tu connais** | Tu montres l'exemple de devis et tu demandes qui a une tâche pénible. | Souvent la source de la première mission |
+| **Groupes d'entraide en ligne** | Tu aides ceux qui posent une question sur un tableur et tu publies l'offre de lancement là où c'est autorisé. | Pour les deux missions gratuites du début |
 | **Bouche-à-oreille** | Chaque client satisfait est invité à en recommander un autre. | Canal principal après 5 missions |
 | **Ta chaîne** | Une vidéo par automatisation livrée, sans donnée du client. | Complément, sur la durée |
 
@@ -177,7 +177,7 @@ de résultat chiffré que tu ne peux pas tenir.
 
 | Risque | Ce que je prévois |
 |---|---|
-| Aucune réponse aux premières candidatures | 20 réponses envoyées avant de juger. Sinon : prix de lancement plus bas, ou premier client dans l'entourage. |
+| Aucune réponse aux premières candidatures | 20 réponses envoyées avant de juger. Sinon : prix de lancement plus bas, ou autre plateforme. |
 | Une mission plus difficile que prévu | Je donne mon avis avant que tu acceptes ; tu n'acceptes que ce que je confirme. |
 | Un outil qui ne marche pas chez le client | Tu l'essaies avant de livrer ; 14 jours de corrections inclus. |
 | Dépendance à une plateforme | Dès 5 clients, viser le bouche-à-oreille et les clients directs. |
@@ -199,7 +199,7 @@ de résultat chiffré que tu ne peux pas tenir.
 | Je regarde | Seuil | Décision si le seuil n'est pas atteint |
 |---|---|---|
 | Réponses reçues pour 20 candidatures | Au moins 3 | Réécrire le profil et les réponses, baisser le prix de lancement |
-| Missions signées en 60 jours | Au moins 2 | Changer de plateforme ou viser l'entourage |
+| Missions signées en 60 jours | Au moins 2 | Changer de plateforme ou de groupes d'entraide |
 | Avis obtenus | 3 avant de monter le prix | Rester au prix de lancement |
 | Clients qui prennent un forfait | 1 sur 3 | Revoir le contenu du forfait |
 | Revenu mensuel au mois 6 | 1 000 € | Rediscuter du métier visé et de l'offre |

@@ -27,17 +27,27 @@ faire. « Claude » : ce que tu me demandes en ouvrant une session.
       « automatisation », « tableau de bord », « macro ».
 - [ ] **Toi** : ouvrir `services/suivi-activite.xlsx` et supprimer les lignes d'exemple.
 
-## Étape 2 — Deux missions gratuites dans ton entourage (semaines 1 à 3)
+## Étape 2 — Deux missions gratuites, sans passer par ton entourage (semaines 1 à 3)
 
-- [ ] **Toi** : noter dans l'onglet « Contacts » 10 personnes qui ont une petite activité
-      (commerçant, artisan, association, indépendant).
-- [ ] **Toi** : leur envoyer le message « Premier contact » de `plan/offre-services.md`.
+Décision du 16 novembre 2026 : pas de sollicitation de l'entourage. Les deux missions
+gratuites se trouvent auprès d'inconnus, là où des gens demandent déjà de l'aide.
+
+- [ ] **Toi** : rejoindre 3 groupes en ligne où des indépendants et petits commerçants
+      s'entraident (groupes Facebook d'auto-entrepreneurs, d'artisans ou de commerçants de ta
+      région, forums d'entraide Excel et Google Sheets). Lis les règles de chaque groupe.
+- [ ] **Toi** : y publier le message « Offre de lancement » de `plan/offre-services.md`, là
+      où le règlement l'autorise.
+- [ ] **Toi** : répondre aux personnes qui demandent de l'aide sur un tableur : une réponse
+      utile d'abord, l'offre gratuite ensuite. Je rédige les réponses si tu me colles la question.
 - [ ] **Toi** : pour chaque personne intéressée, poser les 5 questions et récupérer un
-      fichier d'exemple.
+      fichier d'exemple. Note-la dans l'onglet « Contacts ».
 - [ ] **Claude** : dire si c'est faisable en 2 jours, puis fabriquer l'outil et le mode d'emploi.
 - [ ] **Toi** : essayer l'outil, le livrer, puis demander un témoignage écrit et le droit de
       montrer le résultat sans leurs données.
 - [ ] **Claude** : transformer chaque mission en exemple à montrer (image et texte de 3 lignes).
+
+Si aucun groupe ne donne de résultat en deux semaines, passe directement à l'étape 3 : les
+missions à 50-100 € sur la plateforme suffisent pour obtenir les avis.
 
 ## Étape 3 — Trois missions à 50-100 € sur la plateforme (semaines 2 à 6)
 
@@ -83,7 +93,7 @@ faire. « Claude » : ce que tu me demandes en ouvrant une session.
 
 | Moment | Ce qu'on doit avoir | Sinon |
 |---|---|---|
-| Jour 21 | 1 mission gratuite livrée | Relancer les contacts, élargir la liste |
+| Jour 21 | 1 mission gratuite livrée | Passer directement aux missions à 50-100 € |
 | Jour 45 | 20 candidatures, 3 réponses | Réécrire le profil et les réponses |
 | Jour 90 | 5 missions de démarrage, 3 avis | Changer de plateforme ou d'offre |
 | Mois 6 | 1 000 € par mois | Rediscuter du métier visé |

@@ -45,7 +45,7 @@ pas de l'argent. Elles remplacent l'étape « Lancement » à 250 € tant que t
 
 | Où | Prix | Ce que tu obtiens |
 |---|---|---|
-| Entourage et commerçants que tu connais (2 missions) | Gratuit | Un témoignage écrit, le droit de montrer le résultat sans leurs données, une recommandation |
+| Groupes d'entraide en ligne (2 missions) | Gratuit | Un témoignage écrit, le droit de montrer le résultat sans leurs données, une recommandation |
 | Plateforme (3 missions) | 50 à 100 € | Un avis sur ton profil, qui ne peut venir que d'une vraie mission payée sur la plateforme |
 
 Règles :
@@ -101,24 +101,26 @@ remplit en 2 minutes à partir de votre liste de clients et de tarifs. »
 
 Les noms et adresses de l'exemple sont inventés. Pour le refaire : `python services/demo_devis.py`.
 
-## Premier contact dans ton entourage
+## Offre de lancement à publier dans un groupe
+
+À publier seulement là où le règlement du groupe autorise les offres.
 
 ```
-Salut [prénom],
+Bonjour à tous,
 
-Je me lance : je fabrique des petits outils qui font à la place des gens les tâches qu'ils répètent à la main (devis, factures, suivi de stock, tableaux, tri de fichiers).
+Je me lance dans l'automatisation de tâches répétitives pour les petites activités : devis, factures, suivi de stock ou de ventes, tableaux, tri de fichiers, sous Excel ou Google Sheets.
 
-Pour démarrer, j'en fais deux gratuitement. En échange, je demande juste ton avis sincère à la fin, et le droit de montrer le résultat sans tes données.
+Pour démarrer, j'en réalise deux gratuitement. En échange, je demande seulement un avis sincère à la fin et l'autorisation de montrer le résultat, sans aucune donnée personnelle.
 
-Est-ce qu'il y a dans ton activité une tâche que tu refais chaque semaine et qui t'agace ? Si oui, raconte-moi en deux lignes et je te dis si je peux la régler.
+Si vous refaites chaque semaine la même manipulation et que ça vous agace, décrivez-la en commentaire ou en message : je vous dis si je peux la régler.
 ```
 
 ## Demande de témoignage après une mission gratuite
 
 ```
-Merci d'avoir testé ! Est-ce que tu peux m'écrire deux ou trois phrases sur ce que l'outil a changé pour toi, même s'il y a des choses à améliorer ? Je les mettrai sur mon profil avec ton prénom et ton activité, si tu es d'accord.
+Merci d'avoir testé ! Pourriez-vous m'écrire deux ou trois phrases sur ce que l'outil a changé pour vous, même s'il reste des choses à améliorer ? Je les mettrai sur mon profil avec votre prénom et votre activité, si vous êtes d'accord.
 
-Et si tu connais quelqu'un qui a le même genre de tâche pénible, je veux bien que tu lui parles de moi.
+Et si vous connaissez quelqu'un qui a le même genre de tâche pénible, je veux bien que vous lui parliez de moi.
 ```
 
 ## Réponse type à une annonce
