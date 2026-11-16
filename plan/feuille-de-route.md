@@ -16,11 +16,9 @@ faire. « Claude » : ce que tu me demandes en ouvrant une session.
 
 ## Étape 1 — Les bases (semaine 1)
 
-- [ ] **Toi** : créer la micro-entreprise sur le site officiel de l'Urssaf pour les
-      auto-entrepreneurs. Garde ton numéro SIRET : les plateformes le demandent.
-- [ ] **Toi** : ouvrir un compte bancaire dédié si ton chiffre d'affaires le demande
-      (vérifie la règle en vigueur ; au début ton compte personnel peut suffire).
-- [ ] **Toi** : créer un profil sur une plateforme, Malt ou Upwork. Une seule pour commencer.
+- [ ] **Toi** : créer un compte sur formalites.entreprises.gouv.fr — fait le 16 novembre 2026,
+      formulaire de création laissé en brouillon.
+- [ ] **Toi** : créer un profil sur Upwork. Malt demande un SIRET : ce sera pour plus tard.
 - [ ] **Toi** : y coller le titre et la présentation de `plan/offre-services.md`, et ajouter
       l'image `services/demos/apercus/devis-automatique-1.png`.
 - [ ] **Toi** : activer les alertes e-mail sur les mots « Excel », « Google Sheets »,
@@ -51,6 +49,10 @@ missions à 50-100 € sur la plateforme suffisent pour obtenir les avis.
 
 ## Étape 3 — Trois missions à 50-100 € sur la plateforme (semaines 2 à 6)
 
+- [ ] **Toi** : dès qu'un premier client payant accepte, et avant de commencer sa mission,
+      rouvrir le brouillon sur formalites.entreprises.gouv.fr et valider la création de la
+      micro-entreprise. En attendant le numéro, la facture porte la mention « SIRET en cours
+      d'attribution ». Aucune mission payée avant ce dépôt.
 - [ ] **Toi** : me coller 5 annonces par semaine.
 - [ ] **Claude** : les trier, proposer un prix et un délai, rédiger chaque réponse.
 - [ ] **Toi** : relire et envoyer ; noter chaque envoi dans l'onglet « Candidatures ».

@@ -57,6 +57,9 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
 - Nicolas ne veut pas solliciter son entourage. Les deux missions gratuites se cherchent
   dans des groupes d'entraide en ligne ; à défaut, on passe directement aux missions à
   50-100 € sur la plateforme.
+- Micro-entreprise : compte créé et formulaire en brouillon. Nicolas la validera au moment
+  du premier client payant, avant de commencer la mission. D'ici là, seulement des missions
+  gratuites.
 
 **Prochaine étape**
 
