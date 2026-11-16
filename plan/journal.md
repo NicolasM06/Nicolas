@@ -70,8 +70,13 @@ Une entrée par session : ce qui a été décidé, pourquoi, et les chiffres du 
   déclaration de la micro-entreprise dans les 15 jours qui suivent le début de la mission,
   la somme servant de preuve pour les parents.
 
+- Upwork écarté pour démarrer : chaque candidature coûte des jetons payants, et Nicolas n'a
+  pas de budget. Voies gratuites retenues : Fiverr (offre publiée une fois) et Spreadshirt.
+- Offre Fiverr rédigée après relevé de la concurrence : une offre précise, « devis et facture
+  automatiques », en français, à 15, 35 et 60 $. Voir `plan/offre-fiverr.md`.
+
 **Prochaine étape**
 
-- Nicolas : finir le profil Upwork ; tenter de valider le brouillon d'entreprise avec
-  l'attestation d'inscription au permis ; coller à Claude les annonces qui l'intéressent.
-- Claude : trier les annonces, rédiger les réponses, fabriquer l'outil.
+- Nicolas : créer son compte vendeur Fiverr et publier l'offre 1 ; déposer 5 designs de Noël
+  sur Spreadshirt.
+- Claude : fabriquer l'outil à la première commande.
